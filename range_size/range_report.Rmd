@@ -1,0 +1,59 @@
+---
+#title: Geographic Range Size
+#subtitle: Biogeography
+#author: "`r input$student_name`"
+mainfont: Linux Libertine O
+header-includes:
+  \usepackage{fontspec}
+  \setmainfont[Ligatures={Common,TeX}, Contextuals={NoAlternate}, BoldFont={* Bold}, ItalicFont={* Italic}, Numbers={OldStyle}]{Linux Libertine O}
+  \usepackage{microtype}
+  \usepackage[sc]{titlesec}
+---
+
+***
+\textsc{Biogeography: Geographic range size \hfill `r input$student_name`}
+
+
+
+## North American Taxa
+
+For North American `r input$na_taxon`, you predicted *`r input$predict_na`*
+
+Histogram of North American `r input$na_taxon` for geographic range size.
+
+```{r fig.dim=c(3,2), echo=FALSE}
+plots$na
+```
+
+Based on these results, you explained *`r input$na_result`.*
+
+***
+
+## State
+
+For `r paste(input$state, input$taxon)`, you predicted *`r input$predict_state`*
+
+Histogram of `r paste(input$state, input$taxon)` for geographic range size.
+
+```{r fig.dim=c(3,2), echo=FALSE}
+plots$state
+```
+
+Based on these results, you explained *`r input$state_result`.*
+
+***
+
+For California marine fishes, you predicted *`r input$predict_ca`*
+
+Histogram of California Marine Fishes for geographic range size.
+
+```{r fig.dim=c(3,2), echo=FALSE}
+plots$ca
+```
+
+Based on these results, you explained *`r input$ca_result`.*
+
+***
+
+At the end, require students to write a summary of what they learned.
+
