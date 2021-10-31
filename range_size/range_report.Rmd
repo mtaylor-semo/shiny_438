@@ -1,12 +1,12 @@
 ---
-#title: Geographic Range Size
+title: Geographic Range Size
 #subtitle: Biogeography
 #author: "`r input$student_name`"
-mainfont: Linux Libertine O
+#mainfont: Linux Libertine O
 header-includes:
-  \usepackage{fontspec}
-  \setmainfont[Ligatures={Common,TeX}, Contextuals={NoAlternate}, BoldFont={* Bold}, ItalicFont={* Italic}, Numbers={OldStyle}]{Linux Libertine O}
-  \usepackage{microtype}
+#  \usepackage{fontspec}
+#  \setmainfont[Ligatures={Common,TeX}, Contextuals={NoAlternate}, BoldFont={* Bold}, ItalicFont={* Italic}, Numbers={OldStyle}]{Linux Libertine O}
+#  \usepackage{microtype}
   \usepackage[sc]{titlesec}
 ---
 
