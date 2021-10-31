@@ -133,11 +133,11 @@ server <- function(input, output, session) {
   })
 
   spp <- reactive({
-    open_file(tx = input$taxon, st = input$state)
+    open_file(tx = str_to_lower(input$taxon), st = str_to_lower(input$state))
   })
 
   spp_na <- reactive({
-    open_file(tx = input$na_taxon)
+    open_file(tx = str_to_lower(input$na_taxon))
   })
 
   plots <- reactiveValues(na = NULL, state = NULL, ca = NULL)
