@@ -150,10 +150,10 @@ server <- function(input, output, session) {
   observeEvent(input$btn_next_pred, {
     if (is.null(input$na_taxon)) {
     # Comment out for development.
-     # pred_check(sn = input$student_name,
-     #            ps = input$predict_state,
-     #            pn = input$predict_na,
-     #            pc = input$predict_ca)
+     pred_check(sn = input$student_name,
+                ps = input$predict_state,
+                pn = input$predict_na,
+                pc = input$predict_ca)
 
     removeTab(inputId = "tabs", target = "Predictions")
     appendTab(inputId = "tabs", tab = na_tab, select = TRUE)
