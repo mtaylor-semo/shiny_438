@@ -1,19 +1,19 @@
 ---
-title: Geographic Range Size
-#subtitle: Biogeography
-#author: "`r input$student_name`"
-#mainfont: Linux Libertine O
+title: \subsubsection*{Geographic range size \hfill Biogeography~bi~438/638}
+#author: \raggedright "`r input$student_name`"
+output:
+  pdf_document:
+    latex_engine: xelatex
+mainfont: Linux Libertine O
 header-includes:
-#  \usepackage{fontspec}
-#  \setmainfont[Ligatures={Common,TeX}, Contextuals={NoAlternate}, BoldFont={* Bold}, ItalicFont={* Italic}, Numbers={OldStyle}]{Linux Libertine O}
-#  \usepackage{microtype}
+  \usepackage{fontspec}
+  \setmainfont[Ligatures={Common,TeX}, Contextuals={NoAlternate}, BoldFont={* Bold}, ItalicFont={* Italic}, Numbers={OldStyle}]{Linux Libertine O}
+  \usepackage{microtype}
   \usepackage[sc]{titlesec}
 ---
 
 ***
 \textsc{Biogeography: Geographic range size \hfill `r input$student_name`}
-
-
 
 ## North American Taxa
 
