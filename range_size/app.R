@@ -361,13 +361,11 @@ server <- function(input, output, session) {
       
       library(rmarkdown)
       
-      # Can include tex header here as part of pdf_document()
-      # or in YAML. Current in YAML.
-      #,includes = includes(in_header = "tex_header.tex")
       out <- render(
         "range_report.Rmd",
         pdf_document(latex_engine = "lualatex",
-                     keep_tex = FALSE)
+                     keep_tex = TRUE,
+                     includes = includes(in_header = "tex_header.tex"))
       )
       file.rename(out, file)
       on.exit(removeNotification(notification_id), add = TRUE)
