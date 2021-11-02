@@ -4,6 +4,10 @@ biogeo/range_size/data/*.csv
 # History files
 .Rhistory
 .Rapp.history
+*.pdf
+*/marine/
+*/na_data/
+*/state_data/
 
 # Session Data files
 .RData
