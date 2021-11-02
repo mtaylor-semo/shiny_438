@@ -49,8 +49,7 @@ falsifies your hypothesis in question 1.
 
 \end{enumerate}
 
-
-```{r fig.dim=c(3,2), echo=FALSE, fig.cap="Histogram"}
+```{r fig.dim=c(3,2), echo=FALSE}
 plots$na
 ```
 
