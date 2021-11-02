@@ -10,7 +10,6 @@ library(shiny)
 #library(stringr)
 library(ggplot2)
 
-
 ## UI ----------------------------------------------------------------------
 
 ui <- tagList(
@@ -352,18 +351,23 @@ server <- function(input, output, session) {
         type = "message"
       )
       src <- normalizePath("range_report.Rmd")
-      
+      src_tex <- normalizePath("tex_header.tex")
       # temporarily switch to the temp dir, in case you do not have write
       # permission to the current working directory
       owd <- setwd(tempdir())
       on.exit(setwd(owd))
       file.copy(src, "range_report.Rmd", overwrite = TRUE)
-      
+      file.copy(src_tex, "tex_header.tex", overwrite = TRUE)
       
       library(rmarkdown)
+      
+      # Can include tex header here as part of pdf_document()
+      # or in YAML. Current in YAML.
+      #,includes = includes(in_header = "tex_header.tex")
       out <- render(
         "range_report.Rmd",
-        pdf_document(latex_engine = "lualatex")
+        pdf_document(latex_engine = "lualatex",
+                     keep_tex = FALSE)
       )
       file.rename(out, file)
       on.exit(removeNotification(notification_id), add = TRUE)
