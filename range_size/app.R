@@ -99,8 +99,8 @@ ui <- tagList(
           p(),
           hr(),
           p(),
-          span(textOutput("prediction_error"), style = "color:#9D2235"),
-          actionButton(inputId = "btn_next_pred", label = "Next", width = "35%")
+          actionButton(inputId = "btn_next_pred", label = "Next", width = "35%"),
+          span(textOutput("prediction_error"), style = "color:#9D2235")
         )
       )
     )
