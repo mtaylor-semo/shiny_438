@@ -1,35 +1,64 @@
 ---
-title: \subsubsection*{Geographic range size \hfill Biogeography~bi~438/638}
-#author: \raggedright "`r input$student_name`"
-output:
-  pdf_document:
-    latex_engine: xelatex
+title: \assignmentTitle
+#output:
+#  pdf_document:
+#    latex_engine: lualatex
 mainfont: Linux Libertine O
 header-includes:
-  \usepackage{fontspec}
-  \setmainfont[Ligatures={Common,TeX}, Contextuals={NoAlternate}, BoldFont={* Bold}, ItalicFont={* Italic}, Numbers={OldStyle}]{Linux Libertine O}
-  \usepackage{microtype}
-  \usepackage[sc]{titlesec}
+  \newcommand*{\assignmentTitle}{Distribution of species richness}
 ---
+<!-- Have to be defined here so they can be used in LaTex header. -->
+<!-- First page header -->
+\newcommand{\stuName}{`r input$student_name`} 
+<!-- Last page footer -->
+\newcommand{\firstFancyfoot}{{\footnotesize Report generated `r format(Sys.time(), "%a %d %B %Y %X")`}}
+\thispagestyle{first_page}
 
-***
-\textsc{Biogeography: Geographic range size \hfill `r input$student_name`}
+\subsection*{\assignmentTitle}
 
-## North American Taxa
+\subsubsection{North American Taxa}
 
-For North American `r input$na_taxon`, you predicted *`r input$predict_na`*
+\begin{enumerate}
+\begin{multicols}{2}
+\item \textbf{Write your prediction here.} Considering all of North America, tell
+whether you think most species in a closely related group of organisms
+have large, medium or small range size, or some combination. 
 
-Histogram of North American `r input$na_taxon` for geographic range size.
+\columnbreak
 
-```{r fig.dim=c(3,2), echo=FALSE}
+`r input$predict_na`
+ 
+\end{multicols}
+
+\end{enumerate}
+
+\begin{enumerate}[resume]
+
+\begin{multicols}{2}
+\item \textbf{Interpret the pattern.} Describe the pattern that you see. Do most
+species occur in most watersheds (large range size) or do most species
+occur in just a few watersheds (small range size)? Or, is it some
+combination of the two? Explain how the observed result supports or
+falsifies your hypothesis in question 1.
+
+\columnbreak
+
+`r input$na_result`
+
+\end{multicols}
+
+\end{enumerate}
+
+
+```{r fig.dim=c(3,2), echo=FALSE, fig.cap="Histogram"}
 plots$na
 ```
 
-Based on these results, you explained *`r input$na_result`.*
+Histogram of North American `r input$na_taxon` for geographic range size.
 
 ***
 
-## State
+### State
 
 For `r paste(input$state, input$taxon)`, you predicted *`r input$predict_state`*
 
@@ -57,3 +86,5 @@ Based on these results, you explained *`r input$ca_result`.*
 
 At the end, require students to write a summary of what they learned.
 
+<!-- Time stamp the report -->
+\thispagestyle{last_page}
