@@ -1,0 +1,39 @@
+\AtBeginDocument{\let\maketitle\relax}
+
+\usepackage{fontspec}
+\setmainfont[Ligatures={Common,TeX}, Contextuals={NoAlternate}, BoldFont={* Bold}, ItalicFont={* Italic}, Numbers={OldStyle}]{Linux Libertine O}
+\usepackage{microtype}
+\usepackage[sc]{titlesec}
+
+\usepackage{multicol}
+
+\usepackage{enumitem}
+\setlist[enumerate]{leftmargin=-\parindent}
+\setlist[1]{labelindent=\parindent}
+
+\newcommand{\coursename}{\textsc{bi} 438/638: Biogeography}
+
+\usepackage{fancyhdr}
+\fancyhf{}
+\pagestyle{fancy}
+%\lhead{}
+%\chead{}
+%\rhead{Name: \rule{5cm}{0.4pt}}
+%\renewcommand{\headrulewidth}{0pt}
+\setlength{\headheight}{14pt}
+\fancyhead[R]{\footnotesize \assignmentTitle \thepage}
+\fancyhead[L]{\footnotesize \coursename}
+
+\fancypagestyle{first_page}{%
+	\fancyhf{}
+	\fancyhead[L]{\coursename}
+	\fancyhead[R]{Name: \stuName}
+%	\fancyhead[R]{Name: \enspace \rule{2.5in}{0.4pt}}
+	\renewcommand{\headrulewidth}{0pt}
+}
+
+\fancypagestyle{last_page}{%
+	\fancyhf{}
+	\fancyfoot[L]{\firstFancyfoot}
+}
+
