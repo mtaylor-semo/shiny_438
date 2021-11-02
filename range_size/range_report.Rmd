@@ -7,6 +7,10 @@ mainfont: Linux Libertine O
 header-includes:
   \newcommand*{\assignmentTitle}{Distribution of species richness}
 ---
+```{r setup, include=FALSE, echo=FALSE}
+knitr::opts_knit$set(eval.after = "fig.cap")
+```
+
 <!-- Have to be defined here so they can be used in LaTex header. -->
 <!-- First page header -->
 \newcommand{\stuName}{`r input$student_name`} 
@@ -26,7 +30,7 @@ have large, medium or small range size, or some combination.
 
 \columnbreak
 
-`r input$predict_na`
+\textbf{You predicted} "`r input$predict_na`"
  
 \end{multicols}
 
@@ -49,11 +53,9 @@ falsifies your hypothesis in question 1.
 
 \end{enumerate}
 
-```{r fig.dim=c(3,2), echo=FALSE}
+```{r fig.dim=c(3,2), echo=FALSE, fig.cap=paste("Histogram of North American", input$na_taxon, "for geographic range size."), fig.align='left'}
 plots$na
 ```
-
-Histogram of North American `r input$na_taxon` for geographic range size.
 
 ***
 
