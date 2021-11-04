@@ -40,9 +40,7 @@ na_tab <- tabPanel(
       uiOutput("prediction_na")
     ),
     column(6, plotOutput("na_histogram"),
-           p(),
            hr(),
-           p(),
            uiOutput("na_numbers")),
     column(
       3,
@@ -51,9 +49,7 @@ na_tab <- tabPanel(
       textAreaInput(inputId = "na_result",
                     label = NULL,
                     rows = 5),
-      p(),
       hr(),
-      p(),
       actionButton(inputId = "btn_next_na", label = "Next", width = "35%"),
       span(textOutput("na_result_error"), style = "color:#9D2235")
     )
@@ -85,9 +81,7 @@ states_tab <- tabPanel(
       uiOutput("prediction_state")
     ),
     column(6, plotOutput("state_histogram"),
-           p(),
            hr(),
-           p(),
            uiOutput("state_numbers")),
     column(
       3,
@@ -96,9 +90,7 @@ states_tab <- tabPanel(
       textAreaInput(inputId = "state_result",
                     label = NULL,
                     rows = 5),
-      p(),
       hr(),
-      p(),
       actionButton(inputId = "btn_next_state", label = "Next", width = "35%"),
       span(textOutput("state_result_error"), style = "color:#9D2235")
     )
@@ -125,16 +117,12 @@ ca_tab <- tabPanel(
       uiOutput("prediction_ca")
     ),
     column(6, plotOutput("ca_marine_plot"),
-           p(),
            hr(),
-           p(),
            p("This data set has 516 species.")),
     column(
       3,
       uiOutput("ca_info"),
-      p(),
       hr(),
-      p(),
       p("Do the results agree with your prediction? Explain below, 
       then press the Next button."),
       textAreaInput(inputId = "ca_result",

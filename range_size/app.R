@@ -65,7 +65,7 @@ ui <- tagList(
             rows = 4,
             placeholder = "North America prediction…"
             ),
-          p(),
+          br(),
           hr()
         ),
         
@@ -81,7 +81,7 @@ ui <- tagList(
             rows = 4,
             placeholder = "State prediction…"
           ),
-          p(),
+          br(),
           hr()
         ),
         
@@ -96,7 +96,6 @@ ui <- tagList(
             rows = 4,
             placeholder = "California prediction…"
           ),
-          p(),
           hr(),
           p(),
           actionButton(inputId = "btn_next_pred", label = "Next", width = "35%"),
