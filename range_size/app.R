@@ -118,10 +118,28 @@ server <- function(input, output, session) {
       input$predict_state == "" |
       input$predict_na == "" |
       input$predict_ca == "") {
-      "Must fill in all blanks."
+      "Please fill in all blanks."
     }
   })
 
+  output$na_result_error <- renderText({
+    if (input$na_result == "") {
+      "Please interpret the histogram."
+    }
+  })
+  
+  output$state_result_error <- renderText({
+    if (input$state_result == "") {
+      "Please interpret the histogram."
+    }
+  })
+
+  output$ca_result_error <- renderText({
+    if (input$ca_result == "") {
+      "Please interpret the histogram."
+    }
+  })
+  
   ## Reactive values ---------------------------------------------------------
 
   state <- reactive({
@@ -163,6 +181,7 @@ server <- function(input, output, session) {
 
   observeEvent(input$btn_next_na, {
     if (is.null(input$state)) {
+      result_check(exp = input$na_result)
       appendTab(inputId = "tabs", tab = states_tab, select = TRUE)
     } else{
       showTab(inputId = "tabs", target = "State", select = TRUE)
@@ -171,13 +190,22 @@ server <- function(input, output, session) {
 
   observeEvent(input$btn_next_state, {
     if (is.null(input$ca_marine)) {
+      result_check(exp = input$state_result)
       appendTab(inputId = "tabs", tab = ca_tab, select = TRUE)  
     } else {
       showTab(inputId = "tabs", target = "California Marine Fishes", select = TRUE) 
     }
   })
 
-
+  observeEvent(input$btn_next_ca, {
+    if (is.null(input$summary)) {
+      result_check(exp = input$ca_result)
+      appendTab(inputId = "tabs", tab = summary_tab, select = TRUE)  
+    } else {
+      showTab(inputId = "tabs", target = "Summary", select = TRUE) 
+    }
+  })
+  
 
   ## Outputs -------------------------------------------------------------
 
@@ -357,7 +385,7 @@ server <- function(input, output, session) {
       owd <- setwd(tempdir())
       on.exit(setwd(owd))
       file.copy(src, "range_report.Rmd", overwrite = TRUE)
-      file.copy(src_tex, "tex_header.tex", overwrite = TRUE)
+      file.copy(src_tex, "tex/tex_header.tex", overwrite = TRUE)
       
       library(rmarkdown)
       
