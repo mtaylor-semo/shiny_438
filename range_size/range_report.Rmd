@@ -24,13 +24,13 @@ knitr::opts_knit$set(eval.after = "fig.cap")
 
 \begin{enumerate}
 \begin{multicols}{2}
-\item \textbf{Write your prediction here.} Considering all of North America, tell
+\item \textbf{What do you predict?} Considering all of North America, tell
 whether you think most species in a closely related group of organisms
-have large, medium or small range size, or some combination. 
+have large, medium or small range size, or some combination. QUOTE
 
 \columnbreak
 
-\textbf{You predicted} "`r input$predict_na`"
+\textbf{You predicted} “`r input$predict_na`”
  
 \end{multicols}
 
@@ -47,13 +47,13 @@ falsifies your hypothesis in question 1.
 
 \columnbreak
 
-`r input$na_result`
+\textbf{You explained} “`r input$na_result`”
 
 \end{multicols}
 
 \end{enumerate}
 
-```{r fig.dim=c(3,2), echo=FALSE, fig.cap=paste("Histogram of North American", input$na_taxon, "for geographic range size."), fig.align='left'}
+```{r fig.dim=c(4,3), echo=FALSE, fig.cap=paste("Histogram of North American", input$na_taxon, "for geographic range size."), fig.align='left'}
 plots$na
 ```
 
@@ -61,23 +61,51 @@ plots$na
 
 ### State
 
-For `r paste(input$state, input$taxon)`, you predicted *`r input$predict_state`*
+\begin{enumerate}[resume]
+\begin{multicols}{2}
 
-Histogram of `r paste(input$state, input$taxon)` for geographic range size.
+\item \textbf{What do you predict?} For the state you were assigned, 
+tell whether you think most species in a closely related
+group of organisms have large, medium or small range size, or some
+combination.
 
-```{r fig.dim=c(3,2), echo=FALSE}
+\columnbreak
+
+\textbf{You predicted} “`r input$predict_state`”
+
+\end{multicols}
+\end{enumerate}
+
+
+\begin{enumerate}[resume]
+\begin{multicols}{2}
+
+\item \textbf{Interpret and explain the pattern.} Describe the pattern that you see. Do most
+species occur in most watersheds (large range size) or do most species
+occur in just a few watersheds (small range size)? Or, is it some
+combination of the two?
+
+\columnbreak
+
+\textbf{You explained} “`r input$state_result`”
+
+\end{multicols}
+\end{enumerate}
+
+```{r fig.dim=c(4,3), echo=FALSE, fig.cap=paste("Histogram of", input$state, input$taxon, "for geographic range size."), fig.align='left'}
 plots$state
 ```
 
+<!--
 Based on these results, you explained *`r input$state_result`.*
-
+-->
 ***
 
 For California marine fishes, you predicted *`r input$predict_ca`*
 
 Histogram of California Marine Fishes for geographic range size.
 
-```{r fig.dim=c(3,2), echo=FALSE}
+```{r fig.dim=c(4,3), echo=FALSE, fig.cap="Histogram of California Marine Fishes for geographic range size.", fig.align='left'}
 plots$ca
 ```
 

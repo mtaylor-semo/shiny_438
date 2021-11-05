@@ -40,9 +40,7 @@ na_tab <- tabPanel(
       uiOutput("prediction_na")
     ),
     column(6, plotOutput("na_histogram"),
-           p(),
            hr(),
-           p(),
            uiOutput("na_numbers")),
     column(
       3,
@@ -51,10 +49,9 @@ na_tab <- tabPanel(
       textAreaInput(inputId = "na_result",
                     label = NULL,
                     rows = 5),
-      p(),
       hr(),
-      p(),
-      actionButton(inputId = "btn_next_na", label = "Next", width = "35%")
+      actionButton(inputId = "btn_next_na", label = "Next", width = "35%"),
+      span(textOutput("na_result_error"), style = "color:#9D2235")
     )
   )
 )
@@ -84,9 +81,7 @@ states_tab <- tabPanel(
       uiOutput("prediction_state")
     ),
     column(6, plotOutput("state_histogram"),
-           p(),
            hr(),
-           p(),
            uiOutput("state_numbers")),
     column(
       3,
@@ -95,10 +90,9 @@ states_tab <- tabPanel(
       textAreaInput(inputId = "state_result",
                     label = NULL,
                     rows = 5),
-      p(),
       hr(),
-      p(),
-      actionButton(inputId = "btn_next_state", label = "Next", width = "35%")
+      actionButton(inputId = "btn_next_state", label = "Next", width = "35%"),
+      span(textOutput("state_result_error"), style = "color:#9D2235")
     )
   )
 )
@@ -123,27 +117,59 @@ ca_tab <- tabPanel(
       uiOutput("prediction_ca")
     ),
     column(6, plotOutput("ca_marine_plot"),
-           p(),
            hr(),
-           p(),
            p("This data set has 516 species.")),
     column(
       3,
       uiOutput("ca_info"),
-      p(),
       hr(),
-      p(),
       p("Do the results agree with your prediction? Explain below, 
       then press the Next button."),
       textAreaInput(inputId = "ca_result",
                     label = NULL,
                     rows = 5),
-      p(),
       hr(),
-      p(),
+      actionButton(inputId = "btn_next_ca", label = "Next", width = "35%"),
+      span(textOutput("ca_result_error"), style = "color:#9D2235")
       
-      downloadButton("downloadReport")
       # img(src = "california.png", width = "320px")
+    )
+  )
+)
+
+
+# Summary tab -------------------------------------------------------------
+
+summary_tab <- tabPanel(
+  "Summary",
+  fluidRow(
+    column(
+      3,
+      wellPanel(
+        p(em("Write a summary of what you learned from this lesson."),
+          "Your summary must address geographic range size at both large
+          geographic scales (North America), small scale (one stage), and
+          regional scales (the south to north trend)."),
+        br(),
+        p("After you have entered your summary, press the 'Download' button
+        to download your final report.", 
+          em("Upload your report to the dropbox for this exercise."))
+      )
+    ),
+    column(
+      6,
+      textAreaInput(
+        inputId = "summary",
+        label = NULL,
+        placeholder = "Enter your summary here.",
+        width = "100%",
+        rows = 10)
+    ),
+    fluidRow(
+      column(
+        2,
+        downloadButton("downloadReport")
+      )
     )
   )
 )

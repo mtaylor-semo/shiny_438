@@ -40,10 +40,15 @@ open_file <- function(tx, st = NULL) {
 ## Prediction check. Move requirement check for predictions here.
 ## sn = student_name, ps = pred_state, pn = pred_na, pc = pred_ca
 pred_check <- function(sn = NULL, ps = NULL, pn = NULL, pc = NULL) {
-  req(sn, ps, pn, pc)
+#  req(sn, ps, pn, pc)
 }
 
+result_check <- function(exp = NULL)
+  req(exp)
 
+empty_field <- function(input_field) {
+  ifelse (input_field == "", TRUE, FALSE)
+}
 
 plotHistogram <- function(dat = NULL, x = NULL, closed = "right", breaks = c(y, z), ...) {
   ggplot(data = dat, aes(x = x)) +
