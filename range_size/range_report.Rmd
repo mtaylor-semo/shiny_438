@@ -1,12 +1,10 @@
 ---
 title: \assignmentTitle
-#output:
-#  pdf_document:
-#    latex_engine: lualatex
 mainfont: Linux Libertine O
 header-includes:
   \newcommand*{\assignmentTitle}{Distribution of species richness}
 ---
+
 ```{r setup, include=FALSE, echo=FALSE}
 knitr::opts_knit$set(eval.after = "fig.cap")
 ```
@@ -22,11 +20,12 @@ knitr::opts_knit$set(eval.after = "fig.cap")
 
 \subsubsection{North American Taxa}
 
+
 \begin{enumerate}
 \begin{multicols}{2}
 \item \textbf{What do you predict?} Considering all of North America, tell
 whether you think most species in a closely related group of organisms
-have large, medium or small range size, or some combination. QUOTE
+have large, medium or small range size, or some combination.
 
 \columnbreak
 
