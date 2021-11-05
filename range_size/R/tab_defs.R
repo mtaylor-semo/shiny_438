@@ -1,16 +1,19 @@
 library(dplyr)
 library(stringr)
 
-file_list <- list.files("state_data/")
-file_list_no_ext <- tools::file_path_sans_ext(file_list)
+#file_list <- list.files("state_data/")
+#file_list_no_ext <- tools::file_path_sans_ext(file_list)
 
-states <- file_list_no_ext %>%
+state_data <- readRDS("data/state_data.rds")
+state_name <- names(state_data)
+
+states <- state_name %>%
   word(start = 1, end = -2, sep = "_") %>%
   str_replace("_", " ") %>%
   str_to_title()
 
 taxa <-
-  word(file_list_no_ext,
+  word(state_name,
     start = -1,
     sep = "_"
   ) %>%
