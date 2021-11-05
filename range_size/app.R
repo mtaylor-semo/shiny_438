@@ -378,13 +378,13 @@ server <- function(input, output, session) {
         type = "message"
       )
       src <- normalizePath("range_report.Rmd")
-      src_tex <- normalizePath("tex_header.tex")
+      src_tex <- normalizePath("tex/tex_header.tex")
       # temporarily switch to the temp dir, in case you do not have write
       # permission to the current working directory
       owd <- setwd(tempdir())
       on.exit(setwd(owd))
       file.copy(src, "range_report.Rmd", overwrite = TRUE)
-      file.copy(src_tex, "tex/tex_header.tex", overwrite = TRUE)
+      file.copy(src_tex, "tex_header.tex", overwrite = TRUE)
       
       library(rmarkdown)
       
