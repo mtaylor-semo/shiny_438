@@ -39,14 +39,15 @@ na_tab <- tabPanel(
         )
       ),
       hr(),
-      p(strong("You predicted:")),
-      uiOutput("prediction_na")
     ),
     column(6, plotOutput("na_histogram"),
            hr(),
            uiOutput("na_numbers")),
     column(
       3,
+      p(strong("You predicted:")),
+      uiOutput("prediction_na"),
+      br(),
       p("Do the results agree with your prediction? Explain below, 
       then press the Next button."),
       textAreaInput(inputId = "na_result",
@@ -78,17 +79,17 @@ states_tab <- tabPanel(
           multiple = FALSE
         ),
         uiOutput("dynamic_radio_buttons")
-      ),
-      hr(),
-      p(strong("You predicted:")),
-      uiOutput("prediction_state")
+      )
     ),
     column(6, plotOutput("state_histogram"),
            hr(),
            uiOutput("state_numbers")),
     column(
       3,
-      p("Do the results agree with your prediction? Explain below, 
+      p(strong("You predicted:")),
+      uiOutput("prediction_state"),
+      br(),
+      p(strong("Do the results agree with your prediction?"), "\nExplain below, 
       then press the Next button."),
       textAreaInput(inputId = "state_result",
                     label = NULL,

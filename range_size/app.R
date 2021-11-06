@@ -182,7 +182,7 @@ server <- function(input, output, session) {
     if (is.null(input$state)) {
       result_check(exp = input$na_result)
       appendTab(inputId = "tabs", tab = states_tab, select = TRUE)
-    } else{
+    } else {
       showTab(inputId = "tabs", target = "State", select = TRUE)
     }
   })
