@@ -362,13 +362,29 @@ server <- function(input, output, session) {
         theme(axis.text.x = element_blank())
     }
   }, res = res)
+  
+  
   # Report Download ---------------------------------------------------------
   
   # Report output idea from Shiny Gallery
   output$downloadReport <- downloadHandler(
     filename = function() {
       stu_name <- str_to_lower(str_split(input$student_name, " ", simplify = TRUE))
-      paste(stu_name[2], stu_name[1], "geographic_range.pdf", sep = "_")
+      # For the student (or famous soocer player) with only one name.
+      # What happens for students with three or more names?
+      paste(
+        paste0(
+          rev(stu_name), 
+          collapse = "_"), 
+        "geographic_range.pdf", 
+        sep = "_"
+      )
+      # if (!is.na(stu_name[2])) {
+      #   paste(stu_name[2], stu_name[1], "geographic_range.pdf", sep = "_")  
+      # } else {
+      #   paste(stu_name[1], "geographic_range.pdf", sep = "_")
+      # }
+      
     },
     content = function(file) {
       notification_id <- showNotification(
