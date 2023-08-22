@@ -129,12 +129,6 @@ ui <- tagList(
           ),
           br(),
           hr(),
-          #   actionButton(
-          #     inputId = "btn_next_pred",
-          #     label = "Next",
-          #     width = "35%"
-          #   ),
-          #   span(textOutput("prediction_error"), style = "color:#9D2235")
         ),
         column(
           width = 3,
