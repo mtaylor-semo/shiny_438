@@ -1,7 +1,3 @@
-#library(dplyr)
-library(stringr)
-
-
 # Define North America Tab ------------------------------------------------
 
 na_tab <- tabPanel(
