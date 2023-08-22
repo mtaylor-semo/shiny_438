@@ -40,7 +40,7 @@ summary_tab <- tabPanel(
         br(),
         p("After you have entered your summary, press the 'Download' button
         to download your final report.", 
-          em("Upload your report to the dropbox for this exercise."))
+          strong("Upload your report to the dropbox for this exercise."))
       )
     ),
     column(
