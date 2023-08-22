@@ -44,7 +44,7 @@ the scatterplot.
 
 \end{enumerate}
 
-```{r fig.dim=c(7,5), echo=FALSE, fig.cap=paste("Relationship of three ecosystems with two climate variables."), fig.align='left'}
+```{r fig.dim=c(6.5,4), echo=FALSE, fig.cap=paste("Relationship of three ecosystems with two climate variables."), fig.align='left'}
 plots$na
 ```
 
