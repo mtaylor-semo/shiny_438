@@ -47,21 +47,6 @@ empty_field <- function(input_field) {
   ifelse (input_field == "", TRUE, FALSE)
 }
 
-# plotHistogram <- function(dat = NULL, x = NULL, closed = "right", breaks = c(y, z), ...) {
-#   ggplot(data = dat, aes(x = x)) +
-#     geom_histogram(
-#       #        binwidth = 5,
-#       closed = closed,
-#       breaks = seq(0, breaks[1], breaks[2]),
-#       color = "white",
-#       fill = "#9d2235"
-#     ) +
-#     xlab("Number of Watersheds") +
-#     ylab("Number of Species") +
-#     xlim(0, breaks[1]) +
-#     theme_minimal()
-# }
-
 
 plotScatter <- function(dat = NULL, ...) {
   ggplot(data = dat, aes(x = MAP, y = MAT, color = Ecosys, shape = Species)) +
@@ -70,11 +55,11 @@ plotScatter <- function(dat = NULL, ...) {
          y = "Mean Annual Temperature (°C)") +
     theme_minimal() +
     scale_color_brewer(palette = "Dark2") +
+    scale_shape_discrete(name = "Ecosystem", labels = c("Western Redcedar", "Grassland", "Subalpine Larch")) +
     annotate("text", x = 550, y = 4.7, label = "Grassland", size = 5) +
     annotate("text", x = 1900, y = 8.5, label = "Redcedar", size = 5) +
     annotate("text", x = 1450, y = -1, label = "Larch", size = 5) +
-    guides(color = "none",
-           shape = guide_legend("Ecosystem")) +
+    guides(color = "none") +
     theme(axis.title = element_text(size = 14),
           axis.text = element_text(size = 12))
 }
