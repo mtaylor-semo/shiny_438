@@ -6,8 +6,7 @@
 # Libraries ---------------------------------------------------------------
 
 library(shiny)
-#library(dplyr)
-#library(stringr)
+library(stringr)
 library(ggplot2)
 library(readr)
 library(RColorBrewer)
@@ -37,8 +36,9 @@ ui <- tagList(
             using a climate data set taken from Alberta, Canada. The data 
             set contains mean annual temperature (°C) and mean 
             annual precipitation (mm) from 80 weather stations 
-            spread across eight different ecosystems (Ecosys), was recorded 
-            (Cw = Western Redcedar, Gr = mixed grasses, La = Subalpine
+            spread across southern Alberta. The dominant plant species of
+            each ecosystem was recorded 
+            (Cw = Western Redcedar, Gr = mixed grassland, La = Subalpine
             Larch). The measurements are in five-year intervals from 
             1965-2010."
           ),
@@ -107,23 +107,18 @@ ui <- tagList(
         ),
         column(
           6,
-          p(
-            strong("What do you predict?"),
-            "Your predictions
-                   should address at least these questions with simple
-                   direct sentences."
-          ),
+          p(strong("What do you predict?"), "Your predictions should address
+            at least these questions with short direct sentences."),
           p("Which ecosystem requires the warmest mean annual
-                   temperatures?"),
+            temperatures?"),
           p("Which ecosystem requires the coolest mean annual temperature?"),
           p("Which ecosystem requires the least amount of precipitation?"),
           p("Which ecosystem requires the most precipitation?"),
-          p(
-            "Will any ecosystems co-occur? That is, will they require
-                   the same range of temperature",
-            em("and"),
-            "precipitation?"
-          ),
+          p("Will any ecosystems co-occur? That is, will they require the 
+            same range of temperature", em("and"), "precipitation?"),
+          br(),
+          p("You may use the internet to look up each species to help
+            you answer the questions above."),
           textAreaInput(
             inputId = "predict_tutorial",
             label = NULL,
@@ -134,12 +129,6 @@ ui <- tagList(
           ),
           br(),
           hr(),
-          #   actionButton(
-          #     inputId = "btn_next_pred",
-          #     label = "Next",
-          #     width = "35%"
-          #   ),
-          #   span(textOutput("prediction_error"), style = "color:#9D2235")
         ),
         column(
           width = 3,
@@ -203,36 +192,9 @@ server <- function(input, output, session) {
       "Please interpret the scatterplot."
     }
   })
-  
-  # output$state_result_error <- renderText({
-  #   if (input$state_result == "") {
-  #     "Please interpret the histogram."
-  #   }
-  # })
-  #
-  # output$ca_result_error <- renderText({
-  #   if (input$ca_result == "") {
-  #     "Please interpret the histogram."
-  #   }
-  # })
-  
+
+    
   ## Reactive values ---------------------------------------------------------
-  
-  # state <- reactive({
-  #   filter(state_taxa,
-  #          states == input$state)
-  # })
-  #
-  # spp <- reactive({
-  #   open_file(tx = str_to_lower(input$taxon), st = str_to_lower(input$state))
-  # })
-  #
-  # spp_na <- reactive({
-  #   open_file(tx = str_to_lower(input$na_taxon))
-  # })
-  #
-  #  plots <- reactiveValues(na = NULL, state = NULL, ca = NULL)
-  #    results <- reactiveValues(na = NULL, state = NULL, ca = NULL)
   
   plots <- reactiveValues(na = NULL)
   
@@ -258,24 +220,7 @@ server <- function(input, output, session) {
     }
   })
   
-  # observeEvent(input$btn_next_na, {
-  #   if (is.null(input$state)) {
-  #     result_check(exp = input$na_result)
-  #     appendTab(inputId = "tabs", tab = states_tab, select = TRUE)
-  #   } else {
-  #     showTab(inputId = "tabs", target = "State", select = TRUE)
-  #   }
-  # })
-  #
-  # observeEvent(input$btn_next_state, {
-  #   if (is.null(input$ca_marine)) {
-  #     result_check(exp = input$state_result)
-  #     appendTab(inputId = "tabs", tab = ca_tab, select = TRUE)
-  #   } else {
-  #     showTab(inputId = "tabs", target = "California Marine Fishes", select = TRUE)
-  #   }
-  # })
-  
+
   observeEvent(input$btn_next_na, {
     if (is.null(input$summary)) {
       result_check(exp = input$na_result)
@@ -292,185 +237,20 @@ server <- function(input, output, session) {
   
   ## Outputs -------------------------------------------------------------
   
-  # output$dynamic_radio_buttons <- renderUI({
-  #   choices <- unique(state()$taxa)
-  #   freezeReactiveValue(input, "taxon")
-  #   radioButtons(inputId = "taxon",
-  #                "Choose a taxon",
-  #                choices = choices)
-  # })
-  
-  # output$state_numbers <- renderUI({
-  #   dims <- dim(spp())
-  #   sprintf(
-  #     "%s has %d watersheds and %d species of %s.",
-  #     input$state,
-  #     dims[1],
-  #     dims[2],
-  #     str_to_lower(input$taxon)
-  #   )
-  # })
-  
-  # output$na_numbers <- renderUI({
-  #   dims <- dim(spp_na())
-  #   sprintf(
-  #     "North America has %d watersheds and %d species of %s.",
-  #     dims[1],
-  #     dims[2],
-  #     str_to_lower(input$na_taxon)
-  #   )
-  # })
-  
+
   output$prediction_na <- renderUI({
     p("You predicted:")
     sprintf("%s", input$predict_tutorial)
   })
-  
-  # output$prediction_state <- renderUI({
-  #   p("You predicted:")
-  #   sprintf("%s", input$predict_state)
-  # })
-  #
-  # output$prediction_ca <- renderUI({
-  #   p("You predicted:")
-  #   sprintf("%s", input$predict_ca)
-  # })
-  #
-  # output$ca_info <- renderUI({
-  #   if (input$ca_marine == "Range extent") {
-  #     p(
-  #       "Range extent for California coastal marine fishes. Each
-  #       vertical bar shows the minimum to maximum latitude for
-  #       one species of fish. Species with a
-  #       median latitude above Point Conception are shown in
-  #       red. Species with an average latitude below Point Conception
-  #       are shown in blue. The horizontal black line is the latitude of
-  #       Point Conception. Fishes are sorted (left to right on
-  #       x-axis) in order of minimum latitude. "
-  #     )
-  #   } else {
-  #     img(src = "california.png", width = "97%")
-  #   }
-  # })
-  #
-  #
-  
-  ## State histograms ------------------------------------------------------
-  
-  # output$state_histogram <- renderPlot({
-  #   numWatersheds <- colSums(spp())
-  #   numSpecies <- rowSums(spp())
-  #
-  #   nws <- nrow(spp())
-  #
-  #   bins <- input$bins
-  #
-  #   plots$state <-
-  #     plotHistogram(
-  #       dat = tibble(numWatersheds),
-  #       x = numWatersheds,
-  #       breaks = c(nws, 1)
-  #     )
-  #
-  #   plots$state
-  # }, res = res)
-  #
-  ## North America histogram -------------------------------------------------
-  
-  #dat <-
-  #  read_csv("data/tutorial_climate_data.csv", show_col_types = FALSE)
-  
+
   dat <- readRDS("data/tutorial_climate_data.rds")
   
-  output$na_histogram <- renderPlot({
-    #numWatersheds <- colSums(spp_na())
-    #numSpecies <- rowSums(spp_na())
-    
-    #dat <- tibble(numWatersheds)
-    
-    #nws <- nrow(spp_na()) # Number of watersheds for x-axis
-    #plots$na <- plotHistogram(dat = tibble(numWatersheds), x = numWatersheds, breaks = c(nws, 5))
+  output$na_scatter <- renderPlot({
     plots$na <- plotScatter(dat = dat)
-    #plots$na <- ggplot(dat) +
-    #  geom_point(aes(x = MAT, y = MAP))
-    
     plots$na
   }, res = res)
-  
-  
-  # ## California Marine plots -------------------------------------------------
-  #
-  # output$ca_marine_plot <- renderPlot({
-  #   cafish <- open_file(st = "California")
-  #
-  #   if (input$ca_marine == "Range size") {
-  #     rangeSize <- rowSums(cafish)
-  #     numSpecies <- colSums(cafish)
-  #
-  #     plots$ca <- plotHistogram(dat = tibble(rangeSize), x = rangeSize, breaks = c(100, 5)) +
-  #       scale_x_continuous(breaks = seq(0, 100, 20)) +
-  #       xlab("Range size (degrees of latitude occupied)")
-  #
-  #     plots$ca
-  #   } else { # plot 2.  Need better checks for the if/else
-  #
-  #     ## Convert much of this manipulation to dplyr / tidyverse
-  #     mycolors <- c("#9d2235", "#003b5c")
-  #     numRows <- nrow(cafish) ## number of species
-  #     numCols <- ncol(cafish) ## Number of 1° latitude cells
-  #
-  #     meanCut <- 34.4481 ## Point Conception latitude as cutoff for northern and southern species.
-  #
-  #     medianLat <- rep(NA, numRows) ## Create a vector same length as number of species.
-  #
-  #     minLat <- vector("numeric")
-  #     maxLat <- vector("numeric")
-  #
-  #     for (i in 1:numRows) {
-  #       x <- data.frame(cafish)[i, ]
-  #       y <- colnames(x)[x == 1]
-  #
-  #       colNames <- gsub("N", "", y)
-  #       colNames <- gsub("S", "-", colNames)
-  #
-  #       minLat[i] <- as.numeric(colNames[1])
-  #       maxLat[i] <- as.numeric(colNames[length(colNames)])
-  #       medianLat[i] <- median(as.numeric(colNames))
-  #     }
-  #
-  #     cafish$minLat <- minLat
-  #     cafish$maxLat <- maxLat
-  #     cafish$medianLat <- medianLat
-  #
-  #     latCol <- vector("character")
-  #     for (i in 1:numRows) {
-  #       if (cafish$medianLat[i] > meanCut) {
-  #         latCol[i] <- mycolors[1]
-  #       } else {
-  #         latCol[i] <- mycolors[2]
-  #       }
-  #     }
-  #
-  #     cafish$latCol <- latCol
-  #     cafish$xrow <- seq(1:516)
-  #
-  #     cafish <- cafish[order(-cafish$minLat, -cafish$medianLat), ]
-  #
-  #     ggplot(cafish) +
-  #       geom_segment(aes(x = xrow, y = minLat, xend = xrow, yend = maxLat),
-  #         color = latCol, size = 1.2
-  #       ) +
-  #       theme_minimal() +
-  #       ylab("Latitude (°S — °N)") +
-  #       xlab(NULL) +
-  #       geom_hline(yintercept = c(36, 32), col = "gray") +
-  #       geom_hline(yintercept = meanCut, col = "gray10") +
-  #       scale_y_continuous(breaks = seq(-40, 70, 10)) +
-  #       theme(axis.text.x = element_blank())
-  #   }
-  # }, res = res)
-  #
-  #
+
+
   # Report Download ---------------------------------------------------------
   
   # Report output idea from Shiny Gallery
@@ -482,14 +262,8 @@ server <- function(input, output, session) {
       # What happens for students with three or more names?
       paste(paste0(rev(stu_name),
                    collapse = "_"),
-            "geographic_range.pdf",
+            "climate_tutorial.pdf",
             sep = "_")
-      # if (!is.na(stu_name[2])) {
-      #   paste(stu_name[2], stu_name[1], "geographic_range.pdf", sep = "_")
-      # } else {
-      #   paste(stu_name[1], "geographic_range.pdf", sep = "_")
-      # }
-      
     },
     content = function(file) {
       notification_id <- showNotification(

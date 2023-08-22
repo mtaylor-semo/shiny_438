@@ -1,55 +1,20 @@
-library(dplyr)
-library(stringr)
-
-#file_list <- list.files("state_data/")
-#file_list_no_ext <- tools::file_path_sans_ext(file_list)
-
-#tutorial_data <- readRDS("data/tutorial_climate_data.rds")
-#state_name <- names(state_data)
-
-# states <- state_name %>%
-#   word(start = 1, end = -2, sep = "_") %>%
-#   str_replace("_", " ") %>%
-#   str_to_title()
-# 
-# taxa <-
-#   word(state_name,
-#     start = -1,
-#     sep = "_"
-#   ) %>%
-#   str_to_title()
-# 
-# state_taxa <- tibble(states, taxa)
-# state_choices <- unique(states)
-
-
 # Define North America Tab ------------------------------------------------
 
 na_tab <- tabPanel(
   "Climate Plot",
   fluidRow(
-    # column(#style="padding-left:3%", # Same for paddingg-top, etc.
-    #   3,
-    #   wellPanel(
-    #     p("Ecosystems and Plot"),
-    #     radioButtons("na_taxon",
-    #       label = "Choose taxon:",
-    #       choices = c("Fishes", "Mussels"),
-    #       selected = "Fishes"
-    #     )
-    #   ),
-    #   hr(),
-    # ),
-    column(9, plotOutput("na_histogram"),
+    column(8, plotOutput("na_scatter"),
            hr()),
-           #uiOutput("na_numbers")),
     column(
-      3,
+      4,
       p(strong("You predicted:")),
       uiOutput("prediction_na"),
       br(),
-      p("Do the results agree with your prediction? Explain below, 
-      then press the Next button."),
+      p(strong("Do the results agree with your predictions?"), "Did you
+      successfully predict which species requires warmer or cooler 
+      temperatures, or less precipitation? Describe the pattern you see
+        in the scatterplot."),
+      p("Press the Next button after you finish your answer."),
       textAreaInput(inputId = "na_result",
                     label = NULL,
                     rows = 5),

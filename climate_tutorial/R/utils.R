@@ -1,35 +1,10 @@
 # Global functions --------------------------------------------------------
-# for the geographic range shiny app.
+# for the climate tutorial shiny app.
 
 # Open the data set. Can probably generalize these
 # to open csv and tsv files.
 
 res = 96
-
-open_file <- function(tx, st = NULL) {
-  if (is.null(st)) {
-    na_data <- readRDS("data/na_data.rds")
-    data_file <- paste0("na_", tx)
-    return(na_data[[data_file]])
-    #file_to_open <- paste0("na_data/na_", tx, ".csv")
-  } else {
-    switch(st,
-      "California" = {
-        ca_data <- readRDS("data/ca_data.rds")
-        return(ca_data[["california_marine_fishes"]])
-        #file_to_open <- "marine/california_marine_fishes.csv"
-      },
-      {
-        the_state <- str_replace_all(st, " ", "_")
-        data_file <- paste0(the_state, "_", tx)
-        return(state_data[[data_file]])
-#        file_to_open <- paste0("state_data/", the_state, "_", tx, ".csv")
-      }
-    )
-  }
-#  read.csv(file_to_open, row.names = 1)
-}
-
 
 
 ## Prediction check. Move requirement check for predictions here.
@@ -47,34 +22,22 @@ empty_field <- function(input_field) {
   ifelse (input_field == "", TRUE, FALSE)
 }
 
-# plotHistogram <- function(dat = NULL, x = NULL, closed = "right", breaks = c(y, z), ...) {
-#   ggplot(data = dat, aes(x = x)) +
-#     geom_histogram(
-#       #        binwidth = 5,
-#       closed = closed,
-#       breaks = seq(0, breaks[1], breaks[2]),
-#       color = "white",
-#       fill = "#9d2235"
-#     ) +
-#     xlab("Number of Watersheds") +
-#     ylab("Number of Species") +
-#     xlim(0, breaks[1]) +
-#     theme_minimal()
-# }
-
 
 plotScatter <- function(dat = NULL, ...) {
-  ggplot(data = dat, aes(x = MAP, y = MAT, color = Ecosys, shape = Species)) +
+  ggplot(data = dat, aes(x = MAP, y = MAT, color = Species, shape = Species)) +
     geom_point(size = 2) +
     labs(x = "Mean Annual Precipitation (mm)",
          y = "Mean Annual Temperature (°C)") +
     theme_minimal() +
-    scale_color_brewer(palette = "Dark2") +
-    annotate("text", x = 550, y = 4.7, label = "Grassland", size = 5) +
-    annotate("text", x = 1900, y = 8.5, label = "Redcedar", size = 5) +
-    annotate("text", x = 1450, y = -1, label = "Larch", size = 5) +
-    guides(color = "none",
-           shape = guide_legend("Ecosystem")) +
-    theme(axis.title = element_text(size = 14),
-          axis.text = element_text(size = 12))
+    scale_shape_discrete(name = "Ecosystem", labels = c("Western Redcedar", "Grassland", "Subalpine Larch")) +
+    scale_color_brewer(palette = "Dark2", 
+                       name = "Ecosystem", 
+                       labels = c("Western Redcedar", 
+                                  "Grassland", 
+                                  "Subalpine Larch")) +
+    annotate("text", x = 550, y = 4.7, label = "Grassland", size = 4) +
+    annotate("text", x = 1900, y = 8.5, label = "Redcedar", size = 4) +
+    annotate("text", x = 1450, y = -1, label = "Larch", size = 4) +
+    theme(text = element_text(family = "Linux Libertine O"))
+    
 }
