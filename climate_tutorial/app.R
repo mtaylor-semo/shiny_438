@@ -208,17 +208,17 @@ server <- function(input, output, session) {
     }
   })
   
-  output$state_result_error <- renderText({
-    if (input$state_result == "") {
-      "Please interpret the histogram."
-    }
-  })
-  
-  output$ca_result_error <- renderText({
-    if (input$ca_result == "") {
-      "Please interpret the histogram."
-    }
-  })
+  # output$state_result_error <- renderText({
+  #   if (input$state_result == "") {
+  #     "Please interpret the histogram."
+  #   }
+  # })
+  # 
+  # output$ca_result_error <- renderText({
+  #   if (input$ca_result == "") {
+  #     "Please interpret the histogram."
+  #   }
+  # })
   
   ## Reactive values ---------------------------------------------------------
   
