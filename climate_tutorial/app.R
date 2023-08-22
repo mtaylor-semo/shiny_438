@@ -126,14 +126,16 @@ ui <- tagList(
                    temperatures?"),
                  p("Which ecosystem requires the coolest mean annual temperature?"),
                  p("Which ecosystem requires the least amount of precipitation?"),
-                 p("Which ecosystem requires the most precipiation?"),
+                 p("Which ecosystem requires the most precipitation?"),
+                 p("Will any ecosystems co-occur? That is, will they require
+                   the same range of temperature", em("and"), "precipitation?"),
                  textAreaInput(
                    inputId = "predict_tutorial",
                    label = NULL,
                    #"Enter your prediction:",
                    rows = 6,
                    width = "90%",
-                   placeholder = "North America prediction…"
+                   placeholder = "Enter your prediction…"
                  ),
                  br(),
                  hr(),

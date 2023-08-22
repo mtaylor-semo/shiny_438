@@ -23,15 +23,17 @@ knitr::opts_knit$set(eval.after = "fig.cap")
 
 \begin{enumerate}
 \begin{multicols}{2}
-\item \label{na_predict} \textbf{What do you predict?} Considering all of North America, tell
-whether you think most species in a closely related group of organisms
-have large, medium or small range size, or some combination.
+\item \label{na_predict} \textbf{What do you predict?} Which ecosystem
+requires the warmest mean annual temperatures? Which ecosystem requires 
+the coolest mean annual temperature? Which ecosystem requires the least
+amount of precipitation? Which ecosystem requires the most precipitation?
+Will any ecosystems co-occur? That is, will they require the same range of temperature \emph{and} precipiation?
 
 \textbf{You predicted} “`r input$predict_tutorial`”
 
 \columnbreak
 
-\item \textbf{Interpret the pattern.} Describe the pattern that you see. Do most
+\item \textbf{Interpret the scatterplot} Describe the pattern that you see. Do most
 species occur in most watersheds (large range size) or do most species
 occur in just a few watersheds (small range size)? Or, is it some
 combination of the two? Explain how the observed result supports or
