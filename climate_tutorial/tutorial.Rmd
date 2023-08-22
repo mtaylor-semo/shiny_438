@@ -33,9 +33,7 @@ Will any ecosystems co-occur? That is, will they require the same range of tempe
 
 \columnbreak
 
-\item \textbf{Interpret the scatterplot} Describe the pattern that you see. Do most
-species occur in most watersheds (large range size) or do most species
-occur in just a few watersheds (small range size)? Or, is it some
+\item \textbf{Interpret the scatterplot.} Do ? Or, is it some
 combination of the two? Explain how the observed result supports or
 falsifies your hypothesis in question~\ref{na_predict}.
 
