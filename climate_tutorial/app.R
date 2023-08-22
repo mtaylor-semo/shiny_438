@@ -18,7 +18,7 @@ ui <- tagList(
   includeCSS("www/semo_mods.css"),
   navbarPage(
     id = "tabs",
-    windowTitle = "Biogeograpy: Ecosystems and climate",
+    windowTitle = "Biogeograpy: ecosystems and climate",
     title = div(
       img(src = "semo_logo.png", height = "70px"),
       "Ecosystems and climate"
@@ -26,18 +26,66 @@ ui <- tagList(
     # Instructions tab ------------------------------------------------------------
     
     tabPanel("Instructions",
-             mainPanel(
-               p(
-                 "This app allows you to explore the relationship between ecosystem
-        distribution and climate variables."
+             fluidRow(
+               column(
+                 width = 6,
+                   p(
+                     "This app allows you to explore the relationship between
+                     ecosystems and climate variables."
+                   ),
+                   p("The ecosystems are based on dominant plant species:
+                     Larch, Eastern Redcedar, or Grasslands."),
+                 p(
+                   "The climate variables are mean annual temperature and mean
+                     annual precipitation."
+                 ),
+                 p("Choose the Predictions tab above to begin.")
                ),
-               p("The ecosystems are Larch, Eastern Redcedar, and Grasslands."),
-               p(
-                 "The climate variables are mean annual temperature and mean annual
-          precipitation."
+               column(
+                 width = 2,
+                 tags$figure(
+                   img(src = "larch.jpg", align = "middle", height = "240"),
+                   tags$figcaption(
+                     "Larch tree"
+                   ),
+                 )
                ),
-               p("Choose the Predictions tab above to begin.")
-             )),
+               column(
+                 width = 4,
+                 tags$figure(
+                   img(src = "redcedar.jpg", align = "middle", height = "240"),
+                   tags$figcaption(
+                     "Eastern Red Cedar"
+                   )
+                 )
+               ),
+             ),
+             # mainPanel(
+             #   p(
+             #     "This app allows you to explore the relationship between
+             #     ecosystems and climate variables."
+             #   ),
+             #   p("The ecosystems are based on dominant plant species:
+             #     Larch, Eastern Redcedar, or Grasslands."),
+             #   p(
+             #     "The climate variables are mean annual temperature and mean 
+             #     annual precipitation."
+             #   ),
+             #   p("Choose the Predictions tab above to begin.")
+             # ),
+             fluidRow(
+               column(
+                 width = 4,
+                 offset = 6,
+                 tags$figure(
+                   img(src = "grassland.jpg", align = "middle", width = "240"),
+                   tags$figcaption(
+                     "Grassland"
+                   )
+                 )
+               )
+             )
+    ),
     
     
     # Predictions tab ---------------------------------------------------------
