@@ -25,169 +25,163 @@ ui <- tagList(
     ),
     # Instructions tab ------------------------------------------------------------
     
-    tabPanel("Instructions",
-             fluidRow(
-               column(
-                 width = 6,
-                   p(
-                     "This app allows you to explore the relationship between
-                     ecosystems and climate variables."
-                   ),
-                   p("The ecosystems are based on dominant plant species:
-                     Larch, Eastern Redcedar, or Grasslands."),
-                 p(
-                   "The climate variables are mean annual temperature and mean
-                     annual precipitation."
+    tabPanel(
+      "Instructions",
+      fluidRow(
+        column(
+          width = 6,
+          p(
+            "Temperature and precipitation are the two climate variables 
+            that most influence the distribution of ecosystems. This is 
+            a fundamental biogeographic concept which you will explore 
+            using a climate data set taken from Alberta, Canada. The data 
+            set contains mean annual temperature (°C) and mean 
+            annual precipitation (mm) from 80 weather stations 
+            spread across eight different ecosystems (Ecosys), was recorded 
+            (Cw = Western Redcedar, Gr = mixed grasses, La = Subalpine
+            Larch). The measurements are in five-year intervals from 
+            1965-2010."
+          ),
+          hr(),
+          p("Choose the Predictions tab above to begin.")
+        ),
+        column(width = 3,
+               tags$figure(
+                 img(
+                   src = "larch.jpg",
+                   align = "middle",
+                   width = "240"
                  ),
-                 p("Choose the Predictions tab above to begin.")
+                 tags$figcaption("Subalpine Larch"),
+               )),
+        column(width = 3,
+               tags$figure(
+                 img(
+                   src = "western_redcedar.jpg",
+                   align = "middle",
+                   width = "240"
+                 ),
+                 tags$figcaption("Western Redcedar")
+               )),
+      ),
+      fluidRow(
+        column(width = 6,
+               br(),
+               p(strong("Photo credits")),
+               p(
+                 tags$a(href = "https://www.facebook.com/GlacierNPS/photos/a.360427434911/10158084082764912/",
+                        "Subalpine Larch: Glacier National Park, Public Domain")
                ),
-               column(
-                 width = 2,
-                 tags$figure(
-                   img(src = "larch.jpg", align = "middle", height = "240"),
-                   tags$figcaption(
-                     "Larch tree"
-                   ),
-                 )
+               p(
+                 tags$a(href = "https://commons.wikimedia.org/wiki/File:Western_redcedar_grove,_Moose_Creek,_Selway-Bitteroot_Wilderness,_Idaho,_USA.jpg",
+                        "Western Redcedar: Answer to the Rock, Wikimedia Commons, CC BY-SA 4.0")
                ),
-               column(
-                 width = 4,
-                 tags$figure(
-                   img(src = "redcedar.jpg", align = "middle", height = "240"),
-                   tags$figcaption(
-                     "Eastern Redcedar"
-                   )
-                 )
-               ),
-             ),
-             # mainPanel(
-             #   p(
-             #     "This app allows you to explore the relationship between
-             #     ecosystems and climate variables."
-             #   ),
-             #   p("The ecosystems are based on dominant plant species:
-             #     Larch, Eastern Redcedar, or Grasslands."),
-             #   p(
-             #     "The climate variables are mean annual temperature and mean 
-             #     annual precipitation."
-             #   ),
-             #   p("Choose the Predictions tab above to begin.")
-             # ),
-             fluidRow(
-               column(width = 6,
-                      br(),
-                      p(strong("Photo credits")),
-                      p(tags$a(
-                        href = "https://commons.wikimedia.org/wiki/File:SubalpineLarch_7735tl.jpg",
-                        "Larch: Walter Siegmund, Wikimedia Commons, CC BY-SA 3.0"
-                      )),
-                      p(tags$a(
-                        href = "https://plants.ces.ncsu.edu/plants/juniperus-virginiana/",
-                        "Eastern Redcedar: Nicholas A. Tonelli CC BY 2.0"
-                      )),
-                      p(tags$a(
-                        href = "https://commons.wikimedia.org/wiki/File:James_Woodworth_Prairie.jpg",
-                        "Grassland: Peter W Chen, Wikimedia, CC BY-SA 4.0"
-                      ))),
-               column(
-                 width = 4,
-#                 offset = 6,
-                 tags$figure(
-                   img(src = "grassland.jpg", align = "middle", width = "240"),
-                   tags$figcaption(
-                     "Grassland"
-                   )
-                 )
-               )
-             )
+               p(
+                 tags$a(href = "https://commons.wikimedia.org/wiki/File:James_Woodworth_Prairie.jpg",
+                        "Grassland: Peter W Chen, Wikimedia, CC BY-SA 4.0")
+               )),
+        column(width = 4,
+               #                 offset = 6,
+               tags$figure(
+                 img(src = "grassland.jpg", align = "middle", width = "240"),
+                 tags$figcaption("Grassland")
+               ))
+      )
     ),
     
     
     # Predictions tab ---------------------------------------------------------
-    tabPanel("Predictions",
-             fluidRow(
-               # column(1),
-               column(
-                 width = 3,
-                 textInput("student_name",
-                           "Enter your name:",
-                           placeholder = "First Last"),
-                 hr(),
-                 p(),
-                 p("Enter your predictions at right, then press the
+    tabPanel(
+      "Predictions",
+      fluidRow(
+        # column(1),
+        column(
+          width = 3,
+          textInput("student_name",
+                    "Enter your name:",
+                    placeholder = "First Last"),
+          hr(),
+          p(),
+          p("Enter your predictions at right, then press the
                'Next' button."),
-               ),
-               column(
-                 6,
-                 p(strong("What do you predict?"), "Your predictions
+        ),
+        column(
+          6,
+          p(
+            strong("What do you predict?"),
+            "Your predictions
                    should address at least these questions with simple
-                   direct sentences."),
-                 p("Which ecosystem requires the warmest mean annual
+                   direct sentences."
+          ),
+          p("Which ecosystem requires the warmest mean annual
                    temperatures?"),
-                 p("Which ecosystem requires the coolest mean annual temperature?"),
-                 p("Which ecosystem requires the least amount of precipitation?"),
-                 p("Which ecosystem requires the most precipitation?"),
-                 p("Will any ecosystems co-occur? That is, will they require
-                   the same range of temperature", em("and"), "precipitation?"),
-                 textAreaInput(
-                   inputId = "predict_tutorial",
-                   label = NULL,
-                   #"Enter your prediction:",
-                   rows = 6,
-                   width = "90%",
-                   placeholder = "Enter your prediction…"
-                 ),
-                 br(),
-                 hr(),
-               #   actionButton(
-               #     inputId = "btn_next_pred",
-               #     label = "Next",
-               #     width = "35%"
-               #   ),
-               #   span(textOutput("prediction_error"), style = "color:#9D2235")
-                ),
-               column(
-                 width = 3,
-                 actionButton(
-                   inputId = "btn_next_pred",
-                        label = "Next",
-                        width = "35%"
-                      ),
-                      span(textOutput("prediction_error"), style = "color:#9D2235")
-                   
-               )
-             ), # End first fluid row
-             fluidRow(
-               column(
-                 width = 3,
-                 offset = 3,
-                 tags$figure(
-                 img(src = "larch.jpg", align = "middle", height = "240"),
-                 tags$figcaption(
-                   "Larch tree",
-                 )
-               )
-             ),
-             column(
-               width = 3,
+          p("Which ecosystem requires the coolest mean annual temperature?"),
+          p("Which ecosystem requires the least amount of precipitation?"),
+          p("Which ecosystem requires the most precipitation?"),
+          p(
+            "Will any ecosystems co-occur? That is, will they require
+                   the same range of temperature",
+            em("and"),
+            "precipitation?"
+          ),
+          textAreaInput(
+            inputId = "predict_tutorial",
+            label = NULL,
+            #"Enter your prediction:",
+            rows = 6,
+            width = "90%",
+            placeholder = "Enter your prediction…"
+          ),
+          br(),
+          hr(),
+          #   actionButton(
+          #     inputId = "btn_next_pred",
+          #     label = "Next",
+          #     width = "35%"
+          #   ),
+          #   span(textOutput("prediction_error"), style = "color:#9D2235")
+        ),
+        column(
+          width = 3,
+          actionButton(
+            inputId = "btn_next_pred",
+            label = "Next",
+            width = "35%"
+          ),
+          span(textOutput("prediction_error"), style = "color:#9D2235")
+          
+        )
+      ),
+      # End first fluid row
+      fluidRow(
+        column(
+          width = 3,
+          offset = 3,
+          tags$figure(
+            img(
+              src = "larch.jpg",
+              align = "middle",
+              width = "240"
+            ),
+            tags$figcaption("Larch tree",)
+          )
+        ),
+        column(width = 3,
                tags$figure(
-                 img(src = "redcedar.jpg", align = "middle", height = "240"),
-                 tags$figcaption(
-                   "Eastern Redcedar"
-                 )
-               )
-             ),
-             column(
-               width = 3,
+                 img(
+                   src = "western_redcedar.jpg",
+                   align = "middle",
+                   width = "240"
+                 ),
+                 tags$figcaption("Western Redcedar")
+               )),
+        column(width = 3,
                tags$figure(
                  img(src = "grassland.jpg", align = "middle", width = "240"),
-                 tags$figcaption(
-                   "Grassland"
-                 )
-               )
-             )
-          ),
-      )
+                 tags$figcaption("Grassland")
+               ))
+      ),
+    )
   )
 ) # end UI
 
@@ -215,7 +209,7 @@ server <- function(input, output, session) {
   #     "Please interpret the histogram."
   #   }
   # })
-  # 
+  #
   # output$ca_result_error <- renderText({
   #   if (input$ca_result == "") {
   #     "Please interpret the histogram."
@@ -228,18 +222,18 @@ server <- function(input, output, session) {
   #   filter(state_taxa,
   #          states == input$state)
   # })
-  # 
+  #
   # spp <- reactive({
   #   open_file(tx = str_to_lower(input$taxon), st = str_to_lower(input$state))
   # })
-  # 
+  #
   # spp_na <- reactive({
   #   open_file(tx = str_to_lower(input$na_taxon))
   # })
-  # 
-#  plots <- reactiveValues(na = NULL, state = NULL, ca = NULL)
-#    results <- reactiveValues(na = NULL, state = NULL, ca = NULL)
-
+  #
+  #  plots <- reactiveValues(na = NULL, state = NULL, ca = NULL)
+  #    results <- reactiveValues(na = NULL, state = NULL, ca = NULL)
+  
   plots <- reactiveValues(na = NULL)
   
   results <- reactiveValues(na = NULL)
@@ -336,12 +330,12 @@ server <- function(input, output, session) {
   #   p("You predicted:")
   #   sprintf("%s", input$predict_state)
   # })
-  # 
+  #
   # output$prediction_ca <- renderUI({
   #   p("You predicted:")
   #   sprintf("%s", input$predict_ca)
   # })
-  # 
+  #
   # output$ca_info <- renderUI({
   #   if (input$ca_marine == "Range extent") {
   #     p(
@@ -358,29 +352,29 @@ server <- function(input, output, session) {
   #     img(src = "california.png", width = "97%")
   #   }
   # })
-  # 
-  # 
+  #
+  #
   
   ## State histograms ------------------------------------------------------
   
   # output$state_histogram <- renderPlot({
   #   numWatersheds <- colSums(spp())
   #   numSpecies <- rowSums(spp())
-  #   
+  #
   #   nws <- nrow(spp())
-  #   
+  #
   #   bins <- input$bins
-  #   
+  #
   #   plots$state <-
   #     plotHistogram(
   #       dat = tibble(numWatersheds),
   #       x = numWatersheds,
   #       breaks = c(nws, 1)
   #     )
-  #   
+  #
   #   plots$state
   # }, res = res)
-  # 
+  #
   ## North America histogram -------------------------------------------------
   
   #dat <-
