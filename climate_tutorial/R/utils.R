@@ -56,10 +56,10 @@ plotScatter <- function(dat = NULL, ...) {
     theme_minimal() +
     scale_color_brewer(palette = "Dark2") +
     scale_shape_discrete(name = "Ecosystem", labels = c("Western Redcedar", "Grassland", "Subalpine Larch")) +
-    annotate("text", x = 550, y = 4.7, label = "Grassland", size = 5) +
-    annotate("text", x = 1900, y = 8.5, label = "Redcedar", size = 5) +
-    annotate("text", x = 1450, y = -1, label = "Larch", size = 5) +
-    guides(color = "none") +
-    theme(axis.title = element_text(size = 14),
-          axis.text = element_text(size = 12))
+    annotate("text", x = 550, y = 4.7, label = "Grassland", size = 4) +
+    annotate("text", x = 1900, y = 8.5, label = "Redcedar", size = 4) +
+    annotate("text", x = 1450, y = -1, label = "Larch", size = 4) +
+    guides(color = "none") #+
+    #theme(axis.title = element_text(size = 12),
+    #      axis.text = element_text(size = 11))
 }
