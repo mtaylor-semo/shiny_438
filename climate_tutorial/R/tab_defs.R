@@ -3,10 +3,10 @@
 na_tab <- tabPanel(
   "Climate Plot",
   fluidRow(
-    column(9, plotOutput("na_scatter"),
+    column(8, plotOutput("na_scatter"),
            hr()),
     column(
-      3,
+      4,
       p(strong("You predicted:")),
       uiOutput("prediction_na"),
       br(),
