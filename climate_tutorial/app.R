@@ -55,7 +55,7 @@ ui <- tagList(
                  tags$figure(
                    img(src = "redcedar.jpg", align = "middle", height = "240"),
                    tags$figcaption(
-                     "Eastern Red Cedar"
+                     "Eastern Redcedar"
                    )
                  )
                ),
@@ -74,9 +74,24 @@ ui <- tagList(
              #   p("Choose the Predictions tab above to begin.")
              # ),
              fluidRow(
+               column(width = 6,
+                      br(),
+                      p(strong("Photo credits")),
+                      p(tags$a(
+                        href = "https://commons.wikimedia.org/wiki/File:SubalpineLarch_7735tl.jpg",
+                        "Larch: Walter Siegmund, Wikimedia Commons, CC BY-SA 3.0"
+                      )),
+                      p(tags$a(
+                        href = "https://plants.ces.ncsu.edu/plants/juniperus-virginiana/",
+                        "Eastern Redcedar: Nicholas A. Tonelli CC BY 2.0"
+                      )),
+                      p(tags$a(
+                        href = "https://commons.wikimedia.org/wiki/File:James_Woodworth_Prairie.jpg",
+                        "Grassland: Peter W Chen, Wikimedia, CC BY-SA 4.0"
+                      ))),
                column(
                  width = 4,
-                 offset = 6,
+#                 offset = 6,
                  tags$figure(
                    img(src = "grassland.jpg", align = "middle", width = "240"),
                    tags$figcaption(
@@ -156,7 +171,7 @@ ui <- tagList(
                tags$figure(
                  img(src = "redcedar.jpg", align = "middle", height = "240"),
                  tags$figcaption(
-                   "Eastern Red Cedar"
+                   "Eastern Redcedar"
                  )
                )
              ),
@@ -170,24 +185,6 @@ ui <- tagList(
                )
              )
           ),
-          fluidRow(
-            column(width = 6,
-                   offset = 3,
-                   br(),
-                   p(strong("Photo credits.")),
-                   p(tags$a(
-                     href = "https://commons.wikimedia.org/wiki/File:SubalpineLarch_7735tl.jpg",
-                     "Larch: Walter Siegmund, Wikimedia Commons, CC BY-SA 3.0"
-                   )),
-                   p(tags$a(
-                     href = "https://plants.ces.ncsu.edu/plants/juniperus-virginiana/",
-                     "Eastern Red Cedar: Nicholas A. Tonelli CC BY 2.0"
-                   )),
-                   p(tags$a(
-                     href = "https://commons.wikimedia.org/wiki/File:James_Woodworth_Prairie.jpg",
-                     "Grassland: Peter W Chen, Wikimedia, CC BY-SA 4.0"
-                   )))
-                )
       )
   )
 ) # end UI
