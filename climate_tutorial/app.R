@@ -256,7 +256,7 @@ server <- function(input, output, session) {
 
   dat <- readRDS("data/tutorial_climate_data.rds")
   
-  output$na_histogram <- renderPlot({
+  output$na_scatter <- renderPlot({
     plots$na <- plotScatter(dat = dat)
     plots$na
   }, res = res)

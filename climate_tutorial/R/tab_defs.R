@@ -3,7 +3,7 @@
 na_tab <- tabPanel(
   "Climate Plot",
   fluidRow(
-    column(9, plotOutput("na_histogram"),
+    column(9, plotOutput("na_scatter"),
            hr()),
     column(
       3,
