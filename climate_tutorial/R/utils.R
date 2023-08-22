@@ -37,5 +37,7 @@ plotScatter <- function(dat = NULL, ...) {
                                   "Subalpine Larch")) +
     annotate("text", x = 550, y = 4.7, label = "Grassland", size = 4) +
     annotate("text", x = 1900, y = 8.5, label = "Redcedar", size = 4) +
-    annotate("text", x = 1450, y = -1, label = "Larch", size = 4) #+
+    annotate("text", x = 1450, y = -1, label = "Larch", size = 4) +
+    theme(text = element_text(family = "Linux Libertine O"))
+    
 }
