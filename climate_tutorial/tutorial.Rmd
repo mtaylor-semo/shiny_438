@@ -27,17 +27,16 @@ knitr::opts_knit$set(eval.after = "fig.cap")
 requires the warmest mean annual temperatures? Which ecosystem requires 
 the coolest mean annual temperature? Which ecosystem requires the least
 amount of precipitation? Which ecosystem requires the most precipitation?
-Will any ecosystems co-occur? That is, will they require the same range of temperature \emph{and} precipiation?
+Will any ecosystems co-occur? That is, will they require the same range of temperature \emph{and} precipitation?
 
 \textbf{You predicted} “`r input$predict_tutorial`”
 
 \columnbreak
 
-\item \textbf{Interpret the scatterplot} Describe the pattern that you see. Do most
-species occur in most watersheds (large range size) or do most species
-occur in just a few watersheds (small range size)? Or, is it some
-combination of the two? Explain how the observed result supports or
-falsifies your hypothesis in question~\ref{na_predict}.
+\item \textbf{Interpret the scatterplot.} Do the results agree with your 
+predictions? Did you successfully predict which species requires warmer or 
+cooler temperatures, or less precipitation? Describe the pattern you see in 
+the scatterplot.
 
 \textbf{You explained} “`r input$na_result`”
  
@@ -45,74 +44,11 @@ falsifies your hypothesis in question~\ref{na_predict}.
 
 \end{enumerate}
 
-```{r fig.dim=c(6,4), echo=FALSE, fig.cap=paste("Relationship of three ecosystems with two climate variables."), fig.align='left'}
+```{r fig.dim=c(7,5), echo=FALSE, fig.cap=paste("Relationship of three ecosystems with two climate variables."), fig.align='left'}
 plots$na
 ```
 
 ***
-
-<!--
-### State
-
-\begin{enumerate}[resume]
-\begin{multicols}{2}
-
-\item \textbf{What do you predict?} For the state you were assigned, 
-tell whether you think most species in a closely related
-group of organisms have large, medium or small range size, or some
-combination.
-
-\textbf{You predicted} “`r input$predict_state`”
-
-\columnbreak
-
-\item \textbf{Interpret and explain the pattern.} Describe the pattern that you see. Do most
-species occur in most watersheds (large range size) or do most species
-occur in just a few watersheds (small range size)? Or, is it some
-combination of the two?
-
-\textbf{You explained} “`r input$state_result`”
-
-\end{multicols}
-\end{enumerate}
-
-```{r fig.dim=c(3,2), echo=FALSE, fig.cap=paste("Histogram of", input$state, input$taxon, "for geographic range size."), fig.align='left'}
-plots$state
-```
-
-***
-
-### California
-
-\begin{enumerate}[resume]
-\begin{multicols}{2}
-
-\item \textbf{What do you predict?} For California coastal marine fishes, 
-tell whether you think most species in a closely related
-group of organisms have large, medium or small range size, or some
-combination. ADD SOMETHING ABOUT LATITUDE FOR THEM TO THINK ABOUT.
-
-\textbf{You predicted} “`r input$predict_ca`”
-
-\columnbreak
-
-\item \textbf{Interpret and explain the pattern.} Describe the pattern that you see. Do most
-species occur across many degrees of latitude (say, 40° or more of latitude is large range size) or do most species
-occur across just a few degrees of latitude (say, 10° or less of latitude is mall range size)? Or, is it some
-combination of the two?
-
-\textbf{You explained} “`r input$ca_result`”
-
-\end{multicols}
-\end{enumerate}
-
-
-```{r fig.dim=c(3,2), echo=FALSE, fig.cap="Histogram of California Marine Fishes for geographic range size.", fig.align='left'}
-plots$ca
-```
-
-***
--->
 
 \textbf{Your summary} of lessons learned from this exercise.
 

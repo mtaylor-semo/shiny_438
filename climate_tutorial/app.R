@@ -107,23 +107,18 @@ ui <- tagList(
         ),
         column(
           6,
-          p(
-            strong("What do you predict?"),
-            "Your predictions
-                   should address at least these questions with simple
-                   direct sentences."
-          ),
+          p(strong("What do you predict?"), "Your predictions should address
+            at least these questions with short direct sentences."),
           p("Which ecosystem requires the warmest mean annual
-                   temperatures?"),
+            temperatures?"),
           p("Which ecosystem requires the coolest mean annual temperature?"),
           p("Which ecosystem requires the least amount of precipitation?"),
           p("Which ecosystem requires the most precipitation?"),
-          p(
-            "Will any ecosystems co-occur? That is, will they require
-                   the same range of temperature",
-            em("and"),
-            "precipitation?"
-          ),
+          p("Will any ecosystems co-occur? That is, will they require the 
+            same range of temperature", em("and"), "precipitation?"),
+          br(),
+          p("You may use the internet to look up each species to help
+            you answer the questions above."),
           textAreaInput(
             inputId = "predict_tutorial",
             label = NULL,

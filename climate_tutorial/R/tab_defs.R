@@ -10,8 +10,11 @@ na_tab <- tabPanel(
       p(strong("You predicted:")),
       uiOutput("prediction_na"),
       br(),
-      p("Do the results agree with your prediction? Explain below, 
-      then press the Next button."),
+      p(strong("Do the results agree with your predictions?"), "Did you
+      successfully predict which species requires warmer or cooler 
+      temperatures, or less precipitation? Describe the pattern you see
+        in the scatterplot."),
+      p("Press the Next button after you finish your answer."),
       textAreaInput(inputId = "na_result",
                     label = NULL,
                     rows = 5),
