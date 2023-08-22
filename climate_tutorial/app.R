@@ -273,7 +273,7 @@ server <- function(input, output, session) {
       # What happens for students with three or more names?
       paste(paste0(rev(stu_name),
                    collapse = "_"),
-            "geographic_range.pdf",
+            "climate_tutorial.pdf",
             sep = "_")
     },
     content = function(file) {
