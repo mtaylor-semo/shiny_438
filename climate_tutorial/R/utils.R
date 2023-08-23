@@ -35,8 +35,7 @@ plotScatter <- function(dat = NULL, ...) {
                        labels = c("Western Redcedar", 
                                   "Grassland", 
                                   "Subalpine Larch")) +
-    annotate("text", x = 550, y = 4.7, label = "Grassland", size = 4) +
-    annotate("text", x = 1900, y = 8.5, label = "Redcedar", size = 4) +
-    annotate("text", x = 1450, y = -1, label = "Larch", size = 4)
-    
+    annotate("text", x = 700, y = 4, label = "Grassland", size = 4, hjust = "left") +
+    annotate("text", x = 2100, y = 8, label = "Redcedar", size = 4, hjust = "left") +
+    annotate("text", x = 1800, y = 0, label = "Larch", size = 4, hjust = "left")
 }
