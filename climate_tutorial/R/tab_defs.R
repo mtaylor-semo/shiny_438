@@ -15,12 +15,12 @@ plot_tab <- tabPanel(
       temperatures, or less precipitation? Describe the pattern you see
         in the scatterplot."),
       p("Press the Next button after you finish your answer."),
-      textAreaInput(inputId = "na_result",
+      textAreaInput(inputId = "interpret_result",
                     label = NULL,
                     rows = 5),
       hr(),
       actionButton(inputId = "btn_next_na", label = "Next", width = "35%"),
-      span(textOutput("na_result_error"), style = "color:#9D2235")
+      span(textOutput("interpret_error"), style = "color:#9D2235")
     )
   )
 )

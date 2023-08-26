@@ -187,8 +187,8 @@ server <- function(input, output, session) {
     }
   })
   
-  output$na_result_error <- renderText({
-    if (input$na_result == "") {
+  output$interpret_error <- renderText({
+    if (input$interpret_result == "") {
       "Please interpret the scatterplot."
     }
   })
@@ -223,7 +223,7 @@ server <- function(input, output, session) {
 
   observeEvent(input$btn_next_na, {
     if (is.null(input$summary)) {
-      result_check(exp = input$na_result)
+      result_check(exp = input$interpret_result)
       appendTab(inputId = "tabs",
                 tab = summary_tab,
                 select = TRUE)

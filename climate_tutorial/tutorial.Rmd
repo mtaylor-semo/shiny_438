@@ -38,7 +38,7 @@ predictions? Did you successfully predict which species requires warmer or
 cooler temperatures, or less precipitation? Describe the pattern you see in 
 the scatterplot.
 
-\textbf{You explained} “`r input$na_result`”
+\textbf{You explained} “`r input$interpret_result`”
  
 \end{multicols}
 
