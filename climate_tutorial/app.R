@@ -211,7 +211,7 @@ server <- function(input, output, session) {
       
       removeTab(inputId = "tabs", target = "Predictions")
       appendTab(inputId = "tabs",
-                tab = na_tab,
+                tab = plot_tab,
                 select = TRUE)
     } else {
       showTab(inputId = "tabs",

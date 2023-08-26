@@ -1,6 +1,6 @@
 # Define North America Tab ------------------------------------------------
 
-na_tab <- tabPanel(
+plot_tab <- tabPanel(
   "Climate Plot",
   fluidRow(
     column(8, plotOutput("na_scatter"),
