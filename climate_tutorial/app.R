@@ -221,7 +221,7 @@ server <- function(input, output, session) {
   })
   
 
-  observeEvent(input$btn_next_na, {
+  observeEvent(input$btn_next_interpret, {
     if (is.null(input$summary)) {
       result_check(exp = input$interpret_result)
       appendTab(inputId = "tabs",

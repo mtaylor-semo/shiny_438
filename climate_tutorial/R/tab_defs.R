@@ -19,7 +19,7 @@ plot_tab <- tabPanel(
                     label = NULL,
                     rows = 5),
       hr(),
-      actionButton(inputId = "btn_next_na", label = "Next", width = "35%"),
+      actionButton(inputId = "btn_next_interpret", label = "Next", width = "35%"),
       span(textOutput("interpret_error"), style = "color:#9D2235")
     )
   )
