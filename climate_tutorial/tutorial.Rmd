@@ -29,7 +29,7 @@ the coolest mean annual temperature? Which ecosystem requires the least
 amount of precipitation? Which ecosystem requires the most precipitation?
 Will any ecosystems co-occur? That is, will they require the same range of temperature \emph{and} precipitation?
 
-\textbf{You predicted} “`r input$predict_tutorial`”
+\textbf{You predicted} “`r fix_special_chars(input$predict_tutorial)`”
 
 \columnbreak
 
@@ -38,7 +38,7 @@ predictions? Did you successfully predict which species requires warmer or
 cooler temperatures, or less precipitation? Describe the pattern you see in 
 the scatterplot.
 
-\textbf{You explained} “`r input$interpret_result`”
+\textbf{You explained} “`r fix_special_chars(input$interpret_result)`”
  
 \end{multicols}
 
@@ -52,7 +52,7 @@ plots$na
 
 \textbf{Your summary} of lessons learned from this exercise.
 
-`r input$summary`
+`r fix_special_chars(input$summary)`
 
 
 <!-- Time stamp the report 
