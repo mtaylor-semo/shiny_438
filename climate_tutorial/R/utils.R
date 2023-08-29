@@ -1,9 +1,14 @@
 # Global functions --------------------------------------------------------
 # for the climate tutorial shiny app.
 
-# Open the data set. Can probably generalize these
-# to open csv and tsv files.
+# Called from Rmd file to replace LaTeX special
+# characters with escaped version.
+fix_special_chars <- function(str = NULL){
+  str_replace_all(str, "([#%$_])", "\\\\\\1")
+}
 
+# Set resolution of plot to 96 dpi. Most users
+# are PC.
 res = 96
 
 
@@ -17,7 +22,7 @@ result_check <- function(exp = NULL) {
   req(exp)
 }
 
-
+# Not used in this exercise?
 empty_field <- function(input_field) {
   ifelse (input_field == "", TRUE, FALSE)
 }

@@ -11,10 +11,6 @@ library(ggplot2)
 library(readr)
 library(RColorBrewer)
 
-fix_special_chars <- function(str = NULL){
-  str_replace_all(str, "([#%$_])", "\\\\\\1")
-}
-
 ## UI ----------------------------------------------------------------------
 
 ui <- tagList(
