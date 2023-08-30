@@ -7,7 +7,7 @@
 
 library(shiny)
 #library(dplyr)
-#library(stringr)
+library(stringr)
 library(ggplot2)
 
 ## UI ----------------------------------------------------------------------
@@ -16,10 +16,10 @@ ui <- tagList(
   includeCSS("www/semo_mods.css"),
   navbarPage(
     id = "tabs",
-    windowTitle = "Biogeograpy: Geographic Range Size",
+    windowTitle = "Biogeograpy: Geographic Range Size: CA",
     title = div(
       img(src = "semo_logo.png", height = "70px"),
-      "Geographic range size"
+      "California Marine Fishes"
     ),
     # Instructions tab ------------------------------------------------------------
 
@@ -30,7 +30,7 @@ ui <- tagList(
           marine fishes of California. All species occur in California
           but some species have ranges that extend well south to
           South America or north to Alaska."),
-        p("Choose the XXX tab to begin. Choose the state and the
+        p("Choose the Predictions tab to begin. Choose the state and the
         taxon that was assigned to you."),
       )
     ),

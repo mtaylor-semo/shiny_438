@@ -1,26 +1,8 @@
 library(dplyr)
 library(stringr)
 
-#file_list <- list.files("state_data/")
-#file_list_no_ext <- tools::file_path_sans_ext(file_list)
 
-state_data <- readRDS("data/state_data.rds")
-state_name <- names(state_data)
-
-states <- state_name %>%
-  word(start = 1, end = -2, sep = "_") %>%
-  str_replace("_", " ") %>%
-  str_to_title()
-
-taxa <-
-  word(state_name,
-    start = -1,
-    sep = "_"
-  ) %>%
-  str_to_title()
-
-state_taxa <- tibble(states, taxa)
-state_choices <- unique(states)
+ca_data <- readRDS("data/ca_data.rds")
 
 
 # Define North America Tab ------------------------------------------------
