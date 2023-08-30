@@ -26,15 +26,34 @@ ui <- tagList(
 
     tabPanel(
       "Instructions",
-      mainPanel(
-        p("Fishes, mussels, and some crayfishes can't cross land so it 
-          seems reasonable that they may be restricted to just a few 
+      fluidRow(
+        column(
+          width = 3,
+          img(src = "ca_fishes.jpg", width = "97%"),
+          br(),
+          br(),
+          p(strong("Photo credits")),
+          p(
+            tags$a(href = "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Grahambones_-_3626550703.jpg/640px-Grahambones_-_3626550703.jpg",
+                   "Top: Garibaldi (juvenile), Graham Hellewell, CC BY 2.0")
+          ),
+          p(
+            tags$a(href = "https://commons.wikimedia.org/wiki/File:Gopher_rockfish.jpg",
+                   "Bottom: Gopher Rockfish, Tom Murphy VII, CC BY-SA 3.0")
+          )
+        ),
+
+        column(
+          width = 6,
+          p("Freshwater fishes, mussels, and some crayfishes can't cross 
+          so it is reasonable that their ranges of often restricted to just 
+          a few 
           watersheds. However, coastal marine fishes do not have obvious 
           limitations to their distribution. Adults of many coastal marine 
           fishes are able to swim very long distances. Thus, at least 
           potentially, more marine fishes may have relatively large range 
           sizes compared to those with small ranges."),
-        p("Your goal for this exercise is to determine whether California
+          p("Your goal for this exercise is to determine whether California
           coastal marine fishes have large range sizes. All species occur 
           in California but some species have ranges that extend as far 
           south as 30°S (central Chile, South America) or as far north as 
@@ -42,12 +61,39 @@ ui <- tagList(
           requirement was that some part of the species' range had to occur 
           within the coastal waters of California. For each degree of 
           latitude, a species was assigned 1 if present, and 0 if absent."),
-        p("This app helps you calculate the range size (number of degrees of
+          p("This app helps you calculate the range size (number of degrees of
           latitude occupied) for each species. You will also calculate the
           number of species present in each degree of latitude."),
-        p("Choose the Predictions tab to begin. Choose the state and the
-        taxon that was assigned to you."),
-      )
+          p("Choose the Predictions tab to begin. Choose the state and the
+          taxon that was assigned to you.")
+        ),
+        column(
+          width = 3,
+          img(src = "california.png", width = "97%")
+        )
+      ),
+      # mainPanel(
+      #   p("Fishes, mussels, and some crayfishes can't cross land so it 
+      #     seems reasonable that they may be restricted to just a few 
+      #     watersheds. However, coastal marine fishes do not have obvious 
+      #     limitations to their distribution. Adults of many coastal marine 
+      #     fishes are able to swim very long distances. Thus, at least 
+      #     potentially, more marine fishes may have relatively large range 
+      #     sizes compared to those with small ranges."),
+      #   p("Your goal for this exercise is to determine whether California
+      #     coastal marine fishes have large range sizes. All species occur 
+      #     in California but some species have ranges that extend as far 
+      #     south as 30°S (central Chile, South America) or as far north as 
+      #     68°N (north of the Arctic Circle, Alaska, North America). The only 
+      #     requirement was that some part of the species' range had to occur 
+      #     within the coastal waters of California. For each degree of 
+      #     latitude, a species was assigned 1 if present, and 0 if absent."),
+      #   p("This app helps you calculate the range size (number of degrees of
+      #     latitude occupied) for each species. You will also calculate the
+      #     number of species present in each degree of latitude."),
+      #   p("Choose the Predictions tab to begin. Choose the state and the
+      #   taxon that was assigned to you."),
+      # )
     ),
 
 
