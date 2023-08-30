@@ -11,38 +11,40 @@ fix_special_chars <- function(str = NULL){
 # are PC.
 res = 96
 
-# Open the data set. Can probably generalize these
-# to open csv and tsv files.
-open_file <- function(tx, st = NULL) {
-  if (is.null(st)) {
-    na_data <- readRDS("data/na_data.rds")
-    data_file <- paste0("na_", tx)
-    return(na_data[[data_file]])
-    #file_to_open <- paste0("na_data/na_", tx, ".csv")
-  } else {
-    switch(st,
-      "California" = {
-        ca_data <- readRDS("data/ca_data.rds")
-        return(ca_data[["california_marine_fishes"]])
-        #file_to_open <- "marine/california_marine_fishes.csv"
-      },
-      {
-        the_state <- str_replace_all(st, " ", "_")
-        data_file <- paste0(the_state, "_", tx)
-        return(state_data[[data_file]])
-#        file_to_open <- paste0("state_data/", the_state, "_", tx, ".csv")
-      }
-    )
-  }
-#  read.csv(file_to_open, row.names = 1)
-}
+#ca_data <- readRDS("data/ca_data.rds")
+
+# # Open the data set. Can probably generalize these
+# # to open csv and tsv files.
+# open_file <- function(tx, st = NULL) {
+#   if (is.null(st)) {
+#     na_data <- readRDS("data/na_data.rds")
+#     data_file <- paste0("na_", tx)
+#     return(na_data[[data_file]])
+#     #file_to_open <- paste0("na_data/na_", tx, ".csv")
+#   } else {
+#     switch(st,
+#       "California" = {
+#         ca_data <- readRDS("range_size_ca/data/ca_data.rds")
+#         return(ca_data[["california_marine_fishes"]])
+#         #file_to_open <- "marine/california_marine_fishes.csv"
+#       },
+#       {
+#         the_state <- str_replace_all(st, " ", "_")
+#         data_file <- paste0(the_state, "_", tx)
+#         return(state_data[[data_file]])
+# #        file_to_open <- paste0("state_data/", the_state, "_", tx, ".csv")
+#       }
+#     )
+#   }
+# #  read.csv(file_to_open, row.names = 1)
+# }
 
 
 
 ## Prediction check. Move requirement check for predictions here.
 ## sn = student_name, ps = pred_state, pn = pred_na, pc = pred_ca
-pred_check <- function(sn = NULL, ps = NULL, pn = NULL, pc = NULL) {
-  req(sn, ps, pn, pc)
+pred_check <- function(sn = NULL, pn = NULL, pc = NULL) {
+  req(sn, pn, pc)
 }
 
 result_check <- function(exp = NULL) {

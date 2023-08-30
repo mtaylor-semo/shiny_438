@@ -16,7 +16,7 @@ ui <- tagList(
   includeCSS("www/semo_mods.css"),
   navbarPage(
     id = "tabs",
-    windowTitle = "Biogeograpy: Geographic Range Size: CA",
+    windowTitle = "Biogeograpy: Geographic Range Size: California Fishes",
     title = div(
       img(src = "semo_logo.png", height = "70px"),
       "California Marine Fishes"
@@ -26,10 +26,24 @@ ui <- tagList(
     tabPanel(
       "Instructions",
       mainPanel(
-        p("This app allows you to explore range sizes for coastal
-          marine fishes of California. All species occur in California
-          but some species have ranges that extend well south to
-          South America or north to Alaska."),
+        p("Fishes, mussels, and some crayfishes can't cross land so it 
+          seems reasonable that they may be restricted to just a few 
+          watersheds. However, coastal marine fishes do not have obvious 
+          limitations to their distribution. Adults of many coastal marine 
+          fishes are able to swim very long distances. Thus, at least 
+          potentially, more marine fishes may have relatively large range 
+          sizes compared to those with small ranges."),
+        p("Your goal for this exercise is to determine whether California
+          coastal marine fishes have large range sizes. All species occur 
+          in California but some species have ranges that extend as far 
+          south as 30°S (central Chile, South America) or as far north as 
+          68°N (north of the Arctic Circle, Alaska, North America). The only 
+          requirement was that some part of the species' range had to occur 
+          within the coastal waters of California. For each degree of 
+          latitude, a species was assigned 1 if present, and 0 if absent."),
+        p("This app helps you calculate the range size (number of degrees of
+          latitude occupied) for each species. You will also calculate the
+          number of species present in each degree of latitude."),
         p("Choose the Predictions tab to begin. Choose the state and the
         taxon that was assigned to you."),
       )
@@ -54,15 +68,17 @@ ui <- tagList(
         ),
         column(
           3,
-          p(strong("What do you predict for North America?")),
-          p("Will
-               most species have small, moderate, or large
-               range sizes?"),
+          p(strong("What is your hypothesis?")),
+          p("Given that the total latitudinal range in the data set 
+            covers 99° of latitude, from 30°S to 68°N, does the mean
+            number of degrees latitude occupied suggest that most 
+            coastal marine fishes likely have large or small range 
+            size? Explain."),
           textAreaInput(
-            inputId = "predict_na",
+            inputId = "predict_ca_range",
             label = NULL, #"Enter your prediction:",
             rows = 4,
-            placeholder = "North America prediction…"
+            placeholder = "California range size prediction…"
             ),
           br(),
           hr()
@@ -78,7 +94,7 @@ ui <- tagList(
             inputId = "predict_state",
             label = NULL, #"Enter your prediction:",
             rows = 4,
-            placeholder = "State prediction…"
+            placeholder = "DO I NEED?"
           ),
           br(),
           hr()
@@ -113,8 +129,7 @@ server <- function(input, output, session) {
 
   output$prediction_error <- renderText({
     if (input$student_name == "" |
-      input$predict_state == "" |
-      input$predict_na == "" |
+      input$predict_ca_range == "" |
       input$predict_ca == "") {
       "Please fill in all blanks."
     }
@@ -126,12 +141,6 @@ server <- function(input, output, session) {
     }
   })
   
-  output$state_result_error <- renderText({
-    if (input$state_result == "") {
-      "Please interpret the histogram."
-    }
-  })
-
   output$ca_result_error <- renderText({
     if (input$ca_result == "") {
       "Please interpret the histogram."
@@ -140,24 +149,9 @@ server <- function(input, output, session) {
   
   ## Reactive values ---------------------------------------------------------
 
-  state <- reactive({
-    filter(
-      state_taxa,
-      states == input$state
-    )
-  })
-
-  spp <- reactive({
-    open_file(tx = str_to_lower(input$taxon), st = str_to_lower(input$state))
-  })
-
-  spp_na <- reactive({
-    open_file(tx = str_to_lower(input$na_taxon))
-  })
-
-  plots <- reactiveValues(na = NULL, state = NULL, ca = NULL)
+  plots <- reactiveValues(ca = NULL)
   
-  results <- reactiveValues(na = NULL, state = NULL, ca = NULL)
+  results <- reactiveValues(ca = NULL)
 
 
   # Button observers --------------------------------------------------------
@@ -166,29 +160,19 @@ server <- function(input, output, session) {
     if (is.null(input$na_taxon)) {
     # Comment out for development.
      pred_check(sn = input$student_name,
-                ps = input$predict_state,
-                pn = input$predict_na,
+                pn = input$predict_ca_range,
                 pc = input$predict_ca)
 
     removeTab(inputId = "tabs", target = "Predictions")
-    appendTab(inputId = "tabs", tab = na_tab, select = TRUE)
+    appendTab(inputId = "tabs", tab = ca_tab, select = TRUE)
     } else {
       showTab(inputId = "tabs", target = "North America", select = TRUE)
     }
   })
 
   observeEvent(input$btn_next_na, {
-    if (is.null(input$state)) {
-      result_check(exp = input$na_result)
-      appendTab(inputId = "tabs", tab = states_tab, select = TRUE)
-    } else {
-      showTab(inputId = "tabs", target = "State", select = TRUE)
-    }
-  })
-
-  observeEvent(input$btn_next_state, {
     if (is.null(input$ca_marine)) {
-      result_check(exp = input$state_result)
+      result_check(exp = input$ca_result)
       appendTab(inputId = "tabs", tab = ca_tab, select = TRUE)  
     } else {
       showTab(inputId = "tabs", target = "California Marine Fishes", select = TRUE) 
@@ -207,34 +191,9 @@ server <- function(input, output, session) {
 
   ## Outputs -------------------------------------------------------------
 
-  output$dynamic_radio_buttons <- renderUI({
-    choices <- unique(state()$taxa)
-    freezeReactiveValue(input, "taxon")
-    radioButtons(
-      inputId = "taxon",
-      "Choose a taxon",
-      choices = choices
-    )
-  })
-
-  output$state_numbers <- renderUI({
-    dims <- dim(spp())
-    sprintf("%s has %d watersheds and %d species of %s.", input$state, dims[1], dims[2], str_to_lower(input$taxon))
-  })
-
-  output$na_numbers <- renderUI({
-    dims <- dim(spp_na())
-    sprintf("North America has %d watersheds and %d species of %s.", dims[1], dims[2], str_to_lower(input$na_taxon))
-  })
-  
   output$prediction_na <- renderUI({
     p("You predicted:")
-    sprintf("%s", input$predict_na)
-  })
-  
-  output$prediction_state <- renderUI({
-    p("You predicted:")
-    sprintf("%s", input$predict_state)
+    sprintf("%s", input$predict_ca_range)
   })
   
   output$prediction_ca <- renderUI({
@@ -259,41 +218,10 @@ server <- function(input, output, session) {
 
 
 
-  ## State histograms ------------------------------------------------------
-
-  output$state_histogram <- renderPlot({
-    numWatersheds <- colSums(spp())
-    numSpecies <- rowSums(spp())
-
-    nws <- nrow(spp())
-
-    bins <- input$bins
-
-    plots$state <- plotHistogram(dat = tibble(numWatersheds), x = numWatersheds, breaks = c(nws, 1))
-
-    plots$state
-  }, res = res)
-
-  ## North America histogram -------------------------------------------------
-
-  output$na_histogram <- renderPlot({
-    numWatersheds <- colSums(spp_na())
-    numSpecies <- rowSums(spp_na())
-
-    dat <- tibble(numWatersheds)
-
-    nws <- nrow(spp_na()) # Number of watersheds for x-axis
-
-    plots$na <- plotHistogram(dat = tibble(numWatersheds), x = numWatersheds, breaks = c(nws, 5))
-
-    plots$na
-  }, res = res)
-
-
   ## California Marine plots -------------------------------------------------
 
   output$ca_marine_plot <- renderPlot({
-    cafish <- open_file(st = "California")
+    cafish <- readRDS("data/ca_data.rds")[["california_marine_fishes"]]
 
     if (input$ca_marine == "Range size") {
       rangeSize <- rowSums(cafish)

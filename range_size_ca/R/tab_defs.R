@@ -2,7 +2,7 @@ library(dplyr)
 library(stringr)
 
 
-ca_data <- readRDS("data/ca_data.rds")
+#ca_data <- readRDS("data/ca_data.rds")
 
 
 # Define North America Tab ------------------------------------------------
@@ -45,44 +45,44 @@ na_tab <- tabPanel(
 
 # Define States tab -------------------------------------------------------
 
-states_tab <- tabPanel(
-  "State",
-  fluidRow(
-    column(
-      3,
-      wellPanel(
-        p("Choose your state and then taxon
-                 to see the histogram."),
-        selectInput(
-          inputId = "state",
-          label = "Choose a state",
-          choices = state_choices,
-          selected = "Georgia",
-          multiple = FALSE
-        ),
-        uiOutput("dynamic_radio_buttons")
-      )
-    ),
-    column(6, plotOutput("state_histogram"),
-           hr(),
-           uiOutput("state_numbers")),
-    column(
-      3,
-      p(strong("You predicted:")),
-      uiOutput("prediction_state"),
-      br(),
-      p(strong("Do the results agree with your prediction?"), "\nExplain below, 
-      then press the Next button."),
-      textAreaInput(inputId = "state_result",
-                    label = NULL,
-                    rows = 5),
-      hr(),
-      actionButton(inputId = "btn_next_state", label = "Next", width = "35%"),
-      span(textOutput("state_result_error"), style = "color:#9D2235")
-    )
-  )
-)
-
+# states_tab <- tabPanel(
+#   "State",
+#   fluidRow(
+#     column(
+#       3,
+#       wellPanel(
+#         p("Choose your state and then taxon
+#                  to see the histogram."),
+#         selectInput(
+#           inputId = "state",
+#           label = "Choose a state",
+#           choices = state_choices,
+#           selected = "Georgia",
+#           multiple = FALSE
+#         ),
+#         uiOutput("dynamic_radio_buttons")
+#       )
+#     ),
+#     column(6, plotOutput("state_histogram"),
+#            hr(),
+#            uiOutput("state_numbers")),
+#     column(
+#       3,
+#       p(strong("You predicted:")),
+#       uiOutput("prediction_state"),
+#       br(),
+#       p(strong("Do the results agree with your prediction?"), "\nExplain below, 
+#       then press the Next button."),
+#       textAreaInput(inputId = "state_result",
+#                     label = NULL,
+#                     rows = 5),
+#       hr(),
+#       actionButton(inputId = "btn_next_state", label = "Next", width = "35%"),
+#       span(textOutput("state_result_error"), style = "color:#9D2235")
+#     )
+#   )
+# )
+# 
 
 
 # Define California Marine Tab --------------------------------------------
