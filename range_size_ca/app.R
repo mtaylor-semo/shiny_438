@@ -1,7 +1,7 @@
 ## California coastal marine fishes.
 ## Histogram shows distribution of range size (degrees of latitude covered)
 ## Range extent shows vertical line for each species showing minimum and
-## maximum points of reange.
+## maximum points of range.
 
 
 # Libraries ---------------------------------------------------------------
@@ -91,7 +91,7 @@ ui <- tagList(
                'Next' button."),
         ),
         column(
-          5,
+          6,
           p(strong("What is your hypothesis?")),
           p("Given that the total latitudinal range in the data set 
             covers 99° of latitude, from 30°S to 68°N, does the mean
@@ -101,8 +101,9 @@ ui <- tagList(
           textAreaInput(
             inputId = "predict_ca_range",
             label = NULL, #"Enter your prediction:",
-            rows = 4,
-            placeholder = "California range size prediction…"
+            rows = 6,
+            placeholder = "California range size prediction…",
+            width = "90%"
             ),
           br(),
           hr(),
@@ -112,8 +113,9 @@ ui <- tagList(
           textAreaInput(
             inputId = "predict_ca",
             label = NULL, #"Enter your prediction:",
-            rows = 4,
-            placeholder = "California prediction…"
+            rows = 6,
+            placeholder = "California prediction…",
+            width = "90%"
           )
         ),
         
