@@ -68,7 +68,7 @@ ui <- tagList(
                'Next' button."),
         ),
         column(
-          3,
+          5,
           p(strong("What is your hypothesis?")),
           p("Given that the total latitudinal range in the data set 
             covers 99° of latitude, from 30°S to 68°N, does the mean
@@ -82,27 +82,7 @@ ui <- tagList(
             placeholder = "California range size prediction…"
             ),
           br(),
-          hr()
-        ),
-        
-        column(
-          3,
-          p(strong("What do you predict for the state level?")),
-          p("Will
-               most species have small, moderate, or large range
-               sizes?"),
-          textAreaInput(
-            inputId = "predict_state",
-            label = NULL, #"Enter your prediction:",
-            rows = 4,
-            placeholder = "DO I NEED?"
-          ),
-          br(),
-          hr()
-        ),
-        
-        column(
-          3,
+          hr(),
           p(strong("What do you predict for California?")),
           p("Will most species have small, moderate,
                or large range sizes?"),
@@ -111,9 +91,38 @@ ui <- tagList(
             label = NULL, #"Enter your prediction:",
             rows = 4,
             placeholder = "California prediction…"
-          ),
-          hr(),
-          p(),
+          )
+        ),
+        
+        # column(
+        #   3,
+        #   p(strong("What do you predict for the state level?")),
+        #   p("Will
+        #        most species have small, moderate, or large range
+        #        sizes?"),
+        #   textAreaInput(
+        #     inputId = "predict_state",
+        #     label = NULL, #"Enter your prediction:",
+        #     rows = 4,
+        #     placeholder = "DO I NEED?"
+        #   ),
+        #   br(),
+        #   hr()
+        # ),
+        
+        column(
+          3,
+          # p(strong("What do you predict for California?")),
+          # p("Will most species have small, moderate,
+          #      or large range sizes?"),
+          # textAreaInput(
+          #   inputId = "predict_ca",
+          #   label = NULL, #"Enter your prediction:",
+          #   rows = 4,
+          #   placeholder = "California prediction…"
+          # ),
+          # hr(),
+          # p(),
           actionButton(inputId = "btn_next_pred", label = "Next", width = "35%"),
           span(textOutput("prediction_error"), style = "color:#9D2235")
         )
