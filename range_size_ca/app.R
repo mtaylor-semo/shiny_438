@@ -1,6 +1,7 @@
-##
-## Show range size histograms for fishes, crayfishes, or mussels
-## at state and North American levels.
+## California coastal marine fishes.
+## Histogram shows distribution of range size (degrees of latitude covered)
+## Range extent shows vertical line for each species showing minimum and
+## maximum points of reange.
 
 
 # Libraries ---------------------------------------------------------------
@@ -228,7 +229,6 @@ server <- function(input, output, session) {
       numSpecies <- colSums(cafish)
 
       plots$ca <- plotHistogram(dat = tibble(rangeSize), x = rangeSize, breaks = c(100, 5)) +
-        scale_x_continuous(breaks = seq(0, 100, 20)) +
         xlab("Range size (degrees of latitude occupied)")
 
       plots$ca
@@ -278,7 +278,7 @@ server <- function(input, output, session) {
 
       ggplot(cafish) +
         geom_segment(aes(x = xrow, y = minLat, xend = xrow, yend = maxLat),
-          color = latCol, size = 1.2
+          color = latCol, linewidth = 1.2
         ) +
         theme_minimal() +
         ylab("Latitude (°S — °N)") +
