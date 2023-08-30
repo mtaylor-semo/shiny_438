@@ -26,13 +26,12 @@ ui <- tagList(
     tabPanel(
       "Instructions",
       mainPanel(
-        p("This app allows you to explore range sizes for three
-        aquatic groups (crayfishes, fishes, and mussels) for
-        several states and for North America (primarily U.S.)."),
-        p("Choose the State tab to begin. Choose the state and the
+        p("This app allows you to explore range sizes for coastal
+          marine fishes of California. All species occur in California
+          but some species have ranges that extend well south to
+          South America or north to Alaska."),
+        p("Choose the XXX tab to begin. Choose the state and the
         taxon that was assigned to you."),
-        p("NOTE TO MST: Rework the assignment to have students
-        explore latitudal gradient, compare taxa within state, etc...")
       )
     ),
 
