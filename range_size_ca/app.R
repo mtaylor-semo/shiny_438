@@ -209,7 +209,7 @@ server <- function(input, output, session) {
     }
   })
 
-  observeEvent(input$btn_next_na, {
+  observeEvent(input$btn_next_pc, {
     if (is.null(input$ca_marine)) {
       result_check(exp = input$pc_result)
       appendTab(inputId = "tabs", tab = ca_tab, select = TRUE)  

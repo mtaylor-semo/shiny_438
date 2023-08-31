@@ -5,23 +5,12 @@ library(stringr)
 #ca_data <- readRDS("data/ca_data.rds")
 
 
-# Define North America Tab ------------------------------------------------
+
+# Define Point Conception tab ---------------------------------------------
 
 pc_tab <- tabPanel(
   "Point Conception",
   fluidRow(
-    # column(#style="padding-left:3%", # Same for paddingg-top, etc.
-    #   3,
-    #   wellPanel(
-    #     p("Diversity around Point Conception."),
-    #     radioButtons("na_taxon",
-    #       label = "Choose taxon:",
-    #       choices = c("Fishes", "Mussels"),
-    #       selected = "Fishes"
-    #     )
-    #   ),
-    #   hr(),
-    # ),
     column(8, plotOutput("pc_plot"),
            hr()),
            #uiOutput("na_numbers")),
@@ -36,53 +25,11 @@ pc_tab <- tabPanel(
                     label = NULL,
                     rows = 5),
       hr(),
-      actionButton(inputId = "btn_next_na", label = "Next", width = "35%"),
+      actionButton(inputId = "btn_next_pc", label = "Next", width = "35%"),
       span(textOutput("pc_result_error"), style = "color:#9D2235")
     )
   )
 )
-
-
-# Define States tab -------------------------------------------------------
-
-# states_tab <- tabPanel(
-#   "State",
-#   fluidRow(
-#     column(
-#       3,
-#       wellPanel(
-#         p("Choose your state and then taxon
-#                  to see the histogram."),
-#         selectInput(
-#           inputId = "state",
-#           label = "Choose a state",
-#           choices = state_choices,
-#           selected = "Georgia",
-#           multiple = FALSE
-#         ),
-#         uiOutput("dynamic_radio_buttons")
-#       )
-#     ),
-#     column(6, plotOutput("state_histogram"),
-#            hr(),
-#            uiOutput("state_numbers")),
-#     column(
-#       3,
-#       p(strong("You predicted:")),
-#       uiOutput("prediction_state"),
-#       br(),
-#       p(strong("Do the results agree with your prediction?"), "\nExplain below, 
-#       then press the Next button."),
-#       textAreaInput(inputId = "state_result",
-#                     label = NULL,
-#                     rows = 5),
-#       hr(),
-#       actionButton(inputId = "btn_next_state", label = "Next", width = "35%"),
-#       span(textOutput("state_result_error"), style = "color:#9D2235")
-#     )
-#   )
-# )
-# 
 
 
 # Define California Marine Tab --------------------------------------------
