@@ -323,9 +323,9 @@ server <- function(input, output, session) {
       latCol <- vector("character")
       for (i in 1:numRows) {
         if (cafish$medianLat[i] > meanCut) {
-          latCol[i] <- mycolors[1]
-        } else {
           latCol[i] <- mycolors[2]
+        } else {
+          latCol[i] <- mycolors[1]
         }
       }
 
@@ -336,8 +336,7 @@ server <- function(input, output, session) {
 
       ggplot(cafish) +
         geom_segment(aes(x = xrow, y = minLat, xend = xrow, yend = maxLat),
-          color = latCol, linewidth = 1.2
-        ) +
+          color = latCol, linewidth = 0.5) +
         theme_minimal() +
         ylab("Latitude (°S — °N)") +
         xlab(NULL) +
