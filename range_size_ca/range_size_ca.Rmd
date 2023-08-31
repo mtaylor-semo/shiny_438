@@ -50,9 +50,6 @@ plots$ca
 
 ***
 
-
-***
-
 ### Point Conception
 
 \begin{enumerate}[resume]
