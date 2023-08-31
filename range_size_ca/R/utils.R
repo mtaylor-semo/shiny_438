@@ -91,7 +91,7 @@ plotPC <- function(dat = NULL, ...) {
                    color = cut(latitude, c(-31, 34, 68)))) +
     scale_x_continuous(breaks = seq(-30, 70, 5)) +
     theme_minimal() +
-    labs(x = "Latitude (°S – °N)",
+    labs(x = "Latitude (°S - °N)",
          y = "Species richness") +
     scale_color_manual(name = "Latitude",
                        values = c("(-31,34]" = scale_pal[1],
