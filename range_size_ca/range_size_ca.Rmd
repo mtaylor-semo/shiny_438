@@ -75,7 +75,7 @@ combination of the two?
 \end{enumerate}
 
 
-```{r fig.dim=c(6.5,4), echo=FALSE, fig.cap="Histogram of California Marine Fishes for geographic range size.", fig.align='left'}
+```{r fig.dim=c(6.5,4), echo=FALSE, fig.cap="Dot plot showing species richness for each degree of latitude from 30°S to 68°N.", fig.align='left'}
 plots$pc
 ```
 
