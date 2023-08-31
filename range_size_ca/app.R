@@ -187,9 +187,10 @@ server <- function(input, output, session) {
   
   ## Reactive values ---------------------------------------------------------
 
-  plots <- reactiveValues(ca = NULL)
+  plots <- reactiveValues(ca = NULL, pc = NULL)
+
   
-  results <- reactiveValues(ca = NULL)
+  # results <- reactiveValues(ca = NULL)
 
 
   ## Button observers --------------------------------------------------------
@@ -348,7 +349,10 @@ server <- function(input, output, session) {
   }, res = res)
   
   output$pc_plot <- renderPlot({
-    plotPC(cafish, )
+    plots$pc <- plotPC(cafish)
+    
+    plots$pc
+    
   }, res = res)
   # Report Download ---------------------------------------------------------
   
@@ -362,7 +366,7 @@ server <- function(input, output, session) {
         paste0(
           rev(stu_name), 
           collapse = "_"), 
-        "geographic_range.pdf", 
+        "california_coastal.pdf", 
         sep = "_"
       )
       # if (!is.na(stu_name[2])) {
@@ -379,19 +383,19 @@ server <- function(input, output, session) {
         closeButton = FALSE,
         type = "message"
       )
-      src <- normalizePath("range_report.Rmd")
+      src <- normalizePath("range_size_ca.Rmd")
       src_tex <- normalizePath("tex/tex_header.tex")
       # temporarily switch to the temp dir, in case you do not have write
       # permission to the current working directory
       owd <- setwd(tempdir())
       on.exit(setwd(owd))
-      file.copy(src, "range_report.Rmd", overwrite = TRUE)
+      file.copy(src, "range_size_ca.Rmd", overwrite = TRUE)
       file.copy(src_tex, "tex_header.tex", overwrite = TRUE)
       
       library(rmarkdown)
       
       out <- render(
-        "range_report.Rmd",
+        "range_size_ca.Rmd",
         pdf_document(latex_engine = "lualatex",
                      keep_tex = TRUE,
                      includes = includes(in_header = "tex_header.tex"))
