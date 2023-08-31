@@ -111,7 +111,7 @@ ui <- tagList(
           p("Will most species have small, moderate,
                or large range sizes?"),
           textAreaInput(
-            inputId = "predict_ca",
+            inputId = "predict_pc",
             label = NULL, #"Enter your prediction:",
             rows = 6,
             placeholder = "Point Conception prediction…",
@@ -168,7 +168,7 @@ server <- function(input, output, session) {
   output$prediction_error <- renderText({
     if (input$student_name == "" |
       input$predict_ca_range == "" |
-      input$predict_ca == "") {
+      input$predict_pc == "") {
       "Please fill in all blanks."
     }
   })
@@ -199,7 +199,7 @@ server <- function(input, output, session) {
     # Comment out for development.
      pred_check(sn = input$student_name,
                 pn = input$predict_ca_range,
-                pc = input$predict_ca)
+                pc = input$predict_pc)
 
     removeTab(inputId = "tabs", target = "Predictions")
     #appendTab(inputId = "tabs", tab = ca_tab, select = TRUE)
@@ -211,7 +211,7 @@ server <- function(input, output, session) {
 
   observeEvent(input$btn_next_na, {
     if (is.null(input$ca_marine)) {
-      result_check(exp = input$ca_result)
+      result_check(exp = input$pc_result)
       appendTab(inputId = "tabs", tab = ca_tab, select = TRUE)  
     } else {
       showTab(inputId = "tabs", target = "California Marine Fishes", select = TRUE) 
@@ -329,7 +329,7 @@ server <- function(input, output, session) {
   }, res = res)
   
   output$pc_plot <- renderPlot({
-    pc_plot <- plotPC(cafish, )
+    plotPC(cafish, )
   }, res = res)
   # Report Download ---------------------------------------------------------
   

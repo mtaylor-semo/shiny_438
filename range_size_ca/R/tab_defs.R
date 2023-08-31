@@ -10,25 +10,25 @@ library(stringr)
 pc_tab <- tabPanel(
   "Point Conception",
   fluidRow(
-    column(#style="padding-left:3%", # Same for paddingg-top, etc.
-      3,
-      wellPanel(
-        p("Diversity around Point Conception."),
-        radioButtons("na_taxon",
-          label = "Choose taxon:",
-          choices = c("Fishes", "Mussels"),
-          selected = "Fishes"
-        )
-      ),
-      hr(),
-    ),
-    column(6, plotOutput("pc_plot"),
+    # column(#style="padding-left:3%", # Same for paddingg-top, etc.
+    #   3,
+    #   wellPanel(
+    #     p("Diversity around Point Conception."),
+    #     radioButtons("na_taxon",
+    #       label = "Choose taxon:",
+    #       choices = c("Fishes", "Mussels"),
+    #       selected = "Fishes"
+    #     )
+    #   ),
+    #   hr(),
+    # ),
+    column(8, plotOutput("pc_plot"),
            hr()),
            #uiOutput("na_numbers")),
     column(
-      3,
+      4,
       p(strong("You predicted:")),
-      uiOutput("predict_pc"),
+      uiOutput("prediction_pc"),
       br(),
       p("Do the results agree with your prediction? Explain below,
       then press the Next button."),
