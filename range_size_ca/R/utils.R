@@ -1,6 +1,9 @@
 # Global functions --------------------------------------------------------
 # for the geographic range shiny app.
 
+# Open data
+cafish <- readRDS("data/ca_data.rds")[["california_marine_fishes"]]
+
 # Called from Rmd file to replace LaTeX special
 # characters with escaped version.
 fix_special_chars <- function(str = NULL){
@@ -71,8 +74,8 @@ plotHistogram <- function(dat = NULL, x = NULL, closed = "right", breaks = c(y, 
     theme_minimal()
 }
 
-plotPC <- function(dat = NULL, x = NULL, y = NULL, ...) {
-  numSpecies <- cafish %>% 
+plotPC <- function(dat = NULL, ...) {
+  numSpecies <- dat %>% 
     select(-1) %>% 
     summarize(across(everything(), sum)) %>% 
     pivot_longer(cols = everything(),
@@ -82,13 +85,18 @@ plotPC <- function(dat = NULL, x = NULL, y = NULL, ...) {
            latitude = as.numeric(latitude))
   
   numSpecies %>% ggplot() +
-    geom_histogram(aes(x = numSpecies),
-                   bins = 9,
-                   closed = "right",
-                   breaks = seq(0, 450, 50),
-                   fill = "gray50",
-                   color = "black") +
-    labs(x = "Number of species",
-         y = "Frequency") +
-    theme_minimal()
+    geom_vline(xintercept = 34.4,
+               color = "gray") +
+    geom_point(aes(x = latitude, y = numSpecies,
+                   color = cut(latitude, c(-31, 34, 68)))) +
+    scale_x_continuous(breaks = seq(-30, 70, 5)) +
+    theme_minimal() +
+    labs(x = "Latitude (°S – °N)",
+         y = "Species richness") +
+    scale_color_manual(name = "Latitude",
+                       values = c("(-31,34]" = scale_pal[1],
+                                  "(34,68]" = scale_pal[2]),
+                       labels = c("South of P.C.",
+                                  "North of P.C."))
+  
 }

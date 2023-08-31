@@ -107,14 +107,14 @@ ui <- tagList(
             ),
           br(),
           hr(),
-          p(strong("What do you predict for California?")),
+          p(strong("What do you predict for Point Conception?")),
           p("Will most species have small, moderate,
                or large range sizes?"),
           textAreaInput(
             inputId = "predict_ca",
             label = NULL, #"Enter your prediction:",
             rows = 6,
-            placeholder = "California prediction…",
+            placeholder = "Point Conception prediction…",
             width = "90%"
           )
         ),
@@ -162,6 +162,9 @@ ui <- tagList(
 server <- function(input, output, session) {
   session$onSessionEnded(stopApp)
 
+
+  ## Error message outputs ---------------------------------------------------
+
   output$prediction_error <- renderText({
     if (input$student_name == "" |
       input$predict_ca_range == "" |
@@ -170,9 +173,9 @@ server <- function(input, output, session) {
     }
   })
 
-  output$na_result_error <- renderText({
-    if (input$na_result == "") {
-      "Please interpret the histogram."
+  output$pc_result_error <- renderText({
+    if (input$pc_result == "") {
+      "Please interpret the plot"
     }
   })
   
@@ -189,7 +192,7 @@ server <- function(input, output, session) {
   results <- reactiveValues(ca = NULL)
 
 
-  # Button observers --------------------------------------------------------
+  ## Button observers --------------------------------------------------------
 
   observeEvent(input$btn_next_pred, {
     if (is.null(input$na_taxon)) {
@@ -199,7 +202,8 @@ server <- function(input, output, session) {
                 pc = input$predict_ca)
 
     removeTab(inputId = "tabs", target = "Predictions")
-    appendTab(inputId = "tabs", tab = ca_tab, select = TRUE)
+    #appendTab(inputId = "tabs", tab = ca_tab, select = TRUE)
+    appendTab(inputId = "tabs", tab = pc_tab, select = TRUE)
     } else {
       showTab(inputId = "tabs", target = "North America", select = TRUE)
     }
@@ -226,9 +230,10 @@ server <- function(input, output, session) {
 
   ## Outputs -------------------------------------------------------------
 
-  output$prediction_na <- renderUI({
+  output$prediction_pc <- renderUI({
     p("You predicted:")
-    sprintf("%s", input$predict_ca_range)
+    p(input$predict_pc)
+    #sprintf("%s", input$predict_ca_range)
   })
   
   output$prediction_ca <- renderUI({
@@ -256,7 +261,6 @@ server <- function(input, output, session) {
   ## California Marine plots -------------------------------------------------
 
   output$ca_marine_plot <- renderPlot({
-    cafish <- readRDS("data/ca_data.rds")[["california_marine_fishes"]]
 
     if (input$ca_marine == "Range size") {
       rangeSize <- rowSums(cafish)
@@ -324,7 +328,9 @@ server <- function(input, output, session) {
     }
   }, res = res)
   
-  
+  output$pc_plot <- renderPlot({
+    pc_plot <- plotPC(cafish, )
+  }, res = res)
   # Report Download ---------------------------------------------------------
   
   # Report output idea from Shiny Gallery

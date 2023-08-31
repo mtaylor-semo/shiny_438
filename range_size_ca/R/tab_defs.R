@@ -7,7 +7,7 @@ library(stringr)
 
 # Define North America Tab ------------------------------------------------
 
-na_tab <- tabPanel(
+pc_tab <- tabPanel(
   "Point Conception",
   fluidRow(
     column(#style="padding-left:3%", # Same for paddingg-top, etc.
@@ -22,13 +22,13 @@ na_tab <- tabPanel(
       ),
       hr(),
     ),
-    column(6, #plotOutput("pc_plot"),
+    column(6, plotOutput("pc_plot"),
            hr()),
            #uiOutput("na_numbers")),
     column(
       3,
       p(strong("You predicted:")),
-      uiOutput("prediction_na"),
+      uiOutput("predict_pc"),
       br(),
       p("Do the results agree with your prediction? Explain below,
       then press the Next button."),
