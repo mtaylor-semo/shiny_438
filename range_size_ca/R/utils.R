@@ -70,3 +70,25 @@ plotHistogram <- function(dat = NULL, x = NULL, closed = "right", breaks = c(y, 
     xlim(0, breaks[1]) +
     theme_minimal()
 }
+
+plotPC <- function(dat = NULL, x = NULL, y = NULL, ...) {
+  numSpecies <- cafish %>% 
+    select(-1) %>% 
+    summarize(across(everything(), sum)) %>% 
+    pivot_longer(cols = everything(),
+                 names_to = "latitude", values_to = "numSpecies") %>% 
+    mutate(latitude = str_replace(latitude, "S", "-"),
+           latitude = str_remove(latitude, "N"),
+           latitude = as.numeric(latitude))
+  
+  numSpecies %>% ggplot() +
+    geom_histogram(aes(x = numSpecies),
+                   bins = 9,
+                   closed = "right",
+                   breaks = seq(0, 450, 50),
+                   fill = "gray50",
+                   color = "black") +
+    labs(x = "Number of species",
+         y = "Frequency") +
+    theme_minimal()
+}
