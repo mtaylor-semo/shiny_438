@@ -2,8 +2,9 @@
 title: \assignmentTitle
 mainfont: Linux Libertine O
 header-includes:
-  \newcommand*{\assignmentTitle}{Distribution of species richness}
+  \newcommand*{\assignmentTitle}{California Coastal Marine Fishes}
 ---
+
 
 ```{r setup, include=FALSE, echo=FALSE}
 knitr::opts_knit$set(eval.after = "fig.cap")
@@ -18,16 +19,16 @@ knitr::opts_knit$set(eval.after = "fig.cap")
 
 \subsection*{\assignmentTitle}
 
-\subsubsection{North American Taxa}
+\subsubsection{Range Size}
 
 
 \begin{enumerate}
 \begin{multicols}{2}
-\item \label{na_predict} \textbf{What do you predict?} Considering all of North America, tell
+\item \label{ca_predict} \textbf{What do you predict?} Considering all of North America, tell
 whether you think most species in a closely related group of organisms
 have large, medium or small range size, or some combination.
 
-\textbf{You predicted} “`r input$predict_na`”
+\textbf{You predicted} “`r input$predict_ca_range`”
 
 \columnbreak
 
@@ -35,51 +36,24 @@ have large, medium or small range size, or some combination.
 species occur in most watersheds (large range size) or do most species
 occur in just a few watersheds (small range size)? Or, is it some
 combination of the two? Explain how the observed result supports or
-falsifies your hypothesis in question~\ref{na_predict}.
+falsifies your hypothesis in question~\ref{ca_predict}.
 
-\textbf{You explained} “`r input$na_result`”
+\textbf{You explained} “`r input$ca_result`”
  
 \end{multicols}
 
 \end{enumerate}
 
-```{r fig.dim=c(3,2), echo=FALSE, fig.cap=paste("Histogram of North American", input$na_taxon, "for geographic range size."), fig.align='left'}
-plots$na
+```{r fig.dim=c(6.5,4), echo=FALSE, fig.cap=paste("Histogram of California coastal marine fishes for geographic range size."), fig.align='left'}
+plots$ca
 ```
 
 ***
 
-### State
-
-\begin{enumerate}[resume]
-\begin{multicols}{2}
-
-\item \textbf{What do you predict?} For the state you were assigned, 
-tell whether you think most species in a closely related
-group of organisms have large, medium or small range size, or some
-combination.
-
-\textbf{You predicted} “`r input$predict_state`”
-
-\columnbreak
-
-\item \textbf{Interpret and explain the pattern.} Describe the pattern that you see. Do most
-species occur in most watersheds (large range size) or do most species
-occur in just a few watersheds (small range size)? Or, is it some
-combination of the two?
-
-\textbf{You explained} “`r input$state_result`”
-
-\end{multicols}
-\end{enumerate}
-
-```{r fig.dim=c(3,2), echo=FALSE, fig.cap=paste("Histogram of", input$state, input$taxon, "for geographic range size."), fig.align='left'}
-plots$state
-```
 
 ***
 
-### California
+### Point Conception
 
 \begin{enumerate}[resume]
 \begin{multicols}{2}
@@ -89,7 +63,7 @@ tell whether you think most species in a closely related
 group of organisms have large, medium or small range size, or some
 combination. ADD SOMETHING ABOUT LATITUDE FOR THEM TO THINK ABOUT.
 
-\textbf{You predicted} “`r input$predict_ca`”
+\textbf{You predicted} “`r input$predict_pc`”
 
 \columnbreak
 
@@ -98,14 +72,14 @@ species occur across many degrees of latitude (say, 40° or more of latitude is 
 occur across just a few degrees of latitude (say, 10° or less of latitude is mall range size)? Or, is it some
 combination of the two?
 
-\textbf{You explained} “`r input$ca_result`”
+\textbf{You explained} “`r input$pc_result`”
 
 \end{multicols}
 \end{enumerate}
 
 
-```{r fig.dim=c(3,2), echo=FALSE, fig.cap="Histogram of California Marine Fishes for geographic range size.", fig.align='left'}
-plots$ca
+```{r fig.dim=c(6.5,4), echo=FALSE, fig.cap="Histogram of California Marine Fishes for geographic range size.", fig.align='left'}
+plots$pc
 ```
 
 ***
