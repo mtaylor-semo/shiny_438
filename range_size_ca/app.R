@@ -258,7 +258,7 @@ server <- function(input, output, session) {
   
   output$prediction_ca <- renderUI({
     p("You predicted:")
-    sprintf("%s", input$predict_ca)
+    sprintf("%s", input$predict_ca_range)
   })
   
   output$ca_info <- renderUI({
@@ -293,7 +293,7 @@ server <- function(input, output, session) {
     } else { # plot 2.  Need better checks for the if/else
 
       ## Convert much of this manipulation to dplyr / tidyverse
-      #mycolors <- c("#9d2235", "#003b5c")
+
       numRows <- nrow(cafish) ## number of species
       numCols <- ncol(cafish) ## Number of 1° latitude cells
 
