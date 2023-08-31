@@ -195,37 +195,56 @@ server <- function(input, output, session) {
   ## Button observers --------------------------------------------------------
 
   observeEvent(input$btn_next_pred, {
-    if (is.null(input$na_taxon)) {
+    #if (is.null(input$na_taxon)) {
+    if (is.null(input$ca_marine)) {
     # Comment out for development.
      pred_check(sn = input$student_name,
                 pn = input$predict_ca_range,
                 pc = input$predict_pc)
 
     removeTab(inputId = "tabs", target = "Predictions")
-    #appendTab(inputId = "tabs", tab = ca_tab, select = TRUE)
-    appendTab(inputId = "tabs", tab = pc_tab, select = TRUE)
+    appendTab(inputId = "tabs", tab = ca_tab, select = TRUE)
+    #appendTab(inputId = "tabs", tab = pc_tab, select = TRUE)
     } else {
-      showTab(inputId = "tabs", target = "North America", select = TRUE)
-    }
-  })
-
-  observeEvent(input$btn_next_pc, {
-    if (is.null(input$ca_marine)) {
-      result_check(exp = input$pc_result)
-      appendTab(inputId = "tabs", tab = ca_tab, select = TRUE)  
-    } else {
-      showTab(inputId = "tabs", target = "California Marine Fishes", select = TRUE) 
+      showTab(inputId = "tabs", target = "California Marine Fishes", select = TRUE)
     }
   })
 
   observeEvent(input$btn_next_ca, {
-    if (is.null(input$summary)) {
+    if (is.null(input$pc_tab)) {
       result_check(exp = input$ca_result)
+      appendTab(inputId = "tabs", tab = pc_tab, select = TRUE)  
+    } else {
+      showTab(inputId = "tabs", target = "Point Conception", select = TRUE) 
+    }
+  })
+  
+  # observeEvent(input$btn_next_pc, {
+  #   if (is.null(input$ca_marine)) {
+  #     result_check(exp = input$pc_result)
+  #     appendTab(inputId = "tabs", tab = ca_tab, select = TRUE)  
+  #   } else {
+  #     showTab(inputId = "tabs", target = "California Marine Fishes", select = TRUE) 
+  #   }
+  # })
+
+  observeEvent(input$btn_next_pc, {
+    if (is.null(input$summary)) {
+      result_check(exp = input$pc_result)
       appendTab(inputId = "tabs", tab = summary_tab, select = TRUE)  
     } else {
       showTab(inputId = "tabs", target = "Summary", select = TRUE) 
     }
   })
+  
+  # observeEvent(input$btn_next_ca, {
+  #   if (is.null(input$summary)) {
+  #     result_check(exp = input$ca_result)
+  #     appendTab(inputId = "tabs", tab = summary_tab, select = TRUE)  
+  #   } else {
+  #     showTab(inputId = "tabs", target = "Summary", select = TRUE) 
+  #   }
+  # })
   
 
   ## Outputs -------------------------------------------------------------
