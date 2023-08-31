@@ -1,6 +1,9 @@
 # Global functions --------------------------------------------------------
 # for the geographic range shiny app.
 
+# Semo colors for plots.
+mycolors <- c("#9d2235", "#003b5c")
+
 # Open data
 cafish <- readRDS("data/ca_data.rds")[["california_marine_fishes"]]
 
@@ -94,8 +97,10 @@ plotPC <- function(dat = NULL, ...) {
     labs(x = "Latitude (°S - °N)",
          y = "Species richness") +
     scale_color_manual(name = "Latitude",
-                       values = c("(-31,34]" = scale_pal[1],
-                                  "(34,68]" = scale_pal[2]),
+                       #values = c("(-31,34]" = scale_pal[1],
+                      #            "(34,68]" = scale_pal[2]),
+                       values = c("(-31,34]" = mycolors[1],
+                                  "(34,68]" = mycolors[2]),
                        labels = c("South of P.C.",
                                   "North of P.C."))
   

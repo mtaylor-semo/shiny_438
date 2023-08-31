@@ -293,7 +293,7 @@ server <- function(input, output, session) {
     } else { # plot 2.  Need better checks for the if/else
 
       ## Convert much of this manipulation to dplyr / tidyverse
-      mycolors <- c("#9d2235", "#003b5c")
+      #mycolors <- c("#9d2235", "#003b5c")
       numRows <- nrow(cafish) ## number of species
       numCols <- ncol(cafish) ## Number of 1° latitude cells
 
