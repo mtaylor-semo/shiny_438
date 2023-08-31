@@ -1,7 +1,7 @@
 \AtBeginDocument{\let\maketitle\relax}
 
 \usepackage{fontspec}
-\setmainfont[Ligatures={Common,TeX}, Contextuals={NoAlternate}, BoldFont={* Bold}, ItalicFont={* Italic}, Numbers={OldStyle}]{Linux Libertine O}
+\setmainfont[Ligatures={Common,TeX}, BoldFont={* Bold}, ItalicFont={* Italic}, Numbers={OldStyle}]{Linux Libertine O}
 \usepackage{microtype}
 
 \usepackage{enumitem}
@@ -9,9 +9,10 @@
 \setlist[1]{labelindent=\parindent}
 
 \usepackage{caption}
-\captionsetup{format=plain, justification=raggedright,singlelinecheck=off,labelsep=period,skip=3pt}
+\captionsetup{format=plain, justification=raggedright, singlelinecheck=off, labelsep=period,skip=3pt}
 
 \usepackage{multicol}
+
 % Increase spacing between columns for question number.
 \setlength{\columnsep}{3em}
 
@@ -22,10 +23,6 @@
 \usepackage{fancyhdr}
 \fancyhf{}
 \pagestyle{fancy}
-%\lhead{}
-%\chead{}
-%\rhead{Name: \rule{5cm}{0.4pt}}
-%\renewcommand{\headrulewidth}{0pt}
 \setlength{\headheight}{14pt}
 \fancyhead[R]{\footnotesize \assignmentTitle \thepage}
 \fancyhead[L]{\footnotesize \coursename}
@@ -34,7 +31,6 @@
 	\fancyhf{}
 	\fancyhead[L]{\coursename}
 	\fancyhead[R]{\textsc{Name:} \stuName}
-%	\fancyhead[R]{Name: \enspace \rule{2.5in}{0.4pt}}
 	\renewcommand{\headrulewidth}{0pt}
 }
 
