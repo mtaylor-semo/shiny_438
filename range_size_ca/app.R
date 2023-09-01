@@ -28,7 +28,7 @@ ui <- tagList(
       "Instructions",
       fluidRow(
         column(
-          width = 3,
+          width = 2,
           img(src = "ca_fishes.jpg", width = "97%"),
           br(),
           br(),
@@ -53,7 +53,8 @@ ui <- tagList(
           more marine fishes may have relatively large range 
           sizes compared to those with small ranges."),
           p("Your goal for this exercise is to determine whether California
-          coastal marine fishes have large range sizes. All species occur 
+          coastal marine fishes have large range sizes. All 516 species in 
+          the data set occur
           in California but some species have ranges that extend as far 
           south as 30°S (central Chile, South America) or as far north as 
           68°N (north of the Arctic Circle, Alaska, North America). The only 
@@ -67,8 +68,8 @@ ui <- tagList(
           p("Choose the Predictions tab above to begin.")
         ),
         column(
-          width = 3,
-          img(src = "california.png", width = "97%")
+          width = 4,
+          img(src = "west_coast.png", width = "97%")
         )
       ),
     ),
@@ -102,19 +103,22 @@ ui <- tagList(
             inputId = "predict_ca_range",
             label = NULL, #"Enter your prediction:",
             rows = 6,
-            placeholder = "California range size prediction…",
+            placeholder = "Range size prediction…",
             width = "90%"
             ),
           br(),
           hr(),
-          p(strong("What do you predict for Point Conception?")),
-          p("Will most species have small, moderate,
-               or large range sizes?"),
+          p(strong("Where will species richness be highest?")),
+          p("The data set spans across tropical regions north
+            past the Arctic Circle. In general terms, where do you think
+            species richness (number of species) will be highest? You
+            do not have to give an exact latitude, but you can enter things
+            like 'close to the equator', or 'at the higher latitudes.'"),
           textAreaInput(
             inputId = "predict_pc",
             label = NULL, #"Enter your prediction:",
             rows = 6,
-            placeholder = "Point Conception prediction…",
+            placeholder = "Species richness prediction…",
             width = "90%"
           )
         ),
@@ -132,8 +136,11 @@ ui <- tagList(
           # ),
           # hr(),
           # p(),
+          img(src = "west_coast.png", width = "97%"),
+          hr(),
+          br(),
           actionButton(inputId = "btn_next_pred", label = "Next", width = "35%"),
-          span(textOutput("prediction_error"), style = "color:#9D2235")
+          span(textOutput("prediction_error"), style = "color:#9D2235"),
         )
       )
     )
