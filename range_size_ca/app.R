@@ -125,17 +125,6 @@ ui <- tagList(
         
         column(
           3,
-          # p(strong("What do you predict for California?")),
-          # p("Will most species have small, moderate,
-          #      or large range sizes?"),
-          # textAreaInput(
-          #   inputId = "predict_ca",
-          #   label = NULL, #"Enter your prediction:",
-          #   rows = 4,
-          #   placeholder = "California prediction…"
-          # ),
-          # hr(),
-          # p(),
           img(src = "west_coast.png", width = "97%"),
           hr(),
           br(),
