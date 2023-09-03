@@ -38,7 +38,7 @@ occur in just a few watersheds (small range size)? Or, is it some
 combination of the two? Explain how the observed result supports or
 falsifies your hypothesis in question~\ref{ca_predict}.
 
-\textbf{You explained} “`r input$ca_result`”
+\textbf{You explained} “`r fix_special_chars(input$ca_result)`”
  
 \end{multicols}
 
@@ -60,7 +60,7 @@ tell whether you think most species in a closely related
 group of organisms have large, medium or small range size, or some
 combination. ADD SOMETHING ABOUT LATITUDE FOR THEM TO THINK ABOUT.
 
-\textbf{You predicted} “`r input$predict_pc`”
+\textbf{You predicted} “`r fix_special_chars(input$predict_pc)`”
 
 \columnbreak
 
@@ -69,7 +69,7 @@ species occur across many degrees of latitude (say, 40° or more of latitude is 
 occur across just a few degrees of latitude (say, 10° or less of latitude is mall range size)? Or, is it some
 combination of the two?
 
-\textbf{You explained} “`r input$pc_result`”
+\textbf{You explained} “`r fix_special_chars(input$pc_result)`”
 
 \end{multicols}
 \end{enumerate}
@@ -83,7 +83,7 @@ plots$pc
 
 \textbf{Your summary} of lessons learned from this exercise.
 
-`r input$summary`
+`r fix_special_chars(input$summary)`
 
 <!-- Time stamp the report -->
 \thispagestyle{last_page}
