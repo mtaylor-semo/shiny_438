@@ -48,7 +48,12 @@ na_tab <- tabPanel(
       p(strong("You predicted:")),
       uiOutput("prediction_na"),
       br(),
-      p("Do the results agree with your prediction? Explain below, 
+      p(strong("Describe the pattern that you see in the histogram."), 
+      "Do most
+      species occur in most watersheds (large range size) or do most
+      species occur in just a few watersheds (small range size)? Or,
+      is it some combination of the two? Explain below how the observed
+      result supports or falsifies your prediction,
       then press the Next button."),
       textAreaInput(inputId = "na_result",
                     label = NULL,
@@ -89,7 +94,10 @@ states_tab <- tabPanel(
       p(strong("You predicted:")),
       uiOutput("prediction_state"),
       br(),
-      p(strong("Do the results agree with your prediction?"), "\nExplain below, 
+      p(strong("Describe and interpret and the histograms."), "\n Do most
+species occur in most watersheds (large range size) or do most species
+occur in just a few watersheds (small range size)? Or, is it some
+combination of the two? Explain below, 
       then press the Next button."),
       textAreaInput(inputId = "state_result",
                     label = NULL,
@@ -122,7 +130,7 @@ rapo_five_tab <- tabPanel(
     ),
     column(6, plotOutput("rapo_five_plot"),
            hr(),
-           p("This data set has 516 species.")),
+           p("Species richness for five states from south to north.")),
     column(
       3,
       p(strong("You predicted:")),
@@ -136,8 +144,6 @@ rapo_five_tab <- tabPanel(
       hr(),
       actionButton(inputId = "btn_next_rapo_five", label = "Next", width = "35%"),
       span(textOutput("rapo_five_result_error"), style = "color:#9D2235")
-      
-      # img(src = "california.png", width = "320px")
     )
   )
 )

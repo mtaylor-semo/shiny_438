@@ -2,7 +2,7 @@
 title: \assignmentTitle
 mainfont: Linux Libertine O
 header-includes:
-  \newcommand*{\assignmentTitle}{Distribution of species richness}
+  \newcommand*{\assignmentTitle}{Geographic Range Size}
 ---
 
 ```{r setup, include=FALSE, echo=FALSE}
@@ -18,24 +18,29 @@ knitr::opts_knit$set(eval.after = "fig.cap")
 
 \subsection*{\assignmentTitle}
 
-\subsubsection{North American Taxa}
+\subsubsection{Range Size: North America}
 
 
 \begin{enumerate}
 \begin{multicols}{2}
 \item \label{na_predict} \textbf{What do you predict?} Considering all of North America, tell
-whether you think most species in a closely related group of organisms
-have large, medium or small range size, or some combination.
+whether you think most species in a closely related group of organisms (fishes, mussels, or crayfishes), will most species have small, moderate, or large range sizes?
+            The North America data set has 126 watersheds. Consider 
+            'small range size' to be fewer than 10-15 watersheds, 'large
+            range size' to be more than 75, and 'moderate range size' 
+            to be somewhere between. These are arbitrary cutoffs to get 
+            you started. You may also predict some combination of the three
+            options.
 
 \textbf{You predicted} “`r fix_special_chars(input$predict_na)`”
 
 \columnbreak
 
-\item \textbf{Interpret the pattern.} Describe the pattern that you see. Do most
+\item \textbf{Interpret the pattern.} Describe the pattern that you see in the histogram. Do most
 species occur in most watersheds (large range size) or do most species
 occur in just a few watersheds (small range size)? Or, is it some
-combination of the two? Explain how the observed result supports or
-falsifies your hypothesis in question~\ref{na_predict}.
+combination of the two? Explain below how the observed
+      result supports or falsifies your prediction from question~\ref{na_predict}.
 
 \textbf{You explained} “`r fix_special_chars(input$na_result)`”
  
@@ -43,27 +48,24 @@ falsifies your hypothesis in question~\ref{na_predict}.
 
 \end{enumerate}
 
-```{r fig.dim=c(3,2), echo=FALSE, fig.cap=paste("Histogram of North American", input$na_taxon, "for geographic range size."), fig.align='left'}
+```{r fig.dim=c(6.5,4), echo=FALSE, fig.cap=paste("Histogram of North American", input$na_taxon, "for geographic range size."), fig.align='left'}
 plots$na
 ```
 
 ***
 
-### State
+### Range Size: States
 
 \begin{enumerate}[resume]
 \begin{multicols}{2}
 
-\item \textbf{What do you predict?} For the state you were assigned, 
-tell whether you think most species in a closely related
-group of organisms have large, medium or small range size, or some
-combination.
+\item \textbf{What do you predict?} What do you predict for the state level? Will most species have small, moderate, or large range sizes? 
 
 \textbf{You predicted} “`r fix_special_chars(input$predict_state)`”
 
 \columnbreak
 
-\item \textbf{Interpret and explain the pattern.} Describe the pattern that you see. Do most
+\item \textbf{Describe and interpret the histograms.}  Do most
 species occur in most watersheds (large range size) or do most species
 occur in just a few watersheds (small range size)? Or, is it some
 combination of the two?
@@ -73,17 +75,32 @@ combination of the two?
 \end{multicols}
 \end{enumerate}
 
-```{r fig.dim=c(3,2), echo=FALSE, fig.cap=paste("Histogram of", input$state, input$taxon, "for geographic range size."), fig.align='left'}
+```{r fig.dim=c(6.5,4), echo=FALSE, fig.cap=paste("Histogram of", input$state, input$taxon, "for geographic range size."), fig.align='left'}
 plots$state
 ```
 
 ***
 
+### Rapoport's Rule
+
+\begin{enumerate}[resume]
+\begin{multicols}{2}
+
+\item \textbf{What do you predict?} Consider these five states (from south to north): Alabama, Tennessee, Kentucky, Illinois, and Wisconsin. Do you think fishes, mussels, or crayfishes will follow Rapoport's Rule for range size and species richness from Alabama north to Wisconsin? It is okay for you to say that all, some, or none of these taxonomic groups will agree.  If you think only some taxa will
+follow Rapoport's Rule, be sure to identify those taxa in your prediction.
+
 \textbf{You predicted} “`r fix_special_chars(input$predict_five)`”
+
+\columnbreak
+
+\item \textbf{Do the results agree with your prediction? Explain.}
 
 \textbf{You explained} “`r fix_special_chars(input$rapo_five_result)`”
 
-```{r fig.dim=c(3,2), echo=FALSE, fig.cap=paste("Bar chart of species richness of", input$rapo_taxon, "for five states"), fig.align='left'}
+\end{multicols}
+\end{enumerate}
+
+```{r fig.dim=c(6.5,4), echo=FALSE, fig.cap=paste("Bar chart of species richness of", input$rapo_taxon, "for five states"), fig.align='left'}
 plots$rapo
 ```
 

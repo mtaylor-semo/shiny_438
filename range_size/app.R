@@ -87,7 +87,8 @@ ui <- tagList(
             'small range size' to be fewer than 10-15 watersheds, 'large
             range size' to be more than 75, and 'moderate range size' 
             to be somewhere between. These are arbitrary cutoffs to get 
-            you started." ),
+            you started. You may also predict some combination of the three
+            options." ),
           textAreaInput(
             inputId = "predict_na",
             label = NULL,
