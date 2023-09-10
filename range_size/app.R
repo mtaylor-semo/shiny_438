@@ -237,7 +237,7 @@ server <- function(input, output, session) {
   })
 
   observeEvent(input$btn_next_state, {
-    if (is.null(input$ca_marine)) {
+    if (is.null(input$rapo_five_result)) {
       result_check(exp = input$state_result)
       appendTab(inputId = "tabs", tab = rapo_five_tab, select = TRUE)
     } else {
