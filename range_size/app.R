@@ -30,20 +30,19 @@ ui <- tagList(
       mainPanel(
         p("This app allows you to explore range sizes for three
         aquatic groups (crayfishes, fishes, and mussels) for
-        several states and for North America (primarily U.S.)."),
-        p("Choose the Predictions tab to begin. Choose the state and the
-        taxon that was assigned to you."),
-        p("NOTE TO MST: Rework the assignment to have students
-        explore latitudal gradient, compare taxa within state, etc...")
+        North America (primarily U.S.) and for several states."),
+        p("You will also begin to explore Rapoport's rule for five 
+        selected states."),
+        p("Choose the Predictions tab to begin. Follow the accompanying
+        handout carefully for additional instructions.")
       )
     ),
 
 
-    # Predictions tab ---------------------------------------------------------
+    # Predictions tab ----------------------------------------------------
     tabPanel(
       "Predictions",
       fluidRow(
-        # column(1),
         column(
           width = 3,
           textInput("student_name",
@@ -56,39 +55,26 @@ ui <- tagList(
                'Next' button."),
         ),
         column(
-          3,
+          6,
           p(strong("What do you predict for North America?")),
-          p("Will
-               most species have small, moderate, or large
-               range sizes?"),
+          p("Will most species have small, moderate, or large range sizes?"),
           textAreaInput(
             inputId = "predict_na",
             label = NULL, #"Enter your prediction:",
             rows = 4,
             placeholder = "North America prediction…"
             ),
-          br(),
-          hr()
-        ),
-        
-        column(
-          3,
+          hr(),
           p(strong("What do you predict for the state level?")),
-          p("Will
-               most species have small, moderate, or large range
-               sizes?"),
+          p("Will most species have small, moderate, or large range
+            sizes?"),
           textAreaInput(
             inputId = "predict_state",
             label = NULL, #"Enter your prediction:",
             rows = 4,
             placeholder = "State prediction…"
           ),
-          br(),
-          hr()
-        ),
-        
-        column(
-          3,
+          hr(),
           p(strong("Consider these five states:"), "(from south to
             north) Alabama, Tennessee, Kentucky, Illinois, Wisconsin."),
           p("Do you think the range size of fishes will follow Rapoport's
@@ -98,9 +84,10 @@ ui <- tagList(
             label = NULL, #"Enter your prediction:",
             rows = 4,
             placeholder = "Rapoport's Rule prediction…"
-          ),
-          hr(),
-          p(),
+          )
+        ),
+        column(
+          3,
           actionButton(inputId = "btn_next_pred", label = "Next", width = "35%"),
           span(textOutput("prediction_error"), style = "color:#9D2235")
         )
