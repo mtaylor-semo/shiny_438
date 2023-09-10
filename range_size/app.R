@@ -26,15 +26,26 @@ ui <- tagList(
     # Instructions tab --------------------------------------------------
     tabPanel(
       "Instructions",
-      mainPanel(
+      fluidRow(
+        column(
+          width = 3,
+          img(src = "species.jpg", width = "97%"),
+          br(),
+          br(),
+          p(strong("Photo credits")),
+          p("Top: Rainbow Darter, Uland Thomas, NANFA"),
+          p("Middle: Spot-handed Crayfish, Jim Rathert, MDC"),
+          p("Bottom: Rabbitsfoot Mussel, USFWS")
+        ),
+        column(8,
         p("This app allows you to explore range sizes for three
-        aquatic groups (crayfishes, fishes, and mussels) for
+        aquatic groups (fishes, crayfishes, and mussels) for
         North America (primarily U.S.) and for several states."),
-        p("You will also begin to explore Rapoport's rule for five 
+        p("You will also begin to explore Rapoport's rule for five
         selected states."),
         p("Choose the Predictions tab to begin. Follow the accompanying
         handout carefully for additional instructions.")
-      )
+      )),
     ),
 
 
@@ -79,7 +90,7 @@ ui <- tagList(
           p(strong("Consider these five states:"), "(from south to
             north) Alabama, Tennessee, Kentucky, Illinois, Wisconsin."),
           p("Do you think fishes, mussels, or crayfishes will follow
-            Rapoport's Rule for range size and species richness from 
+            Rapoport's Rule for range size and species richness from
             Alabama north to Wisconsin?"),
           p("Note: It is okay to say that all, some, or none will agree.
             If you think only some taxa will follow Rapoport's Rule, be
@@ -94,11 +105,14 @@ ui <- tagList(
         ),
         column(
           3,
-          actionButton(inputId = "btn_next_pred",
-                       label = "Next",
-                       width = "35%"),
+          actionButton(
+            inputId = "btn_next_pred",
+            label = "Next",
+            width = "35%"
+          ),
           span(textOutput("prediction_error"),
-               style = "color:#9D2235")
+            style = "color:#9D2235"
+          )
         )
       )
     )
@@ -113,9 +127,9 @@ server <- function(input, output, session) {
 
   output$prediction_error <- renderText({
     if (input$student_name == "" |
-        input$predict_state == "" |
-        input$predict_na == "" |
-        input$predict_rapo_five == "") {
+      input$predict_state == "" |
+      input$predict_na == "" |
+      input$predict_rapo_five == "") {
       "Please fill in all blanks."
     }
   })
@@ -177,13 +191,17 @@ server <- function(input, output, session) {
       )
 
       removeTab(inputId = "tabs", target = "Predictions")
-      appendTab(inputId = "tabs",
-                tab = na_tab,
-                select = TRUE)
+      appendTab(
+        inputId = "tabs",
+        tab = na_tab,
+        select = TRUE
+      )
     } else {
-      showTab(inputId = "tabs",
-              target = "North America",
-              select = TRUE)
+      showTab(
+        inputId = "tabs",
+        target = "North America",
+        select = TRUE
+      )
     }
   })
 
@@ -229,16 +247,20 @@ server <- function(input, output, session) {
 
   output$state_numbers <- renderUI({
     dims <- dim(spp())
-    sprintf("%s has %d watersheds and %d species of %s.",
-            input$state, dims[1], dims[2],
-            str_to_lower(input$taxon))
+    sprintf(
+      "%s has %d watersheds and %d species of %s.",
+      input$state, dims[1], dims[2],
+      str_to_lower(input$taxon)
+    )
   })
 
   output$na_numbers <- renderUI({
     dims <- dim(spp_na())
-    sprintf("North America has %d watersheds and %d species of %s.",
-            dims[1], dims[2],
-            str_to_lower(input$na_taxon))
+    sprintf(
+      "North America has %d watersheds and %d species of %s.",
+      dims[1], dims[2],
+      str_to_lower(input$na_taxon)
+    )
   })
 
   output$prediction_na <- renderUI({
@@ -264,46 +286,61 @@ server <- function(input, output, session) {
 
   ## State histograms ------------------------------------------------------
 
-  output$state_histogram <- renderPlot({
-    num_watersheds <- colSums(spp())
-    num_species <- rowSums(spp())
+  output$state_histogram <- renderPlot(
+    {
+      num_watersheds <- colSums(spp())
+      num_species <- rowSums(spp())
 
-    nws <- nrow(spp())
+      nws <- nrow(spp())
 
-    bins <- input$bins
+      bins <- input$bins
 
-    plots$state <- plot_histogram(dat = tibble(num_watersheds),
-                                  x = num_watersheds,
-                                  breaks = c(nws, 1))
+      plots$state <- plot_histogram(
+        dat = tibble(num_watersheds),
+        x = num_watersheds,
+        breaks = c(nws, 1)
+      )
 
-    plots$state
-  }, res = res)
+      plots$state
+    },
+    res = res
+  )
 
   ## North America histogram ------------------------------------------
 
-  output$na_histogram <- renderPlot({
-    num_watersheds <- colSums(spp_na())
-    num_species <- rowSums(spp_na())
+  output$na_histogram <- renderPlot(
+    {
+      num_watersheds <- colSums(spp_na())
+      num_species <- rowSums(spp_na())
 
-    nws <- nrow(spp_na()) # Number of watersheds for x-axis
+      nws <- nrow(spp_na()) # Number of watersheds for x-axis
 
-    plots$na <- plot_histogram(dat = tibble(num_watersheds),
-                               x = num_watersheds,
-                               breaks = c(nws, 5))
+      plots$na <- plot_histogram(
+        dat = tibble(num_watersheds),
+        x = num_watersheds,
+        breaks = c(nws, 5)
+      )
 
-    plots$na
-  }, res = res)
+      plots$na
+    },
+    res = res
+  )
 
 
   ## Rapoport plots -------------------------------------------------
 
-  output$rapo_five_plot <- renderPlot({
-    data_to_plot <- filter(rapo_data,
-                           taxon == str_to_lower(input$rapo_taxon))
-    plots$rapo <- plot_rapo(plot_data = data_to_plot)
+  output$rapo_five_plot <- renderPlot(
+    {
+      data_to_plot <- filter(
+        rapo_data,
+        taxon == str_to_lower(input$rapo_taxon)
+      )
+      plots$rapo <- plot_rapo(plot_data = data_to_plot)
 
-    plots$rapo
-  }, res = res)
+      plots$rapo
+    },
+    res = res
+  )
 
 
   # Report Download ---------------------------------------------------------
@@ -312,11 +349,13 @@ server <- function(input, output, session) {
   output$downloadReport <- downloadHandler(
     filename = function() {
       stu_name <- str_to_lower(str_split(input$student_name,
-                                         " ",
-                                         simplify = TRUE))
+        " ",
+        simplify = TRUE
+      ))
       paste(
         paste0(rev(stu_name),
-               collapse = "_"),
+          collapse = "_"
+        ),
         "geographic_range.pdf",
         sep = "_"
       )
@@ -341,15 +380,16 @@ server <- function(input, output, session) {
 
       out <- render(
         "range_report.Rmd",
-        pdf_document(latex_engine = "lualatex",
-                     keep_tex = TRUE,
-                     includes = includes(in_header = "tex_header.tex"))
+        pdf_document(
+          latex_engine = "lualatex",
+          keep_tex = TRUE,
+          includes = includes(in_header = "tex_header.tex")
+        )
       )
       file.rename(out, file)
       on.exit(removeNotification(notification_id), add = TRUE)
     }
   )
-
 }
 
 # Run the application
