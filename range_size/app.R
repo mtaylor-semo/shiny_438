@@ -44,15 +44,18 @@ ui <- tagList(
         North America (primarily U.S.) and for several states. Range size
         is defined here as the number of watersheds occupied by a species.
         A watershed is a large river and the smaller rivers that flow in to
-        them. The image below shows one representation of the major
-        watersheds of North America. The watersheds in each state will be
-        smaller still."),
+        it. The number of watersheds varies with scale. Watersheds of
+        North America are larger rivers; states use smaller 
+        rivers. The image below shows one representation of the major
+        watersheds of North America. "),
           p("You will also begin to explore Rapoport's rule for five
         selected states."),
           p("Choose the Predictions tab to begin. Follow the accompanying
         handout carefully for additional instructions."),
           hr(),
-          img(src = "watershed_map.png", width = "97%")
+          img(src = "watershed_map.png", width = "97%"),
+          p("Watersheds of North America. Each color represents a
+            different watershed.")
         )
       ),
     ),
@@ -80,10 +83,11 @@ ui <- tagList(
           6,
           p(strong("What do you predict for North America?")),
           p("Will most species have small, moderate, or large range sizes?
-            This data set has 126 watersheds. Consider 'small range size' 
-            to be fewer than 10-15 watersheds, 'large range size' to be 
-            more than 75, and 'moderate range size' to be somewhere 
-            between. These are arbitrary cutoffs to get you started." ),
+            The North America data set has 126 watersheds. Consider 
+            'small range size' to be fewer than 10-15 watersheds, 'large
+            range size' to be more than 75, and 'moderate range size' 
+            to be somewhere between. These are arbitrary cutoffs to get 
+            you started." ),
           textAreaInput(
             inputId = "predict_na",
             label = NULL,
@@ -105,13 +109,14 @@ ui <- tagList(
           ),
           hr(),
           p(strong("Consider these five states:"), "(from south to
-            north) Alabama, Tennessee, Kentucky, Illinois, Wisconsin."),
+            north) Alabama, Tennessee, Kentucky, Illinois, and Wisconsin."),
           p("Do you think fishes, mussels, or crayfishes will follow
             Rapoport's Rule for range size and species richness from
             Alabama north to Wisconsin?"),
-          p("Note: It is okay to say that all, some, or none will agree.
-            If you think only some taxa will follow Rapoport's Rule, be
-            sure to identify those taxa in your prediction."),
+          p("It is okay for you to say that all, some, or none of these
+            taxonomic groups will agree.  If you think only some taxa will
+            follow Rapoport's Rule, be sure to identify those taxa in your
+            prediction."),
           textAreaInput(
             inputId = "predict_rapo_five",
             label = NULL,
