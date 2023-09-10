@@ -209,7 +209,7 @@ server <- function(input, output, session) {
         sn = input$student_name,
         ps = input$predict_state,
         pn = input$predict_na,
-        pc = input$predict_rapo_five
+        rf = input$predict_rapo_five
       )
 
       removeTab(inputId = "tabs", target = "Predictions")

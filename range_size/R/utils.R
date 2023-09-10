@@ -50,11 +50,10 @@ open_file <- function(tx, st = NULL) {
 }
 
 
-
 ## Prediction check. Move requirement check for predictions here.
-## sn = student_name, ps = pred_state, pn = pred_na, pc = pred_ca
-pred_check <- function(sn = NULL, ps = NULL, pn = NULL, pc = NULL) {
-  req(sn, ps, pn, pc)
+## sn = student_name, ps = pred_state, pn = pred_na, rf = rapo_five
+pred_check <- function(sn = NULL, ps = NULL, pn = NULL, rf = NULL) {
+  req(sn, ps, pn, rf)
 }
 
 result_check <- function(exp = NULL) {
