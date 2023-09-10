@@ -30,22 +30,31 @@ ui <- tagList(
         column(
           width = 3,
           img(src = "species.jpg", width = "97%"),
-          br(),
+          hr(),
           br(),
           p(strong("Photo credits")),
           p("Top: Rainbow Darter, Uland Thomas, NANFA"),
           p("Middle: Spot-handed Crayfish, Jim Rathert, MDC"),
           p("Bottom: Rabbitsfoot Mussel, USFWS")
         ),
-        column(8,
-        p("This app allows you to explore range sizes for three
+        column(
+          8,
+          p("This app allows you to explore range sizes for three
         aquatic groups (fishes, crayfishes, and mussels) for
-        North America (primarily U.S.) and for several states."),
-        p("You will also begin to explore Rapoport's rule for five
+        North America (primarily U.S.) and for several states. Range size
+        is defined here as the number of watersheds occupied by a species.
+        A watershed is a large river and the smaller rivers that flow in to
+        them. The image below shows one representation of the major
+        watersheds of North America. The watersheds in each state will be
+        smaller still."),
+          p("You will also begin to explore Rapoport's rule for five
         selected states."),
-        p("Choose the Predictions tab to begin. Follow the accompanying
-        handout carefully for additional instructions.")
-      )),
+          p("Choose the Predictions tab to begin. Follow the accompanying
+        handout carefully for additional instructions."),
+          hr(),
+          img(src = "watershed_map.png", width = "97%")
+        )
+      ),
     ),
 
 
@@ -63,11 +72,18 @@ ui <- tagList(
           p(),
           p("Enter your predictions at right, then press the
             'Next' button."),
+          hr(),
+          p(),
+          img(src = "mo_watersheds.png", width = "97%")
         ),
         column(
           6,
           p(strong("What do you predict for North America?")),
-          p("Will most species have small, moderate, or large range sizes?"),
+          p("Will most species have small, moderate, or large range sizes?
+            This data set has 126 watersheds. Consider 'small range size' 
+            to be fewer than 10-15 watersheds, 'large range size' to be 
+            more than 75, and 'moderate range size' to be somewhere 
+            between. These are arbitrary cutoffs to get you started." ),
           textAreaInput(
             inputId = "predict_na",
             label = NULL,
@@ -78,7 +94,8 @@ ui <- tagList(
           hr(),
           p(strong("What do you predict for the state level?")),
           p("Will most species have small, moderate, or large range
-            sizes?"),
+            sizes? Missouri has 44 watersheds (left) but most states that
+            you will explore vary greatly in their number of watersheds."),
           textAreaInput(
             inputId = "predict_state",
             label = NULL,
