@@ -92,7 +92,13 @@ states_tab <- tabPanel(
     ),
     column(6, plotOutput("state_histogram"),
            hr(),
-           uiOutput("state_numbers")),
+           uiOutput("state_numbers"),
+           hr(),
+           p(strong("Read the instructions for the five states to use
+                    for Rapoport's Rule and range size."), "Make note of
+                    the results but do not enter them at right. You will
+                    answer this part on the next tab.")
+           ),
     column(
       3,
       p(strong("You predicted:")),
@@ -139,8 +145,9 @@ rapo_five_tab <- tabPanel(
       p(strong("You predicted:")),
       uiOutput("prediction_rapo_five"),
       hr(),
-      p("Do the results agree with your prediction? Explain below, 
-      then press the Next button."),
+      p("Do the results agree with your prediction? Be sure to consider
+      range size from state histograms from the State tab and the richness
+      plots shown at left. Explain below, then press the Next button."),
       textAreaInput(inputId = "rapo_five_result",
                     label = NULL,
                     rows = 5),

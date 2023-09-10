@@ -93,7 +93,10 @@ follow Rapoport's Rule, be sure to identify those taxa in your prediction.
 
 \columnbreak
 
-\item \textbf{Do the results agree with your prediction? Explain.}
+\item \textbf{Do the results agree with your prediction? Be sure to consider
+      range size from the state histograms and the species richness plots
+      such as the one below. Explain.}
+
 
 \textbf{You explained} “`r fix_special_chars(input$rapo_five_result)`”
 
