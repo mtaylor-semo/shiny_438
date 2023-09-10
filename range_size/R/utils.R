@@ -8,23 +8,19 @@ five_state_names <- c("Alabama",
                       "Wisconsin")
 
 # Number of species for each of the five states above.
-rapo_fish <- c(288, 292, 210, 196, 132)
+rapo_fishes <- c(288, 292, 210, 196, 132)
 rapo_mussels <- c(179, 128, 98, 82, 42)
-rapo_crayfish <- c(99, 90, 53, 21, 8)
+rapo_crayfishes <- c(99, 90, 53, 21, 8)
 
 rapo_data <- tibble(
-  fish = rapo_fish,
-  mussel = rapo_mussels,
-  crayfish = rapo_crayfish,
+  fishes = rapo_fishes,
+  mussels = rapo_mussels,
+  crayfishes = rapo_crayfishes,
   state = five_state_names
-)
-
-rapo_data <- pivot_longer(
-  rapo_data,
-  cols = -state,
-  names_to = "taxon",
-  values_to = "richness"
 ) %>%
+  pivot_longer(cols = -state,
+               names_to = "taxon",
+               values_to = "richness") %>%
   mutate(state = factor(state,
                         levels = five_state_names,
                         ordered = TRUE))
@@ -83,7 +79,6 @@ plotHistogram <- function(dat = NULL,
                           ...) {
   ggplot(data = dat, aes(x = x)) +
     geom_histogram(
-      #        binwidth = 5,
       closed = closed,
       breaks = seq(0, breaks[1], breaks[2]),
       color = "white",
@@ -92,4 +87,23 @@ plotHistogram <- function(dat = NULL,
     xlab("Number of Watersheds") +
     ylab("Number of Species") +
     theme_minimal()
+}
+
+plot_rapo <- function(plot_data = NULL) {
+  rapo_plot <- ggplot(plot_data) +
+    geom_col(aes(x = state, y = richness),
+             color = "white",
+             fill = "#9d2235") +
+    coord_flip() +
+    labs(y = "Species Richness",
+         x = NULL) +
+    theme_minimal() +
+    theme(panel.grid = element_blank(),
+          axis.ticks.y = element_blank())
+  
+  y_intercept <- ggplot_build(rapo_plot)$layout$panel_params[[1]]$x.sec$breaks
+  
+  rapo_plot <- rapo_plot + geom_hline(yintercept = na.omit(y_intercept), color="white", linewidth =  0.25)
+  
+  return(rapo_plot)
 }

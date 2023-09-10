@@ -112,20 +112,21 @@ rapo_five_tab <- tabPanel(
     column(
       3,
       wellPanel(radioButtons(
-        inputId = "rapo_five",
-        label = "Choose plot type",
-        choices = c("Range size", "Range extent")
+        inputId = "rapo_taxon",
+        label = "Choose taxon to plot",
+        choices = c("Fishes", "Mussels", "Crayfishes")
       )),
-      hr(),
-      p(strong("You predicted:")),
-      uiOutput("prediction_rapo_five")
+      hr()#,
+      #p(strong("You predicted:")),
+     # uiOutput("prediction_rapo_five")
     ),
     column(6, plotOutput("rapo_five_plot"),
            hr(),
            p("This data set has 516 species.")),
     column(
       3,
-      uiOutput("rapo_five_info"),
+      p(strong("You predicted:")),
+      uiOutput("prediction_rapo_five"),
       hr(),
       p("Do the results agree with your prediction? Explain below, 
       then press the Next button."),

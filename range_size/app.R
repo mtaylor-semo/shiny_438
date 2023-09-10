@@ -9,7 +9,7 @@ library(shiny)
 library(tibble)
 library(tidyr)
 #library(dplyr)
-#library(stringr)
+library(stringr)
 library(ggplot2)
 
 ## UI ----------------------------------------------------------------------
@@ -138,7 +138,7 @@ server <- function(input, output, session) {
 
   output$rapo_five_result_error <- renderText({
     if (input$rapo_five_result == "") {
-      "Please interpret the histogram."
+      "Please interpret the bar charts."
     }
   })
   
@@ -158,8 +158,13 @@ server <- function(input, output, session) {
   spp_na <- reactive({
     open_file(tx = str_to_lower(input$na_taxon))
   })
+  
+  rapo <- reactive({
+    filter(rapo_data,
+    str_to_lower(input$rapo_taxon))
+  })
 
-  plots <- reactiveValues(na = NULL, state = NULL, ca = NULL)
+  plots <- reactiveValues(na = NULL, state = NULL, rapo = NULL)
   
   results <- reactiveValues(na = NULL, state = NULL, ca = NULL)
 
@@ -247,18 +252,7 @@ server <- function(input, output, session) {
   })
   
   output$rapo_five_info <- renderUI({
-    if (input$ca_marine == "Range extent") {
-      p("Range extent for California coastal marine fishes. Each
-        vertical bar shows the minimum to maximum latitude for
-        one species of fish. Species with a
-        median latitude above Point Conception are shown in
-        red. Species with an average latitude below Point Conception
-        are shown in blue. The horizontal black line is the latitude of
-        Point Conception. Fishes are sorted (left to right on
-        x-axis) in order of minimum latitude. ")
-    } else {
-      img(src = "california.png", width = "97%")
-    }
+    p("Placeholder. How will I use this")
   })
 
 
@@ -296,96 +290,13 @@ server <- function(input, output, session) {
 
   ## Rapoport plots -------------------------------------------------
 
-
-  rapo_plot <- rapo_data %>% 
-    filter(taxa == "mussel") %>% 
-    ggplot() +
-    geom_col(aes(x = state, y = richness),
-             color = "white",
-             fill = "#9d2235") +
-    coord_flip() +
-    labs(y = "Species Richness",
-         x = NULL) +
-    theme_minimal() +
-    theme_tufte() +
-    theme(axis.ticks.y = element_blank())
-
-
-  y_intercept <- ggplot_build(rapo_plot)$layout$panel_params[[1]]$x.sec$breaks
-  
-  rapo_plot <- rapo_plot + geom_hline(yintercept = na.omit(y_intercept), color="white", linewidth =  0.25)
-  
-  rapo_plot
-  
   output$rapo_five_plot <- renderPlot({
-    cafish <- open_file(st = "California")
-
-    if (input$ca_marine == "Range size") {
-      rangeSize <- rowSums(cafish)
-      numSpecies <- colSums(cafish)
-
-      plots$ca <- plotHistogram(dat = tibble(rangeSize), x = rangeSize, breaks = c(100, 5)) +
-        scale_x_continuous(breaks = seq(0, 100, 20)) +
-        xlab("Range size (degrees of latitude occupied)")
-
-      plots$ca
-    } else { # plot 2.  Need better checks for the if/else
-
-      ## Convert much of this manipulation to dplyr / tidyverse
-      mycolors <- c("#9d2235", "#003b5c")
-      numRows <- nrow(cafish) ## number of species
-      numCols <- ncol(cafish) ## Number of 1° latitude cells
-
-      meanCut <- 34.4481 ## Point Conception latitude as cutoff for northern and southern species.
-
-      medianLat <- rep(NA, numRows) ## Create a vector same length as number of species.
-
-      minLat <- vector("numeric")
-      maxLat <- vector("numeric")
-
-      for (i in 1:numRows) {
-        x <- data.frame(cafish)[i, ]
-        y <- colnames(x)[x == 1]
-
-        colNames <- gsub("N", "", y)
-        colNames <- gsub("S", "-", colNames)
-
-        minLat[i] <- as.numeric(colNames[1])
-        maxLat[i] <- as.numeric(colNames[length(colNames)])
-        medianLat[i] <- median(as.numeric(colNames))
-      }
-
-      cafish$minLat <- minLat
-      cafish$maxLat <- maxLat
-      cafish$medianLat <- medianLat
-
-      latCol <- vector("character")
-      for (i in 1:numRows) {
-        if (cafish$medianLat[i] > meanCut) {
-          latCol[i] <- mycolors[1]
-        } else {
-          latCol[i] <- mycolors[2]
-        }
-      }
-
-      cafish$latCol <- latCol
-      cafish$xrow <- seq(1:516)
-
-      cafish <- cafish[order(-cafish$minLat, -cafish$medianLat), ]
-
-      ggplot(cafish) +
-        geom_segment(aes(x = xrow, y = minLat, xend = xrow, yend = maxLat),
-          color = latCol, size = 1.2
-        ) +
-        theme_minimal() +
-        ylab("Latitude (°S — °N)") +
-        xlab(NULL) +
-        geom_hline(yintercept = c(36, 32), col = "gray") +
-        geom_hline(yintercept = meanCut, col = "gray10") +
-        scale_y_continuous(breaks = seq(-40, 70, 10)) +
-        theme(axis.text.x = element_blank())
-    }
-  }, res = res)
+    data_to_plot <- filter(rapo_data,
+                           taxon == str_to_lower(input$rapo_taxon))
+    plots$rapo <- plot_rapo(plot_data = data_to_plot)
+    
+    plots$rapo
+     }, res = res)
   
   
   # Report Download ---------------------------------------------------------
