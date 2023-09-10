@@ -103,38 +103,38 @@ states_tab <- tabPanel(
 
 
 
-# Define California Marine Tab --------------------------------------------
+# Define Rapoport's Rule Tab --------------------------------------------
 
 
-ca_tab <- tabPanel(
-  "California Marine Fishes",
+rapo_five_tab <- tabPanel(
+  "Rapoport's Rule",
   fluidRow(
     column(
       3,
       wellPanel(radioButtons(
-        inputId = "ca_marine",
+        inputId = "rapo_five",
         label = "Choose plot type",
         choices = c("Range size", "Range extent")
       )),
       hr(),
       p(strong("You predicted:")),
-      uiOutput("prediction_ca")
+      uiOutput("prediction_rapo_five")
     ),
-    column(6, plotOutput("ca_marine_plot"),
+    column(6, plotOutput("rapo_five_plot"),
            hr(),
            p("This data set has 516 species.")),
     column(
       3,
-      uiOutput("ca_info"),
+      uiOutput("rapo_five_info"),
       hr(),
       p("Do the results agree with your prediction? Explain below, 
       then press the Next button."),
-      textAreaInput(inputId = "ca_result",
+      textAreaInput(inputId = "rapo_five_result",
                     label = NULL,
                     rows = 5),
       hr(),
-      actionButton(inputId = "btn_next_ca", label = "Next", width = "35%"),
-      span(textOutput("ca_result_error"), style = "color:#9D2235")
+      actionButton(inputId = "btn_next_rapo_five", label = "Next", width = "35%"),
+      span(textOutput("rapo_five_result_error"), style = "color:#9D2235")
       
       # img(src = "california.png", width = "320px")
     )

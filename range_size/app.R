@@ -6,6 +6,8 @@
 # Libraries ---------------------------------------------------------------
 
 library(shiny)
+library(tibble)
+library(tidyr)
 #library(dplyr)
 #library(stringr)
 library(ggplot2)
@@ -29,7 +31,7 @@ ui <- tagList(
         p("This app allows you to explore range sizes for three
         aquatic groups (crayfishes, fishes, and mussels) for
         several states and for North America (primarily U.S.)."),
-        p("Choose the State tab to begin. Choose the state and the
+        p("Choose the Predictions tab to begin. Choose the state and the
         taxon that was assigned to you."),
         p("NOTE TO MST: Rework the assignment to have students
         explore latitudal gradient, compare taxa within state, etc...")
@@ -87,14 +89,15 @@ ui <- tagList(
         
         column(
           3,
-          p(strong("What do you predict for California?")),
-          p("Will most species have small, moderate,
-               or large range sizes?"),
+          p(strong("Consider these five states:"), "(from south to
+            north) Alabama, Tennessee, Kentucky, Illinois, Wisconsin."),
+          p("Do you think the range size of fishes will follow Rapoport's
+            Rule for range size from Alabama north to Wisconsin?"),
           textAreaInput(
-            inputId = "predict_ca",
+            inputId = "predict_rapo_five",
             label = NULL, #"Enter your prediction:",
             rows = 4,
-            placeholder = "California prediction…"
+            placeholder = "Rapoport's Rule prediction…"
           ),
           hr(),
           p(),
@@ -116,7 +119,7 @@ server <- function(input, output, session) {
     if (input$student_name == "" |
       input$predict_state == "" |
       input$predict_na == "" |
-      input$predict_ca == "") {
+      input$predict_rapo_five == "") {
       "Please fill in all blanks."
     }
   })
@@ -133,8 +136,8 @@ server <- function(input, output, session) {
     }
   })
 
-  output$ca_result_error <- renderText({
-    if (input$ca_result == "") {
+  output$rapo_five_result_error <- renderText({
+    if (input$rapo_five_result == "") {
       "Please interpret the histogram."
     }
   })
@@ -169,7 +172,7 @@ server <- function(input, output, session) {
      pred_check(sn = input$student_name,
                 ps = input$predict_state,
                 pn = input$predict_na,
-                pc = input$predict_ca)
+                pc = input$predict_rapo_five)
 
     removeTab(inputId = "tabs", target = "Predictions")
     appendTab(inputId = "tabs", tab = na_tab, select = TRUE)
@@ -190,15 +193,15 @@ server <- function(input, output, session) {
   observeEvent(input$btn_next_state, {
     if (is.null(input$ca_marine)) {
       result_check(exp = input$state_result)
-      appendTab(inputId = "tabs", tab = ca_tab, select = TRUE)  
+      appendTab(inputId = "tabs", tab = rapo_five_tab, select = TRUE)  
     } else {
-      showTab(inputId = "tabs", target = "California Marine Fishes", select = TRUE) 
+      showTab(inputId = "tabs", target = "Rapoport's Rule", select = TRUE) 
     }
   })
 
-  observeEvent(input$btn_next_ca, {
+  observeEvent(input$btn_next_rapo_five, {
     if (is.null(input$summary)) {
-      result_check(exp = input$ca_result)
+      result_check(exp = input$rapo_five_result)
       appendTab(inputId = "tabs", tab = summary_tab, select = TRUE)  
     } else {
       showTab(inputId = "tabs", target = "Summary", select = TRUE) 
@@ -238,12 +241,12 @@ server <- function(input, output, session) {
     sprintf("%s", input$predict_state)
   })
   
-  output$prediction_ca <- renderUI({
+  output$prediction_rapo_five <- renderUI({
     p("You predicted:")
-    sprintf("%s", input$predict_ca)
+    sprintf("%s", input$predict_rapo_five)
   })
   
-  output$ca_info <- renderUI({
+  output$rapo_five_info <- renderUI({
     if (input$ca_marine == "Range extent") {
       p("Range extent for California coastal marine fishes. Each
         vertical bar shows the minimum to maximum latitude for
@@ -291,9 +294,30 @@ server <- function(input, output, session) {
   }, res = res)
 
 
-  ## California Marine plots -------------------------------------------------
+  ## Rapoport plots -------------------------------------------------
 
-  output$ca_marine_plot <- renderPlot({
+
+  rapo_plot <- rapo_data %>% 
+    filter(taxa == "mussel") %>% 
+    ggplot() +
+    geom_col(aes(x = state, y = richness),
+             color = "white",
+             fill = "#9d2235") +
+    coord_flip() +
+    labs(y = "Species Richness",
+         x = NULL) +
+    theme_minimal() +
+    theme_tufte() +
+    theme(axis.ticks.y = element_blank())
+
+
+  y_intercept <- ggplot_build(rapo_plot)$layout$panel_params[[1]]$x.sec$breaks
+  
+  rapo_plot <- rapo_plot + geom_hline(yintercept = na.omit(y_intercept), color="white", linewidth =  0.25)
+  
+  rapo_plot
+  
+  output$rapo_five_plot <- renderPlot({
     cafish <- open_file(st = "California")
 
     if (input$ca_marine == "Range size") {
