@@ -48,7 +48,7 @@ combination of the two? Explain below how the observed
 
 \end{enumerate}
 
-```{r fig.dim=c(6.5,4), echo=FALSE, fig.cap=paste("Histogram of North American", input$na_taxon, "for geographic range size."), fig.align='left'}
+```{r fig.dim=c(6.5,4), echo=FALSE, fig.cap=paste("Histogram of North American", str_to_lower(input$na_taxon), "for geographic range size."), fig.align='left'}
 plots$na
 ```
 
@@ -75,7 +75,7 @@ combination of the two?
 \end{multicols}
 \end{enumerate}
 
-```{r fig.dim=c(6.5,4), echo=FALSE, fig.cap=paste("Histogram of", input$state, input$taxon, "for geographic range size."), fig.align='left'}
+```{r fig.dim=c(6.5,4), echo=FALSE, fig.cap=paste("Histogram of", input$state, str_to_lower(input$taxon), "for geographic range size."), fig.align='left'}
 plots$state
 ```
 
@@ -89,7 +89,7 @@ plots$state
 \item \textbf{What do you predict?} Consider these five states (from south to north): Alabama, Tennessee, Kentucky, Illinois, and Wisconsin. Do you think fishes, mussels, or crayfishes will follow Rapoport's Rule for range size and species richness from Alabama north to Wisconsin? It is okay for you to say that all, some, or none of these taxonomic groups will agree.  If you think only some taxa will
 follow Rapoport's Rule, be sure to identify those taxa in your prediction.
 
-\textbf{You predicted} “`r fix_special_chars(input$predict_five)`”
+\textbf{You predicted} “`r fix_special_chars(input$predict_rapo_five)`”
 
 \columnbreak
 
@@ -100,7 +100,7 @@ follow Rapoport's Rule, be sure to identify those taxa in your prediction.
 \end{multicols}
 \end{enumerate}
 
-```{r fig.dim=c(6.5,4), echo=FALSE, fig.cap=paste("Bar chart of species richness of", input$rapo_taxon, "for five states"), fig.align='left'}
+```{r fig.dim=c(6.5,4), echo=FALSE, fig.cap=paste("Species richness of", str_to_lower(input$rapo_taxon), "for five states."), fig.align='left'}
 plots$rapo
 ```
 
