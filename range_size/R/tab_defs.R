@@ -36,7 +36,9 @@ na_tab <- tabPanel(
           label = "Choose taxon:",
           choices = c("Fishes", "Mussels"),
           selected = "Fishes"
-        )
+        ),
+        hr(),
+        p(strong("Be sure to examine both taxonomic groups."))
       ),
       hr(),
     ),
@@ -80,10 +82,12 @@ states_tab <- tabPanel(
           inputId = "state",
           label = "Choose a state",
           choices = state_choices,
-          selected = "Georgia",
+          selected = "Missouri",
           multiple = FALSE
         ),
-        uiOutput("dynamic_radio_buttons")
+        uiOutput("dynamic_radio_buttons"),
+        hr(),
+        p(strong("Be sure to examine all taxa for a state."))
       )
     ),
     column(6, plotOutput("state_histogram"),
@@ -124,9 +128,8 @@ rapo_five_tab <- tabPanel(
         label = "Choose taxon to plot",
         choices = c("Fishes", "Mussels", "Crayfishes")
       )),
-      hr()#,
-      #p(strong("You predicted:")),
-     # uiOutput("prediction_rapo_five")
+      hr(),
+      p(strong("Be sure to examine all three taxa."))
     ),
     column(6, plotOutput("rapo_five_plot"),
            hr(),
