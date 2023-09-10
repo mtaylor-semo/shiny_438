@@ -72,11 +72,11 @@ empty_field <- function(input_field) {
   ifelse(input_field == "", TRUE, FALSE)
 }
 
-plotHistogram <- function(dat = NULL,
-                          x = NULL,
-                          closed = "right",
-                          breaks = c(y, z),
-                          ...) {
+plot_histogram <- function(dat = NULL,
+                           x = NULL,
+                           closed = "right",
+                           breaks = c(y, z),
+                           ...) {
   ggplot(data = dat, aes(x = x)) +
     geom_histogram(
       closed = closed,
@@ -100,10 +100,14 @@ plot_rapo <- function(plot_data = NULL) {
     theme_minimal() +
     theme(panel.grid = element_blank(),
           axis.ticks.y = element_blank())
-  
-  y_intercept <- ggplot_build(rapo_plot)$layout$panel_params[[1]]$x.sec$breaks
-  
-  rapo_plot <- rapo_plot + geom_hline(yintercept = na.omit(y_intercept), color="white", linewidth =  0.25)
-  
+
+  y_intercept <-
+    ggplot_build(rapo_plot)$layout$panel_params[[1]]$x.sec$breaks
+
+  rapo_plot <- rapo_plot +
+    geom_hline(yintercept = na.omit(y_intercept),
+               color = "white",
+               linewidth =  0.25)
+
   return(rapo_plot)
 }
