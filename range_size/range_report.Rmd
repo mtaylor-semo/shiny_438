@@ -83,6 +83,10 @@ plots$state
 
 \textbf{You explained} “`r fix_special_chars(input$rapo_five_result)`”
 
+```{r fig.dim=c(3,2), echo=FALSE, fig.cap=paste("Bar chart of species richness of", input$rapo_taxon, "for five states"), fig.align='left'}
+plots$rapo
+```
+
 
 ***
 \textbf{Your summary} of lessons learned from this exercise.
