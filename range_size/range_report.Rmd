@@ -79,6 +79,12 @@ plots$state
 
 ***
 
+\textbf{You predicted} “`r fix_special_chars(input$predict_five)`”
+
+\textbf{You explained} “`r fix_special_chars(input$rapo_five_result)`”
+
+
+***
 \textbf{Your summary} of lessons learned from this exercise.
 
 `r fix_special_chars(input$summary)`
