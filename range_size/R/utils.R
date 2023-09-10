@@ -1,3 +1,5 @@
+library(tidyr)
+
 # Rapo vars -------------------------------------------------------------
 # Assemble the Rapoport data. Some mussel and crayfish data are not
 # available to me as presence/absence data.
