@@ -43,17 +43,9 @@ open_file <- function(tx, st = NULL) {
     data_file <- paste0("na_", tx)
     return(na_data[[data_file]])
   } else {
-    switch(st,
-      "California" = {
-        ca_data <- readRDS("data/ca_data.rds")
-        return(ca_data[["california_marine_fishes"]])
-      },
-      {
-        the_state <- str_replace_all(st, " ", "_")
-        data_file <- paste0(the_state, "_", tx)
-        return(state_data[[data_file]])
-      }
-    )
+    the_state <- str_replace_all(st, " ", "_")
+    data_file <- paste0(the_state, "_", tx)
+    return(state_data[[data_file]])
   }
 }
 
