@@ -1,3 +1,5 @@
+library(tidyr)
+
 # Global functions --------------------------------------------------------
 # for the geographic range shiny app.
 
