@@ -411,8 +411,16 @@ server <- function(input, output, session) {
       )
       file.rename(out, file)
       on.exit(removeNotification(notification_id), add = TRUE)
+      on.exit(notification_new <- showNotification(
+        "You may close your browser.",
+        duration = NULL,
+        closeButton = FALSE,
+        type = "message")
+        )
     }
   )
+  
+  
 }
 
 # Run the application
