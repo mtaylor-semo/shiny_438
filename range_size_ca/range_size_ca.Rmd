@@ -24,19 +24,23 @@ knitr::opts_knit$set(eval.after = "fig.cap")
 
 \begin{enumerate}
 \begin{multicols}{2}
-\item \label{ca_predict} \textbf{What do you predict?} Considering all of North America, tell
-whether you think most species in a closely related group of organisms
-have large, medium or small range size, or some combination.
+
+\item \label{ca_predict} \textbf{What is your prediction?} Given that the total latitudinal range in the data set covers 99° of latitude, from 30°S to 68°N, does the mean number of degrees latitude occupied suggest that most coastal marine fishes likely have large (many degrees of latitude) or small range size (a few degrees of latitude)? Explain.
+
+
+For comparison, Missouri from south (bottom of the bootheel) to north (Iowa
+border) spans about 4.5° of latitude.
 
 \textbf{You predicted} “`r input$predict_ca_range`”
 
 \columnbreak
 
-\item \textbf{Interpret the pattern.} Describe the pattern that you see. Do most
-species occur in most watersheds (large range size) or do most species
-occur in just a few watersheds (small range size)? Or, is it some
-combination of the two? Explain how the observed result supports or
-falsifies your hypothesis in question~\ref{ca_predict}.
+\item \textbf{Where will species richness be highest?} 
+The data set spans from tropical regions south of the equator to north of the Arctic Circle. In general terms, where do you think
+            species richness (number of species) will be highest? You
+            do not have to give an exact latitude, but you can enter things
+            like “close to the equator”, or “at the higher latitudes.” Remember that
+            all species in the data set occur at least partially in California.
 
 \textbf{You explained} “`r fix_special_chars(input$ca_result)`”
  
@@ -55,10 +59,12 @@ plots$ca
 \begin{enumerate}[resume]
 \begin{multicols}{2}
 
-\item \textbf{What do you predict?} For California coastal marine fishes, 
-tell whether you think most species in a closely related
-group of organisms have large, medium or small range size, or some
-combination. ADD SOMETHING ABOUT LATITUDE FOR THEM TO THINK ABOUT.
+\item \textbf{Where will species richness be highest?} 
+The data set spans from tropical regions south of the equator to north of the Arctic Circle. 
+In general terms, where do you think species richness (number of species) will be highest? 
+You do not have to give an exact latitude, but you can enter things like “close to the 
+equator”, or “at the higher latitudes.” Remember that all species in the data set occur at
+least partially in California.
 
 \textbf{You predicted} “`r fix_special_chars(input$predict_pc)`”
 
