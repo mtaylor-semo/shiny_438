@@ -267,7 +267,7 @@ server <- function(input, output, session) {
     },
     content = function(file) {
       notification_id <- showNotification(
-        "Generating report for download.",
+        "Generating report for download. Please wait.",
         duration = NULL,
         closeButton = FALSE,
         type = "message"
@@ -292,7 +292,12 @@ server <- function(input, output, session) {
         )
       )
       file.rename(out, file)
-      on.exit(removeNotification(notification_id), add = TRUE)
+      on.exit(showNotification(
+        "Download complete. You may close your browser.",
+        duration = NULL,
+        closeButton = FALSE,
+        type = "message", id = notification_id), add = FALSE, after = FALSE
+      )
     }
   )
   
