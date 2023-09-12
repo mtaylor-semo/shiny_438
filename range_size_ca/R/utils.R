@@ -19,34 +19,6 @@ fix_special_chars <- function(str = NULL){
 # are PC.
 res = 96
 
-#ca_data <- readRDS("data/ca_data.rds")
-
-# # Open the data set. Can probably generalize these
-# # to open csv and tsv files.
-# open_file <- function(tx, st = NULL) {
-#   if (is.null(st)) {
-#     na_data <- readRDS("data/na_data.rds")
-#     data_file <- paste0("na_", tx)
-#     return(na_data[[data_file]])
-#     #file_to_open <- paste0("na_data/na_", tx, ".csv")
-#   } else {
-#     switch(st,
-#       "California" = {
-#         ca_data <- readRDS("range_size_ca/data/ca_data.rds")
-#         return(ca_data[["california_marine_fishes"]])
-#         #file_to_open <- "marine/california_marine_fishes.csv"
-#       },
-#       {
-#         the_state <- str_replace_all(st, " ", "_")
-#         data_file <- paste0(the_state, "_", tx)
-#         return(state_data[[data_file]])
-# #        file_to_open <- paste0("state_data/", the_state, "_", tx, ".csv")
-#       }
-#     )
-#   }
-# #  read.csv(file_to_open, row.names = 1)
-# }
-
 
 
 ## Prediction check. Move requirement check for predictions here.
@@ -99,8 +71,6 @@ plotPC <- function(dat = NULL, ...) {
     labs(x = "Latitude (°S - °N)",
          y = "Species richness") +
     scale_color_manual(name = "Latitude",
-                       #values = c("(-31,34]" = scale_pal[1],
-                      #            "(34,68]" = scale_pal[2]),
                        values = c("(-31,34]" = mycolors[1],
                                   "(34,68]" = mycolors[2]),
                        labels = c("South of P.C.",
