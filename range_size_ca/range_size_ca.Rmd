@@ -31,7 +31,7 @@ knitr::opts_knit$set(eval.after = "fig.cap")
 For comparison, Missouri from south (bottom of the bootheel) to north (Iowa
 border) spans about 4.5° of latitude.
 
-\textbf{You predicted} “`r input$predict_ca_range`”
+\textbf{You predicted} “`r fix_special_chars(input$predict_ca_range)`”
 
 \columnbreak
 
