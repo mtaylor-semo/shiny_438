@@ -410,7 +410,6 @@ server <- function(input, output, session) {
         )
       )
       file.rename(out, file)
-      #on.exit(removeNotification(notification_id), add = TRUE)
       on.exit(showNotification(
         "Download complete. You may close your browser.",
         duration = NULL,
