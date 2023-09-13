@@ -26,9 +26,9 @@ gis_data <- readRDS("data/gis_data.rds")
 
 
 ## Prediction check. Move requirement check for predictions here.
-## sn = student_name, ps = pred_state, pn = pred_na, pc = pred_ca
-pred_check <- function(sn = NULL, pn = NULL, pc = NULL) {
-  req(sn, pn, pc)
+## sn = student_name, ps = pred_state, ra = pred_ra, pc = pred_ca
+pred_check <- function(sn = NULL, ra = NULL, pc = NULL) {
+  req(sn, ra, pc)
 }
 
 result_check <- function(exp = NULL) {

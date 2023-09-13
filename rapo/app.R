@@ -136,7 +136,7 @@ server <- function(input, output, session) {
   
   ## Reactive values ---------------------------------------------------------
 
-  plots <- reactiveValues(ca = NULL, pc = NULL)
+  plots <- reactiveValues(ra = NULL, pc = NULL)
 
   
   # results <- reactiveValues(ca = NULL)
@@ -148,7 +148,7 @@ server <- function(input, output, session) {
     if (is.null(input$richness_area)) {
     # Comment out for development.
      pred_check(sn = input$student_name,
-                pn = input$predict_richness_area,
+                ra = input$predict_richness_area,
                 pc = input$predict_pc)
 
     removeTab(inputId = "tabs", target = "Predictions")
@@ -158,7 +158,7 @@ server <- function(input, output, session) {
     }
   })
 
-  observeEvent(input$btn_next_ca, {
+  observeEvent(input$btn_next_ra, {
     if (is.null(input$pc_tab)) {
       result_check(exp = input$richness_area_result)
       appendTab(inputId = "tabs", tab = pc_tab, select = TRUE)  

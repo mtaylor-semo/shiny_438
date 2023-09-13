@@ -1,38 +1,7 @@
 library(dplyr)
 library(stringr)
 
-
-
-# Define Point Conception tab ---------------------------------------------
-
-pc_tab <- tabPanel(
-  "Point Conception",
-  fluidRow(
-    column(9, plotOutput("pc_plot",
-                         width = "97%",
-                         height = "600px"),
-           hr()),
-           #uiOutput("na_numbers")),
-    column(
-      3,
-      p(strong("You predicted:")),
-      uiOutput("prediction_pc"),
-      br(),
-      p("Do the results agree with your prediction? Explain below,
-      then press the Next button."),
-      textAreaInput(inputId = "pc_result",
-                    label = NULL,
-                    rows = 5),
-      hr(),
-      actionButton(inputId = "btn_next_pc", label = "Next", width = "35%"),
-      span(textOutput("pc_result_error"), style = "color:#9D2235")
-    )
-  )
-)
-
-
 # Define Richness and Area Tab --------------------------------------------
-
 
 richness_area_tab <- tabPanel(
   "Richness and Area",
@@ -61,10 +30,37 @@ richness_area_tab <- tabPanel(
                     label = NULL,
                     rows = 5),
       hr(),
-      actionButton(inputId = "btn_next_ca", label = "Next", width = "35%"),
+      actionButton(inputId = "btn_next_ra", label = "Next", width = "35%"),
       span(textOutput("richness_area_result_error"), style = "color:#9D2235")
       
       # img(src = "california.png", width = "320px")
+    )
+  )
+)
+
+# Define Champgagne plot tab ---------------------------------------------
+
+pc_tab <- tabPanel(
+  "Point Conception",
+  fluidRow(
+    column(9, plotOutput("pc_plot",
+                         width = "97%",
+                         height = "600px"),
+           hr()),
+    #uiOutput("na_numbers")),
+    column(
+      3,
+      p(strong("You predicted:")),
+      uiOutput("prediction_pc"),
+      br(),
+      p("Do the results agree with your prediction? Explain below,
+      then press the Next button."),
+      textAreaInput(inputId = "pc_result",
+                    label = NULL,
+                    rows = 5),
+      hr(),
+      actionButton(inputId = "btn_next_pc", label = "Next", width = "35%"),
+      span(textOutput("pc_result_error"), style = "color:#9D2235")
     )
   )
 )
