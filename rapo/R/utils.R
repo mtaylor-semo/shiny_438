@@ -53,7 +53,7 @@ plot_champagne <- function(dat = NULL, ...) {
     ylab = expression(paste('Latitude ', degree, 'N'))
   )
   
-  lines(gis_data$coast_ine, lwd = 0.25, col = semo_palette["pewter"])
+  lines(gis_data$coast_line, lwd = 0.25, col = semo_palette["pewter"])
   
   lines(gis_data$bnd,
         lwd = 0.25,
