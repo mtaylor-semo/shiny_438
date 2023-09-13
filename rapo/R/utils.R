@@ -46,33 +46,30 @@ plot_champagne <- function(dat = NULL, ...) {
     fish_area$long,
     fish_area$lat,
     las = 1,
-    cex = fish_area$dia,
+    cex = fish_area$dia * 0.6,
     lwd = 1.2,
-    col = semo_palette["riverfront"],
+    col = semo_palette["cardiac_red"],
     xlab = expression(paste('Longitude ', degree, 'W')),
     ylab = expression(paste('Latitude ', degree, 'N'))
   )
   
-  lines(gis_data$coast_line, lwd = 0.25, col = semo_palette["pewter"])
+  lines(gis_data$coast_line, lwd = 0.25, col = semo_palette["rich_black"])
   
   lines(gis_data$bnd,
         lwd = 0.25,
         lty = 'dashed',
-        col = semo_palette["pewter"])
+        col = semo_palette["rich_black"])
   
-  lines(gis_data$rivers, lwd = 0.25, col = semo_palette["pewter"])
+  lines(gis_data$rivers, lwd = 0.25, col = semo_palette["rich_black"])
 }
 
 plot_latitudes <- function(dat = NULL, ...) {
-  #mean_spp <- apply(na_grid, 1, mean)
-  #max_spp <- apply(na_grid, 1, max)
-  #lat <- 24:49
-  
-  plot_data <- tibble(mean_spp = apply(na_grid, 1, mean),
-                      max_spp = apply(na_grid, 1, max),
+
+  plot_data <- tibble(mean_spp = apply(dat, 1, mean),
+                      max_spp = apply(dat, 1, max),
                       lat = 24:49)
   
-  mean_plot <- plot_data %>% 
+  lat_plot <- plot_data %>% 
     ggplot() +
     geom_segment(aes(x = mean_spp,
                      xend = max_spp,
@@ -94,7 +91,20 @@ plot_latitudes <- function(dat = NULL, ...) {
          y = "Latitude °N") +
     theme(panel.grid.minor = element_blank())
   
-  mean_plot
+  lat_plot
+}
+
+plot_relative_area <- function(dat = NULL, ...) {
+  #plot(dat$lat ~ dat$area, main='Relative Area Occupied by U.S Freshwater Fishes', xlab = 'Area', ylab = expression(paste('Latitude ',degree,'N')))
+  rel_area_plot <- dat %>% 
+    ggplot() +
+    geom_point(aes(x = dat$area, y = dat$lat),
+               color = semo_palette["cardiac_red"]) +
+    theme_minimal() +
+    labs(x = "Relative area occupied",
+         y = "Degrees latitude °N")
+  
+  rel_area_plot
 }
 
 

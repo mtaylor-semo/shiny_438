@@ -96,7 +96,7 @@ ui <- tagList(
         
         column(
           3,
-          img(src = "west_coast.png", width = "97%"),
+          #img(src = "west_coast.png", width = "97%"),
           hr(),
           br(),
           actionButton(inputId = "btn_next_pred", label = "Next", width = "35%"),
@@ -147,8 +147,7 @@ server <- function(input, output, session) {
   ## Button observers --------------------------------------------------------
 
   observeEvent(input$btn_next_pred, {
-    #if (is.null(input$na_taxon)) {
-    if (is.null(input$ca_marine)) {
+    if (is.null(input$richness_area)) {
     # Comment out for development.
      pred_check(sn = input$student_name,
                 pn = input$predict_ca_range,
@@ -156,7 +155,6 @@ server <- function(input, output, session) {
 
     removeTab(inputId = "tabs", target = "Predictions")
     appendTab(inputId = "tabs", tab = ca_tab, select = TRUE)
-    #appendTab(inputId = "tabs", tab = pc_tab, select = TRUE)
     } else {
       showTab(inputId = "tabs", target = "California Marine Fishes", select = TRUE)
     }
@@ -170,15 +168,6 @@ server <- function(input, output, session) {
       showTab(inputId = "tabs", target = "Point Conception", select = TRUE) 
     }
   })
-  
-  # observeEvent(input$btn_next_pc, {
-  #   if (is.null(input$ca_marine)) {
-  #     result_check(exp = input$pc_result)
-  #     appendTab(inputId = "tabs", tab = ca_tab, select = TRUE)  
-  #   } else {
-  #     showTab(inputId = "tabs", target = "California Marine Fishes", select = TRUE) 
-  #   }
-  # })
 
   observeEvent(input$btn_next_pc, {
     if (is.null(input$summary)) {
@@ -189,16 +178,6 @@ server <- function(input, output, session) {
     }
   })
   
-  # observeEvent(input$btn_next_ca, {
-  #   if (is.null(input$summary)) {
-  #     result_check(exp = input$ca_result)
-  #     appendTab(inputId = "tabs", tab = summary_tab, select = TRUE)  
-  #   } else {
-  #     showTab(inputId = "tabs", target = "Summary", select = TRUE) 
-  #   }
-  # })
-  
-
   ## Outputs -------------------------------------------------------------
 
   output$prediction_pc <- renderUI({
@@ -213,7 +192,7 @@ server <- function(input, output, session) {
   })
   
   output$ca_info <- renderUI({
-    if (input$ca_marine == "Range extent") {
+    if (input$richness_area == "Species richness") {
       p("Range extent for California coastal marine fishes. Each
         vertical bar shows the minimum to maximum latitude for
         one species of fish. Species with a
@@ -229,77 +208,21 @@ server <- function(input, output, session) {
 
 
 
-  ## California Marine plots -------------------------------------------------
+  ## Richness and area -------------------------------------------------
 
-  output$ca_marine_plot <- renderPlot({
-
-    if (input$ca_marine == "Range size") {
-      rangeSize <- rowSums(cafish)
-      numSpecies <- colSums(cafish)
-
-      plots$ca <- plotHistogram(dat = tibble(rangeSize), x = rangeSize, breaks = c(100, 5)) +
-        xlab("Range size (degrees of latitude occupied)")
-
-      plots$ca
-    } else { # plot 2.  Need better checks for the if/else
-
-      ## Convert much of this manipulation to dplyr / tidyverse
-
-      numRows <- nrow(cafish) ## number of species
-      numCols <- ncol(cafish) ## Number of 1° latitude cells
-
-      meanCut <- 34.4481 ## Point Conception latitude as cutoff for northern and southern species.
-
-      medianLat <- rep(NA, numRows) ## Create a vector same length as number of species.
-
-      minLat <- vector("numeric")
-      maxLat <- vector("numeric")
-
-      for (i in 1:numRows) {
-        x <- data.frame(cafish)[i, ]
-        y <- colnames(x)[x == 1]
-
-        colNames <- gsub("N", "", y)
-        colNames <- gsub("S", "-", colNames)
-
-        minLat[i] <- as.numeric(colNames[1])
-        maxLat[i] <- as.numeric(colNames[length(colNames)])
-        medianLat[i] <- median(as.numeric(colNames))
-      }
-
-      cafish$minLat <- minLat
-      cafish$maxLat <- maxLat
-      cafish$medianLat <- medianLat
-
-      latCol <- vector("character")
-      for (i in 1:numRows) {
-        if (cafish$medianLat[i] > meanCut) {
-          latCol[i] <- mycolors[2]
-        } else {
-          latCol[i] <- mycolors[1]
-        }
-      }
-
-      cafish$latCol <- latCol
-      cafish$xrow <- seq(1:516)
-
-      cafish <- cafish[order(-cafish$minLat, -cafish$medianLat), ]
-
-      ggplot(cafish) +
-        geom_segment(aes(x = xrow, y = minLat, xend = xrow, yend = maxLat),
-          color = latCol, linewidth = 0.5) +
-        theme_minimal() +
-        ylab("Latitude (°S — °N)") +
-        xlab(NULL) +
-        geom_hline(yintercept = c(36, 32), col = "gray") +
-        geom_hline(yintercept = meanCut, col = "gray10") +
-        scale_y_continuous(breaks = seq(-40, 70, 10)) +
-        theme(axis.text.x = element_blank())
+  output$richness_area_plot <- renderPlot({
+    
+    if (input$richness_area == "Species richness") {
+      plots$ca <- plot_latitudes(dat = na_grid)
+    } else {
+      plots$ca <- plot_relative_area(dat = fish_area)
     }
-  }, res = res)
+
+    plots$ca
+ }, res = res)
   
   output$pc_plot <- renderPlot({
-    plots$pc <- plotPC(cafish)
+    plots$pc <- plot_champagne(fish_area)
     
     plots$pc
     

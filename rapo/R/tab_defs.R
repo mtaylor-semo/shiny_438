@@ -2,20 +2,19 @@ library(dplyr)
 library(stringr)
 
 
-#ca_data <- readRDS("data/ca_data.rds")
-
-
 
 # Define Point Conception tab ---------------------------------------------
 
 pc_tab <- tabPanel(
   "Point Conception",
   fluidRow(
-    column(8, plotOutput("pc_plot"),
+    column(9, plotOutput("pc_plot",
+                         width = "97%",
+                         height = "600px"),
            hr()),
            #uiOutput("na_numbers")),
     column(
-      4,
+      3,
       p(strong("You predicted:")),
       uiOutput("prediction_pc"),
       br(),
@@ -32,24 +31,24 @@ pc_tab <- tabPanel(
 )
 
 
-# Define California Marine Tab --------------------------------------------
+# Define Richness and Area Tab --------------------------------------------
 
 
 ca_tab <- tabPanel(
-  "California Marine Fishes",
+  "Richness and area",
   fluidRow(
     column(
       3,
       wellPanel(radioButtons(
-        inputId = "ca_marine",
+        inputId = "richness_area",
         label = "Choose plot type",
-        choices = c("Range size", "Range extent")
+        choices = c("Species richness", "Area occupied")
       )),
       hr(),
       p(strong("You predicted:")),
       uiOutput("prediction_ca")
     ),
-    column(6, plotOutput("ca_marine_plot"),
+    column(6, plotOutput("richness_area_plot"),
            hr(),
            p("This data set has 516 species.")),
     column(
