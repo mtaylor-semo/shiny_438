@@ -19,7 +19,7 @@ knitr::opts_knit$set(eval.after = "fig.cap")
 
 \subsection*{\assignmentTitle}
 
-\subsubsection{Range Size}
+### Rapoport's Rule: Richness and relative area for North American fishes
 
 
 \begin{enumerate}
@@ -28,7 +28,7 @@ knitr::opts_knit$set(eval.after = "fig.cap")
 whether you think most species in a closely related group of organisms
 have large, medium or small range size, or some combination.
 
-\textbf{You predicted} “`r input$predict_richness_area`”
+\textbf{You predicted} “`r fix_special_chars(input$predict_richness_area)`”
 
 \columnbreak
 
@@ -44,13 +44,13 @@ falsifies your hypothesis in question~\ref{richness_area_predict}.
 
 \end{enumerate}
 
-```{r fig.dim=c(6.5,4), echo=FALSE, fig.cap=paste("Histogram of California coastal marine fishes for geographic range size."), fig.align='left'}
-plots$ca
+```{r fig.dim=c(6.5,4), echo=FALSE, fig.cap=paste("Species richness or relative area per degree of latitude in the U.S."), fig.align='left'}
+plots$rapo
 ```
 
 ***
 
-### Point Conception
+### Rapoport's Rule: Range size for North American fishes
 
 \begin{enumerate}[resume]
 \begin{multicols}{2}
@@ -75,7 +75,7 @@ combination of the two?
 \end{enumerate}
 
 
-```{r fig.dim=c(6.5,4), echo=FALSE, fig.cap="Dot plot showing species richness for each degree of latitude from 30°S to 68°N.", fig.align='left'}
+```{r fig.dim=c(6.5,5), echo=FALSE, fig.cap="Relative geographic area occupied by North American freshwater fishes. Circle size is proportional to square degrees of area covered.", fig.align='left'}
 plots$pc
 ```
 
