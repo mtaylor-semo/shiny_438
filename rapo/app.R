@@ -5,7 +5,6 @@
 # Libraries ---------------------------------------------------------------
 
 library(shiny)
-#library(dplyr)
 library(stringr)
 library(ggplot2)
 
@@ -136,9 +135,8 @@ server <- function(input, output, session) {
   
   ## Reactive values ---------------------------------------------------------
 
-  plots <- reactiveValues(ra = NULL, pc = NULL)
+  plots <- reactiveValues(rapo = NULL, pc = NULL)
 
-  
   # results <- reactiveValues(ca = NULL)
 
 
@@ -212,12 +210,12 @@ server <- function(input, output, session) {
   output$richness_area_plot <- renderPlot({
     
     if (input$richness_area == "Species richness") {
-      plots$ca <- plot_latitudes(dat = na_grid)
+      plots$rapo <- plot_latitudes(dat = na_grid)
     } else {
-      plots$ca <- plot_relative_area(dat = fish_area)
+      plots$rapo <- plot_relative_area(dat = fish_area)
     }
 
-    plots$ca
+    plots$rapo
  }, res = res)
   
   output$pc_plot <- renderPlot({
@@ -227,8 +225,9 @@ server <- function(input, output, session) {
     
   }, res = res)
   # Report Download ---------------------------------------------------------
-  
   # Report output idea from Shiny Gallery
+  
+  # Define file name constants
   base_rmd <- "rapoports_rule.Rmd"
   base_pdf <- "rapoports_rule.pdf"
 
@@ -241,7 +240,6 @@ server <- function(input, output, session) {
         paste0(
           rev(stu_name), 
           collapse = "_"), 
-        #"rapoports_rule.pdf", 
         base_pdf,
         sep = "_"
       )
@@ -253,7 +251,6 @@ server <- function(input, output, session) {
         closeButton = FALSE,
         type = "message"
       )
-      #src <- normalizePath("rapoports_rule.Rmd")
       src <- normalizePath(base_rmd)
       src_tex <- normalizePath("tex/tex_header.tex")
       # temporarily switch to the temp dir, in case you do not have write
@@ -267,7 +264,6 @@ server <- function(input, output, session) {
       library(rmarkdown)
       
       out <- render(
-        #"rapoports_rule.Rmd",
         base_rmd,
         pdf_document(latex_engine = "lualatex",
                      keep_tex = TRUE,
