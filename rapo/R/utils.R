@@ -1,4 +1,3 @@
-library(patchwork)
 library(tidyr)
 library(ggplot2)
 
@@ -6,10 +5,8 @@ library(ggplot2)
 # for the geographic range shiny app.
 
 # Semo colors for plots. Cardiac Red and Riverfront
-mycolors <- c("#9d2235", "#003b5c")
-
-# Semo colors for plots. Rich Black and SEMO REd
-mycolors <- c("#000000", "#C8102E")
+semo_palette <- c("#9d2235", "#003b5c", "#000000", "#C8102E", "#A2AAAD")
+names(semo_palette) <- c("cardiac_red", "riverfront", "rich_black", "semo_red", "pewter")
 
 # Called from Rmd file to replace LaTeX special
 # characters with escaped version.
@@ -22,12 +19,10 @@ fix_special_chars <- function(str = NULL){
 res = 96
 
 # Open data
-
 na_grid <- readRDS("data/rapo_data.rds")$nagrid
 fish_area <- readRDS("data/rapo_data.rds")$fish_area
 
 gis_data <- readRDS("data/gis_data.rds")
-
 
 
 ## Prediction check. Move requirement check for predictions here.
@@ -53,25 +48,25 @@ plot_champagne <- function(dat = NULL, ...) {
     las = 1,
     cex = fish_area$dia,
     lwd = 1.2,
-    col = 'blue',
+    col = semo_palette["riverfront"],
     xlab = expression(paste('Longitude ', degree, 'W')),
     ylab = expression(paste('Latitude ', degree, 'N'))
   )
   
-  lines(gis_data$coast_ine, lwd = 0.5, col = 'grey50')
+  lines(gis_data$coast_ine, lwd = 0.25, col = semo_palette["pewter"])
   
   lines(gis_data$bnd,
-        lwd = 0.5,
+        lwd = 0.25,
         lty = 'dashed',
-        col = 'grey50')
+        col = semo_palette["pewter"])
   
-  lines(gis_data$rivers, lwd = 0.5, col = 'grey50')
+  lines(gis_data$rivers, lwd = 0.25, col = semo_palette["pewter"])
 }
 
 plot_latitudes <- function(dat = NULL, ...) {
-  mean_spp <- apply(na_grid, 1, mean)
-  max_spp <- apply(na_grid, 1, max)
-  lat <- 24:49
+  #mean_spp <- apply(na_grid, 1, mean)
+  #max_spp <- apply(na_grid, 1, max)
+  #lat <- 24:49
   
   plot_data <- tibble(mean_spp = apply(na_grid, 1, mean),
                       max_spp = apply(na_grid, 1, max),
@@ -83,35 +78,23 @@ plot_latitudes <- function(dat = NULL, ...) {
                      xend = max_spp,
                      y = lat,
                      yend = lat),
-                 color = "gray70",
+                 color = semo_palette["rich_black"],
                  linewidth = 0.25) +
     geom_point(aes(x = mean_spp,
                    y = lat),
                size = 3,
-               color = mycolors[1]) +
+               color = semo_palette["cardiac_red"]) +
     geom_point(aes(x = max_spp,
                    y = lat),
                size = 3,
-               color = mycolors[2]) +
+               color = semo_palette["riverfront"]) +
     scale_y_continuous(breaks = seq(25, 50, 5)) +
     theme_minimal() +
-    labs(X = "Mean species richness",
+    labs(x = "Mean and maximum species richness",
          y = "Latitude °N") +
-    theme(panel.grid = element_blank())
+    theme(panel.grid.minor = element_blank())
   
   mean_plot
-  # max_plot <- plot_data %>% 
-  #   ggplot() +
-  #   geom_point(aes(x = max_spp,
-  #                  y = lat),
-  #              size = 2) +
-  #   scale_y_continuous(breaks = seq(25, 50, 5)) +
-  #   theme_minimal() +
-  #   labs(x = "Maximum species richness",
-  #        y = NULL)
-  # 
-  # final_plot <- mean_plot + plot_spacer() + max_plot
-  
 }
 
 
