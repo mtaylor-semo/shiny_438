@@ -61,6 +61,12 @@ plot_champagne <- function(dat = NULL, ...) {
         col = semo_palette["rich_black"])
   
   lines(gis_data$rivers, lwd = 0.25, col = semo_palette["rich_black"])
+  
+  # recordPlot() save the current plot that can be saved
+  # to a variable or passed out of a function. Only needed
+  # for most base R plots.
+  recordPlot()
+
 }
 
 plot_latitudes <- function(dat = NULL, ...) {
@@ -107,32 +113,4 @@ plot_relative_area <- function(dat = NULL, ...) {
   rel_area_plot
 }
 
-
-plotPC <- function(dat = NULL, ...) {
-  numSpecies <- dat %>% 
-    select(-1) %>% 
-    summarize(across(everything(), sum)) %>% 
-    pivot_longer(cols = everything(),
-                 names_to = "latitude", values_to = "numSpecies") %>% 
-    mutate(latitude = str_replace(latitude, "S", "-"),
-           latitude = str_remove(latitude, "N"),
-           latitude = as.numeric(latitude))
-  
-  numSpecies %>% ggplot() +
-    geom_vline(xintercept = 34.4,
-               color = "gray") +
-    geom_point(aes(x = latitude, y = numSpecies,
-                   color = cut(latitude, c(-31, 34, 68)))) +
-    scale_x_continuous(breaks = seq(-30, 70, 5)) +
-    theme_minimal() +
-    labs(x = "Latitude (°S - °N)",
-         y = "Species richness") +
-    scale_color_manual(name = "Latitude",
-                       #values = c("(-31,34]" = scale_pal[1],
-                      #            "(34,68]" = scale_pal[2]),
-                       values = c("(-31,34]" = mycolors[1],
-                                  "(34,68]" = mycolors[2]),
-                       labels = c("South of P.C.",
-                                  "North of P.C."))
-  
 }
