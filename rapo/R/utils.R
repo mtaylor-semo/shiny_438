@@ -113,4 +113,3 @@ plot_relative_area <- function(dat = NULL, ...) {
   rel_area_plot
 }
 
-}
