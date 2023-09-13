@@ -34,8 +34,8 @@ pc_tab <- tabPanel(
 # Define Richness and Area Tab --------------------------------------------
 
 
-ca_tab <- tabPanel(
-  "Richness and area",
+richness_area_tab <- tabPanel(
+  "Richness and Area",
   fluidRow(
     column(
       3,
@@ -53,16 +53,16 @@ ca_tab <- tabPanel(
            p("This data set has 516 species.")),
     column(
       3,
-      uiOutput("ca_info"),
+      uiOutput("richness_area_info"),
       hr(),
       p("Do the results agree with your prediction? Explain below, 
       then press the Next button."),
-      textAreaInput(inputId = "ca_result",
+      textAreaInput(inputId = "richness_area_result",
                     label = NULL,
                     rows = 5),
       hr(),
       actionButton(inputId = "btn_next_ca", label = "Next", width = "35%"),
-      span(textOutput("ca_result_error"), style = "color:#9D2235")
+      span(textOutput("richness_area_result_error"), style = "color:#9D2235")
       
       # img(src = "california.png", width = "320px")
     )

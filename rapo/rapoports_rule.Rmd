@@ -24,11 +24,11 @@ knitr::opts_knit$set(eval.after = "fig.cap")
 
 \begin{enumerate}
 \begin{multicols}{2}
-\item \label{ca_predict} \textbf{What do you predict?} Considering all of North America, tell
+\item \label{richness_area_predict} \textbf{What do you predict?} Considering all of North America, tell
 whether you think most species in a closely related group of organisms
 have large, medium or small range size, or some combination.
 
-\textbf{You predicted} “`r input$predict_ca_range`”
+\textbf{You predicted} “`r input$predict_richness_area`”
 
 \columnbreak
 
@@ -36,9 +36,9 @@ have large, medium or small range size, or some combination.
 species occur in most watersheds (large range size) or do most species
 occur in just a few watersheds (small range size)? Or, is it some
 combination of the two? Explain how the observed result supports or
-falsifies your hypothesis in question~\ref{ca_predict}.
+falsifies your hypothesis in question~\ref{richness_area_predict}.
 
-\textbf{You explained} “`r fix_special_chars(input$ca_result)`”
+\textbf{You explained} “`r fix_special_chars(input$richness_area_result)`”
  
 \end{multicols}
 
