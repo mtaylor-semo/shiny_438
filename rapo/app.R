@@ -1,8 +1,6 @@
-## California coastal marine fishes.
-## Histogram shows distribution of range size (degrees of latitude covered)
-## Range extent shows vertical line for each species showing minimum and
-## maximum points of range.
-
+## Rapoport's Rule
+## Richness and area show plots to identify latitudes in the U.S. with
+## the greatest species richness and largest geographic area.
 
 # Libraries ---------------------------------------------------------------
 
@@ -71,7 +69,7 @@ ui <- tagList(
             coastal marine fishes likely have large or small range 
             size? Explain."),
           textAreaInput(
-            inputId = "predict_ca_range",
+            inputId = "predict_richness_area",
             label = NULL, #"Enter your prediction:",
             rows = 6,
             placeholder = "Range size prediction…",
@@ -118,7 +116,7 @@ server <- function(input, output, session) {
 
   output$prediction_error <- renderText({
     if (input$student_name == "" |
-      input$predict_ca_range == "" |
+      input$predict_richness_area == "" |
       input$predict_pc == "") {
       "Please fill in all blanks."
     }
@@ -130,8 +128,8 @@ server <- function(input, output, session) {
     }
   })
   
-  output$ca_result_error <- renderText({
-    if (input$ca_result == "") {
+  output$richness_area_result_error <- renderText({
+    if (input$richness_area_result == "") {
       "Please interpret the histogram."
     }
   })
@@ -150,19 +148,19 @@ server <- function(input, output, session) {
     if (is.null(input$richness_area)) {
     # Comment out for development.
      pred_check(sn = input$student_name,
-                pn = input$predict_ca_range,
+                pn = input$predict_richness_area,
                 pc = input$predict_pc)
 
     removeTab(inputId = "tabs", target = "Predictions")
-    appendTab(inputId = "tabs", tab = ca_tab, select = TRUE)
+    appendTab(inputId = "tabs", tab = richness_area_tab, select = TRUE)
     } else {
-      showTab(inputId = "tabs", target = "California Marine Fishes", select = TRUE)
+      showTab(inputId = "tabs", target = "Richness and Area", select = TRUE)
     }
   })
 
   observeEvent(input$btn_next_ca, {
     if (is.null(input$pc_tab)) {
-      result_check(exp = input$ca_result)
+      result_check(exp = input$richness_area_result)
       appendTab(inputId = "tabs", tab = pc_tab, select = TRUE)  
     } else {
       showTab(inputId = "tabs", target = "Point Conception", select = TRUE) 
@@ -183,26 +181,27 @@ server <- function(input, output, session) {
   output$prediction_pc <- renderUI({
     p("You predicted:")
     p(input$predict_pc)
-    #sprintf("%s", input$predict_ca_range)
+    #sprintf("%s", input$predict_richness_area)
   })
   
   output$prediction_ca <- renderUI({
     p("You predicted:")
-    sprintf("%s", input$predict_ca_range)
+    sprintf("%s", input$predict_richness_area)
   })
   
-  output$ca_info <- renderUI({
+  output$richness_area_info <- renderUI({
     if (input$richness_area == "Species richness") {
-      p("Range extent for California coastal marine fishes. Each
-        vertical bar shows the minimum to maximum latitude for
-        one species of fish. Species with a
-        median latitude above Point Conception are shown in
-        red. Species with an average latitude below Point Conception
-        are shown in blue. The horizontal black line is the latitude of
-        Point Conception. Fishes are sorted (left to right on
-        x-axis) in order of minimum latitude. ")
+      p("Mean (red) and maximum (blue) species richness for freshwater
+        fishes in the U.S. The solid black line connects mean and
+        maximum values for the same degree of latitude.")
     } else {
-      img(src = "california.png", width = "97%")
+      p("Relative area occupied by freshwater
+        fishes in the U.S. Area is the total number of 1 x 1° cells
+        occupied by a species. A species that occupies 5° of longitude
+        and 2° of latitude has a relative area of 10. A species
+        that occupies 4° of longitude and 5° of latitude has a relative
+        area of 20. Species with large relative geographic areas cover
+        a broader part of the U.S.")
     }
   })
 
@@ -230,24 +229,22 @@ server <- function(input, output, session) {
   # Report Download ---------------------------------------------------------
   
   # Report output idea from Shiny Gallery
+  base_rmd <- "rapoports_rule.Rmd"
+  base_pdf <- "rapoports_rule.pdf"
+
   output$downloadReport <- downloadHandler(
+    base_rmd,
     filename = function() {
       stu_name <- str_to_lower(str_split(input$student_name, " ", simplify = TRUE))
-      # For the student (or famous soocer player) with only one name.
-      # What happens for students with three or more names?
+
       paste(
         paste0(
           rev(stu_name), 
           collapse = "_"), 
-        "california_coastal.pdf", 
+        #"rapoports_rule.pdf", 
+        base_pdf,
         sep = "_"
       )
-      # if (!is.na(stu_name[2])) {
-      #   paste(stu_name[2], stu_name[1], "geographic_range.pdf", sep = "_")  
-      # } else {
-      #   paste(stu_name[1], "geographic_range.pdf", sep = "_")
-      # }
-      
     },
     content = function(file) {
       notification_id <- showNotification(
@@ -256,19 +253,22 @@ server <- function(input, output, session) {
         closeButton = FALSE,
         type = "message"
       )
-      src <- normalizePath("range_size_ca.Rmd")
+      #src <- normalizePath("rapoports_rule.Rmd")
+      src <- normalizePath(base_rmd)
       src_tex <- normalizePath("tex/tex_header.tex")
       # temporarily switch to the temp dir, in case you do not have write
       # permission to the current working directory
       owd <- setwd(tempdir())
       on.exit(setwd(owd))
-      file.copy(src, "range_size_ca.Rmd", overwrite = TRUE)
+      #file.copy(src, "rapoports_rule.Rmd", overwrite = TRUE)
+      file.copy(src, base_rmd, overwrite = TRUE)
       file.copy(src_tex, "tex_header.tex", overwrite = TRUE)
       
       library(rmarkdown)
       
       out <- render(
-        "range_size_ca.Rmd",
+        #"rapoports_rule.Rmd",
+        base_rmd,
         pdf_document(latex_engine = "lualatex",
                      keep_tex = TRUE,
                      includes = includes(in_header = "tex_header.tex"))
