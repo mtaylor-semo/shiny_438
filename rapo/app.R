@@ -26,20 +26,28 @@ ui <- tagList(
       fluidRow(
         column(
           width = 3,
-          img(src = "birds.png", width = "97%"),
-          br(),
-          img(src = "mammals.png", width = "97%")
+          img(src = "animals.jpg", width = "97%")
         ),
-
         column(
-          width = 6,
-          p("Rapo instructions go here."),
-          p("More instructions."),
-          p("Yet more if necessary."),
+          width = 7,
+          p("Rapoport's Rules were based originally on land birds and mammals. You have
+            already explored how the rules fit coastal marine fishes and, to a lesser extent,
+            freshwater fishes."),
+          p("For this exercise, you will explore whether the rules apply to primary freshwater
+            fishes in the U.S., plus parts of northern Mexico and southern Canada. First, you
+            will explore mean and maximum richness as a function of latitude. Second, you will
+            explore whether range size increases with latitude."),
+          p("The geographic area was divided into a grid of 1° latitude x 1° longitude cell
+            (see figure below). If a species was collected in one of the 1° cells, then
+            presence was recorded with a 1. Absence was recorded with a 0. The 
+            presence/absence data for each cell was recorded for 529 species of North 
+            American freshwater fishes."),
           hr(),
-          p("Choose the Predictions tab above to begin.")
+          p("Choose the Predictions tab above to begin."),
+          hr(),
+          img(src = "na_grid.png", width = "100%")
         )
-      ),
+      )
     ),
 
 
