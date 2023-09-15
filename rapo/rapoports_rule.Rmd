@@ -30,16 +30,19 @@ have large, medium or small range size, or some combination.
 
 \textbf{You predicted} “`r fix_special_chars(input$predict_richness_area)`”
 
-\columnbreak
+\item \textbf{At what latitudes, approximately, are mean and maximum species richness the highest? Does this agree with range area? Explain.}.
 
-\item \textbf{Interpret the pattern.} Describe the pattern that you see. Do most
-species occur in most watersheds (large range size) or do most species
-occur in just a few watersheds (small range size)? Or, is it some
-combination of the two? Explain how the observed result supports or
-falsifies your hypothesis in question~\ref{richness_area_predict}.
+\textbf{You explained} “`r fix_special_chars(input$richness_area_q1)`”
 
-\textbf{You explained} “`r fix_special_chars(input$richness_area_result)`”
- 
+\item \textbf{Does species richness and area for North American freshwater
+        fishes follow Rapoport's Rule? Explain.}
+
+\textbf{You explained} “`r fix_special_chars(input$richness_area_q2)`”
+
+\item \textbf{Why do you think species richness is relatively low between 24–28°N compared to between 30–38°N? The map below left (scroll down if necessary) should help you think about this.}
+
+\textbf{You explained} “`r fix_special_chars(input$richness_area_q3)`”
+
 \end{multicols}
 
 \end{enumerate}
@@ -62,14 +65,28 @@ combination. ADD SOMETHING ABOUT LATITUDE FOR THEM TO THINK ABOUT.
 
 \textbf{You predicted} “`r fix_special_chars(input$predict_pc)`”
 
-\columnbreak
-
 \item \textbf{Interpret and explain the pattern.} Describe the pattern that you see. Do most
 species occur across many degrees of latitude (say, 40° or more of latitude is large range size) or do most species
 occur across just a few degrees of latitude (say, 10° or less of latitude is mall range size)? Or, is it some
 combination of the two?
 
 \textbf{You explained} “`r fix_special_chars(input$pc_result)`”
+
+\item \textbf{Based on this figure, combined with the previous graphs,  do U.S. freshwater fishes follow Rapoport’s Rule for geographic range size? Explain.}
+
+\textbf{You explained} “`r fix_special_chars(input$pc_q4)`”
+
+\item \textbf{Considering the geographic ranges east of the Rocky 
+Mountains, what region of the U.S. seems to have most of the smaller bubbles? Why do you think this is?}
+
+\textbf{You wrote} “`r fix_special_chars(input$pc_q5)`”
+
+\item \textbf{What geographic region west of the Rocky Mountains seems
+to have the fewest bubbles? (Or, most of the smallest bubbles?) Why do you think this is?}
+
+\textbf{You wrote} “`r fix_special_chars(input$pc_q6)`”
+
+
 
 \end{multicols}
 \end{enumerate}

@@ -69,12 +69,8 @@ ui <- tagList(
         ),
         column(
           6,
-          p(strong("What is your hypothesis?")),
-          p("Given that the total latitudinal range in the data set 
-            covers 99° of latitude, from 30°S to 68°N, does the mean
-            number of degrees latitude occupied suggest that most 
-            coastal marine fishes likely have large or small range 
-            size? Explain."),
+          p(strong("UPDATE What is your hypothesis?")),
+          p("Need to update the prompts on this page."),
           textAreaInput(
             inputId = "predict_richness_area",
             label = NULL, #"Enter your prediction:",
@@ -84,12 +80,8 @@ ui <- tagList(
             ),
           br(),
           hr(),
-          p(strong("Where will species richness be highest?")),
-          p("The data set spans across tropical regions north
-            past the Arctic Circle. In general terms, where do you think
-            species richness (number of species) will be highest? You
-            do not have to give an exact latitude, but you can enter things
-            like 'close to the equator', or 'at the higher latitudes.'"),
+          p(strong("UPDATE Where will species richness be highest?")),
+          p("Need to update the prompts on this page."),
           textAreaInput(
             inputId = "predict_pc",
             label = NULL, #"Enter your prediction:",
@@ -130,14 +122,18 @@ server <- function(input, output, session) {
   })
 
   output$pc_result_error <- renderText({
-    if (input$pc_result == "") {
-      "Please interpret the plot"
+    if (input$pc_q4 == "" |
+        input$pc_q4 == "" |
+        input$pc_q4 == "" ) {
+      "Please answer all three questions below right."
     }
   })
   
   output$richness_area_result_error <- renderText({
-    if (input$richness_area_result == "") {
-      "Please interpret the histogram."
+    if (input$richness_area_q1 == "" |
+        input$richness_area_q2 == "" |
+        input$richness_area_q3 == "" ) {
+      "Please answer all three questions below right."
     }
   })
   
@@ -166,16 +162,21 @@ server <- function(input, output, session) {
 
   observeEvent(input$btn_next_ra, {
     if (is.null(input$pc_tab)) {
-      result_check(exp = input$richness_area_result)
+      req(input$richness_area_q1, 
+          input$richness_area_q2, 
+          input$richness_area_q3)
       appendTab(inputId = "tabs", tab = pc_tab, select = TRUE)  
     } else {
-      showTab(inputId = "tabs", target = "Point Conception", select = TRUE) 
+      showTab(inputId = "tabs", target = "U.S. Range Size", select = TRUE) 
     }
   })
 
   observeEvent(input$btn_next_pc, {
     if (is.null(input$summary)) {
-      result_check(exp = input$pc_result)
+      #result_check(exp = input$pc_result)
+      req(input$pc_q5,
+          input$pc_q4,
+          input$pc_q6)
       appendTab(inputId = "tabs", tab = summary_tab, select = TRUE)  
     } else {
       showTab(inputId = "tabs", target = "Summary", select = TRUE) 
