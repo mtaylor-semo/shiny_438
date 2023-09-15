@@ -69,8 +69,11 @@ ui <- tagList(
         ),
         column(
           6,
-          p(strong("UPDATE What is your hypothesis?")),
-          p("Need to update the prompts on this page."),
+          p(strong("Think carefully about the size ")),
+          p(strong("What do you predict for species richness?")),
+          p("Based on what you have learned so far from lecture and
+          other exercises, do you think freshwater fishes of the U.S.
+          will follow Rapoport's Rule for species richness?"),
           textAreaInput(
             inputId = "predict_richness_area",
             label = NULL, #"Enter your prediction:",
@@ -80,8 +83,9 @@ ui <- tagList(
             ),
           br(),
           hr(),
-          p(strong("UPDATE Where will species richness be highest?")),
-          p("Need to update the prompts on this page."),
+          p(strong("What do you predict for range size?")),
+          p("Based on what you have learned so far from lecture and
+            lab, do you think "),
           textAreaInput(
             inputId = "predict_pc",
             label = NULL, #"Enter your prediction:",

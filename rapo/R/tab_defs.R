@@ -68,7 +68,7 @@ pc_tab <- tabPanel(
       br(),
       p("This figure shows the relative range size for 529 species of
         primary freshwater fishes that occur in the U.S. Circle diamter
-        is proportional to the relative area occupied by each species."),
+        is proportional to the squate degrees occupied by each species."),
       textAreaInput(inputId = "pc_result",
                     label = NULL,
                     rows = 5),

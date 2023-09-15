@@ -86,13 +86,11 @@ to have the fewest bubbles? (Or, most of the smallest bubbles?) Why do you think
 
 \textbf{You wrote} “`r fix_special_chars(input$pc_q6)`”
 
-
-
 \end{multicols}
 \end{enumerate}
 
 
-```{r fig.dim=c(6.5,5), echo=FALSE, fig.cap="Relative geographic area occupied by North American freshwater fishes. Circle size is proportional to square degrees of area covered.", fig.align='left'}
+```{r fig.dim=c(6.5,5), echo=FALSE, fig.cap="Relative geographic area occupied by North American freshwater fishes. Circle diamter is proportional to square degrees of area occupied by each species.", fig.align='left'}
 plots$pc
 ```
 
