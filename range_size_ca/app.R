@@ -63,8 +63,8 @@ ui <- tagList(
           requirement was that some part of the species' range had to occur
           within the coastal waters of California. For each degree of
           latitude, a species was assigned 1 if present, and 0 if absent."),
-          p("This app helps you calculate the range size (number of degrees
-          of latitude occupied) for each species. You will also calculate
+          p("This app helps you analyze range size (number of degrees
+          of latitude occupied) for each species. You will also analyze
           the number of species present in each degree of latitude."),
           hr(),
           p("Choose the Predictions tab above to begin.")
