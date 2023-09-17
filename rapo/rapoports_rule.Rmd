@@ -24,9 +24,11 @@ knitr::opts_knit$set(eval.after = "fig.cap")
 
 \begin{enumerate}
 \begin{multicols}{2}
-\item \label{richness_area_predict} \textbf{What do you predict?} Considering all of North America, tell
-whether you think most species in a closely related group of organisms
-have large, medium or small range size, or some combination.
+\item \label{richness_area_predict} \textbf{What do you predict for species richness?} 
+Based on what you have learned so far from lecture and other exercises, do you think
+freshwater fishes of the U.S. will follow Rapoport's Rule for species richness? Do you think
+species richness could be higher at mid-U.S. latitudes compared to lower or higher latitudes
+in the U.S.? Explain.
 
 \textbf{You predicted} “`r fix_special_chars(input$predict_richness_area)`”
 
@@ -58,19 +60,13 @@ plots$rapo
 \begin{enumerate}[resume]
 \begin{multicols}{2}
 
-\item \textbf{What do you predict?} For California coastal marine fishes, 
-tell whether you think most species in a closely related
-group of organisms have large, medium or small range size, or some
-combination. ADD SOMETHING ABOUT LATITUDE FOR THEM TO THINK ABOUT.
+\item \textbf{What do you predict for range size?} Based on what you have learned so far 
+from lecture and other exercises, do you think range size of freshwater fishes will strictly
+follow Rapoport's Rule for range size as you go from south to north? Why or why not? Do you
+think there might be differences in the south to north trend if you compare the eastern U.S.
+to the western U.S.? Why or why not?
 
 \textbf{You predicted} “`r fix_special_chars(input$predict_pc)`”
-
-\item \textbf{Interpret and explain the pattern.} Describe the pattern that you see. Do most
-species occur across many degrees of latitude (say, 40° or more of latitude is large range size) or do most species
-occur across just a few degrees of latitude (say, 10° or less of latitude is mall range size)? Or, is it some
-combination of the two?
-
-\textbf{You explained} “`r fix_special_chars(input$pc_result)`”
 
 \item \textbf{Based on this figure, combined with the previous graphs,  do U.S. freshwater fishes follow Rapoport’s Rule for geographic range size? Explain.}
 

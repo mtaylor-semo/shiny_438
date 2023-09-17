@@ -69,36 +69,45 @@ ui <- tagList(
         ),
         column(
           6,
-          p(strong("Think carefully about the size ")),
+          p(strong("Think carefully about your predictions below."), "Is the U.S. uniform from
+            south to north? What about east to west? Think about where the U.S. tends
+            to be wetter (more precipitation) or more arid (drier). Do some regions
+            have more rivers than other regions? Will the U.S. have any regional climate
+            effects due to rain shadows or deserts? How might this influence freshwater
+            fishes and Rapoport's Rule?"),
           p(strong("What do you predict for species richness?")),
           p("Based on what you have learned so far from lecture and
-          other exercises, do you think freshwater fishes of the U.S.
-          will follow Rapoport's Rule for species richness?"),
+            other exercises, do you think freshwater fishes of the U.S.
+            will follow Rapoport's Rule for species richness? Do you think species richness
+            could be higher at mid-U.S. latitudes compared to lower or higher latitudes in
+            the U.S.? Explain."),
+          hr(),
           textAreaInput(
             inputId = "predict_richness_area",
             label = NULL, #"Enter your prediction:",
             rows = 6,
-            placeholder = "Range size prediction…",
+            placeholder = "Species richness prediction…",
             width = "90%"
             ),
           br(),
           hr(),
           p(strong("What do you predict for range size?")),
           p("Based on what you have learned so far from lecture and
-            lab, do you think "),
+            other exercises, do you think range size of freshwater fishes will strictly
+            follow Rapoport's Rule for range size as you go from south to north? Why or
+            why not? Do you think there might be differences in the south to north trend
+            if you compare the eastern U.S. to the western U.S.? Why or why not?"),
           textAreaInput(
             inputId = "predict_pc",
             label = NULL, #"Enter your prediction:",
             rows = 6,
-            placeholder = "Species richness prediction…",
+            placeholder = "Range size prediction…",
             width = "90%"
           )
         ),
         
         column(
           3,
-          #img(src = "west_coast.png", width = "97%"),
-          hr(),
           br(),
           actionButton(inputId = "btn_next_pred", label = "Next", width = "35%"),
           span(textOutput("prediction_error"), style = "color:#9D2235"),
@@ -129,7 +138,7 @@ server <- function(input, output, session) {
     if (input$pc_q4 == "" |
         input$pc_q4 == "" |
         input$pc_q4 == "" ) {
-      "Please answer all three questions below right."
+      "Please answer all three questions below the figure."
     }
   })
   
@@ -137,7 +146,7 @@ server <- function(input, output, session) {
     if (input$richness_area_q1 == "" |
         input$richness_area_q2 == "" |
         input$richness_area_q3 == "" ) {
-      "Please answer all three questions below right."
+      "Please answer all three questions below the figure."
     }
   })
   

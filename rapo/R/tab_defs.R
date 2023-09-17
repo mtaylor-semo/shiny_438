@@ -15,10 +15,7 @@ richness_area_tab <- tabPanel(
       )),
       hr(),
       p(strong("You predicted:")),
-      uiOutput("prediction_ca"),
-      hr(),
-      actionButton(inputId = "btn_next_ra", label = "Next", width = "35%"),
-      span(textOutput("richness_area_result_error"), style = "color:#9D2235")
+      uiOutput("prediction_ca")
     ),
     column(6, plotOutput("richness_area_plot"),
            hr(),
@@ -48,10 +45,10 @@ richness_area_tab <- tabPanel(
           ),
     column(
       3,
-      uiOutput("richness_area_info")
-      #uiOutput("richness_area_info"),
-      
-      # img(src = "california.png", width = "320px")
+      uiOutput("richness_area_info"),
+      br(),
+      actionButton(inputId = "btn_next_ra", label = "Next", width = "35%"),
+      span(textOutput("richness_area_result_error"), style = "color:#9D2235")
     )
   )
 )
@@ -69,9 +66,9 @@ pc_tab <- tabPanel(
       p("This figure shows the relative range size for 529 species of
         primary freshwater fishes that occur in the U.S. Circle diamter
         is proportional to the squate degrees occupied by each species."),
-      textAreaInput(inputId = "pc_result",
-                    label = NULL,
-                    rows = 5),
+      # textAreaInput(inputId = "pc_result",
+      #               label = NULL,
+      #               rows = 5),
       hr(),
       actionButton(inputId = "btn_next_pc", label = "Next", width = "35%"),
       span(textOutput("pc_result_error"), style = "color:#9D2235")
