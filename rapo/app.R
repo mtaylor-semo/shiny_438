@@ -37,7 +37,7 @@ ui <- tagList(
             fishes in the U.S., plus parts of northern Mexico and southern Canada. First, you
             will explore mean and maximum richness as a function of latitude. Second, you will
             explore whether range size increases with latitude."),
-          p("The geographic area was divided into a grid of 1° latitude x 1° longitude cell
+          p("The geographic area was divided into a grid of 1° latitude x 1° longitude cells
             (see figure below). If a species was collected in one of the 1° cells, then
             presence was recorded with a 1. Absence was recorded with a 0. The 
             presence/absence data for each cell was recorded for 529 species of North 
