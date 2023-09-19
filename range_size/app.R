@@ -290,10 +290,18 @@ server <- function(input, output, session) {
     p("You predicted:")
     sprintf("%s", input$predict_na)
   })
+  
+  prediction_na_escaped <- reactive({
+    fix_special_chars(input$predict_na)
+  })
 
   output$prediction_state <- renderUI({
     p("You predicted:")
     sprintf("%s", input$predict_state)
+  })
+  
+  prediction_state_escaped <- reactive({
+    fix_special_chars(input$predict_state)
   })
 
   output$prediction_rapo_five <- renderUI({

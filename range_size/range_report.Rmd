@@ -32,7 +32,7 @@ whether you think most species in a closely related group of organisms (fishes, 
             you started. You may also predict some combination of the three
             options.
 
-\textbf{You predicted} “`r fix_special_chars(input$predict_na)`”
+\textbf{You predicted} “`r prediction_na_escaped()`”
 
 \columnbreak
 
@@ -61,7 +61,7 @@ plots$na
 
 \item \textbf{What do you predict?} What do you predict for the state level? Will most species have small, moderate, or large range sizes? 
 
-\textbf{You predicted} “`r fix_special_chars(input$predict_state)`”
+\textbf{You predicted} “`r prediction_state_escaped()`”
 
 \columnbreak
 
