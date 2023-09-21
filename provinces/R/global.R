@@ -32,20 +32,22 @@ rivers <- read_table("data/rivers.txt", col_names = c("X1", "X2"), show_col_type
 
 # Called from Rmd file to replace LaTeX special
 # characters with escaped version.
-fix_special_chars <- function(str = NULL){
+fix_special_chars <- function(str = NULL) {
   str_replace_all(str, "([#%$_])", "\\\\\\1")
 }
 
 has_empty_input <- function(lst = NULL) {
-  if (any(lst == ""))
-    "Please fill in all blanks on this page."
+  if (any(lst == "")) {
+    "Please fill in all blanks."
+  }
 }
+
 # Pivot csv data to long format for ggplot2
 prepare_data <- function(.data) {
   # Define the latitude and longitude for the data and plotting.
   lat <- 24:49
   long <- -125:-65
-  
+
   colnames(.data) <- as.character(long)
   mutate(.data, lat = lat) %>%
     pivot_longer(
@@ -87,13 +89,6 @@ readCutoff <- function() {
     as.integer(cutoff)
   )
 }
-
-
-
-# Prepare the data for ggplot using function
-# This is for na grid and species groups. Will have
-# to use different variables for North America vs groups.
-grid_long <- prepare_data(nagrid)
 
 
 ## Prediction check. Move requirement check for predictions here.
