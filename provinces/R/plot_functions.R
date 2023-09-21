@@ -9,10 +9,10 @@ mycolors <- brewer.pal(8, "Dark2")
 # Called from nagrid_diversity.R and diversity.R
 # Both files set up exact same format (for now) so
 # no function variables needed.
-plot_na_grid <- function() {
+plot_na_grid <- function(species_data = NULL) {
   x <- ggplot(data = world) +
     geom_raster(
-      data = grid_long,
+      data = species_data,
       aes(x = long, y = lat, fill = N),
       interpolate = TRUE
     ) +
