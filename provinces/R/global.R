@@ -22,11 +22,10 @@ res = 96
 # state_fishes contains fishes for select U.S. states
 # species_groups contains select families of U.S. freshwater fishes
 # Rivers is the data set to plot the rivers.
-nagrid <- read_csv("data/NAfish_grid.csv") %>% select(-1)
+nagrid <- read_csv("data/NAfish_grid.csv", show_col_types = FALSE) %>% select(-1)
 state_fishes <- readRDS("data/state_fishes.rds")
 species_groups <- readRDS("data/species_groups.rds")
-rivers <- read_table("data/rivers.txt", col_names = c("X1", "X2"))
-
+rivers <- read_table("data/rivers.txt", col_names = c("X1", "X2"), show_col_types = FALSE)
 
 
 # Global functions --------------------------------------------------------
@@ -37,6 +36,10 @@ fix_special_chars <- function(str = NULL){
   str_replace_all(str, "([#%$_])", "\\\\\\1")
 }
 
+has_empty_input <- function(lst = NULL) {
+  if (any(lst == ""))
+    "Please fill in all blanks on this page."
+}
 # Pivot csv data to long format for ggplot2
 prepare_data <- function(.data) {
   # Define the latitude and longitude for the data and plotting.
@@ -88,7 +91,8 @@ readCutoff <- function() {
 
 
 # Prepare the data for ggplot using function
-# TURN INTO FUNCTION
+# This is for na grid and species groups. Will have
+# to use different variables for North America vs groups.
 grid_long <- prepare_data(nagrid)
 
 
