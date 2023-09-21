@@ -64,7 +64,7 @@ species_tab <- tabPanel(
         selectInput(
           inputId = "spp_menu",
           label = "Choose a species group",
-          choices = valid_groups,
+          choices = names(species_groups),
           multiple = FALSE
         ),
         hr(),
