@@ -12,9 +12,9 @@ server <- function(input, output, session) {
     has_empty_input(list(input$student_name, input$predict_na_richness))
   })
   
-  output$pc_result_error <- renderText({
-    has_empty_input(list(pc_q4, pc_q5, pc_q6))
-  })
+  # output$pc_result_error <- renderText({
+  #   has_empty_input(list(pc_q4, pc_q5, pc_q6))
+  # })
 
   output$na_richness_result_error <- renderText({
     has_empty_input(list(input$question1))
@@ -79,21 +79,28 @@ server <- function(input, output, session) {
   
   ## Richness and area -------------------------------------------------
   
-  output$na_richness_plot <- renderPlot({
-    
-    plots$na_richness <- plot_na_grid()
-    
-    # plots$na_richness
-    
-  }, res = res, width = "100%") %>% 
-    bindCache()
+  output$na_richness_plot <- renderPlot(
+    {
+      plots$na_richness <- plot_na_grid(
+        species_data = prepare_data(nagrid)
+      )
+    },
+    res = res,
+    width = "100%"
+  ) %>%
+    bindCache(nagrid)
   
-  output$pc_plot <- renderPlot({
-    plots$pc <- plot_champagne(fish_area)
-    
-    plots$pc
-    
-  }, res = res)
+  output$pc_plot <- renderPlot(
+    {
+      plots$pc <- plot_na_grid(
+        species_data = prepare_data(species_groups[[input$spp_menu]])
+      )
+    },
+    res = res,
+    width = "100%"
+  ) %>%
+    bindCache(input$spp_menu)
+  
   # Report Download ---------------------------------------------------------
   # Report output idea from Shiny Gallery
   
