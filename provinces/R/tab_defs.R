@@ -65,7 +65,9 @@ na_richess_tab <- tabPanel(
       p("Scroll down for questions."),
       plotOutput("na_richness_plot",
         height = "600px"
-      ),
+      ) %>% 
+        withSpinner(type = 4,
+                    color = semo_palette["cardiac_red"]),
       br(),
       p("Density plot of species richness for U.S. Freshwater fishes. Brighter
         colors indicate greater species richness. Look carefully at the western
@@ -146,7 +148,9 @@ species_tab <- tabPanel(
       plotOutput("pc_plot",
         width = "97%",
         height = "600px"
-      ),
+      ) %>% 
+        withSpinner(type = 4,
+                    color = semo_palette["cardiac_red"]),
       hr()
     )
   ),
