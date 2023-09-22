@@ -29,12 +29,22 @@ server <- function(input, output, session) {
   
   ## Button observers --------------------------------------------------------
   
+  observeEvent(input$btn_next_inst, {
+    if (is.null(input$student_name)) {
+#    removeTab(inputId = "tabs", target = "Instructions")
+    appendTab(inputId = "tabs", tab = predictions_tab, select = TRUE)
+    } else {
+      showTab(inputId = "tabs", target = "Predictions", select = TRUE)
+    }
+  })
+  
   observeEvent(input$btn_next_pred, {
     if (is.null(input$richness_area_q1)) {
+      req(input$student_name, input$predict_na_richness)
       # Comment out for development.
       # pred_check(sn = input$student_name,
       #            ra = input$predict_na_richness)
-      
+
       removeTab(inputId = "tabs", target = "Predictions")
       appendTab(inputId = "tabs", tab = na_richess_tab, select = TRUE)
     } else {
@@ -103,10 +113,6 @@ server <- function(input, output, session) {
   
   # Report Download ---------------------------------------------------------
   # Report output idea from Shiny Gallery
-  
-  # Define file name constants
-  base_rmd <- "rapoports_rule.Rmd"
-  base_pdf <- "rapoports_rule.pdf"
   
   output$downloadReport <- downloadHandler(
     base_rmd,
