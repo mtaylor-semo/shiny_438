@@ -93,9 +93,10 @@ server <- function(input, output, session) {
 
   output$na_richness_plot <- renderPlot(
     {
-      plots$na_richness <- plot_na_grid(
+      plot_na_grid(
         species_data = prepare_data(nagrid)
       )
+      #plots$na_richness
     },
     res = res,
     width = "100%"
@@ -104,7 +105,7 @@ server <- function(input, output, session) {
 
   output$pc_plot <- renderPlot(
     {
-      plots$pc <- plot_na_grid(
+      plot_na_grid(
         species_data = prepare_data(species_groups[[input$spp_menu]])
       )
     },

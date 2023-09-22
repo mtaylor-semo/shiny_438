@@ -10,7 +10,7 @@ mycolors <- brewer.pal(8, "Dark2")
 # Both files set up exact same format (for now) so
 # no function variables needed.
 plot_na_grid <- function(species_data = NULL) {
-  x <- ggplot(data = world) +
+  ggplot(data = world) +
     geom_raster(
       data = species_data,
       aes(x = long, y = lat, fill = N),
@@ -59,8 +59,6 @@ plot_na_grid <- function(species_data = NULL) {
       axis.text = element_text(size = 12),
       axis.title = element_text(size = 14)
     )
-
-  print(x)
 }
 
 
@@ -73,3 +71,4 @@ plot_scale_limits <- function(vec, res, fun) {
     ceiling(max(vec) / res) * res
   }
 }
+
