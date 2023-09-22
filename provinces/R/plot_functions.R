@@ -17,9 +17,23 @@ plot_na_grid <- function(species_data = NULL) {
       interpolate = TRUE
     ) +
     scale_fill_viridis_c(guide = NULL, option = "magma") +
-    geom_path(data = rivers, aes(x = X1, y = X2), color = "grey70", linewidth = 0.25) +
-    geom_sf(color = "gray80", fill = NA, linewidth = 0.25) +
-    geom_sf(data = states, color = "gray80", fill = NA, linewidth = 0.25) +
+    geom_path(
+      data = rivers,
+      aes(x = X1, y = X2),
+      color = "grey70",
+      linewidth = 0.25
+    ) +
+    geom_sf(
+      color = "gray80",
+      fill = NA,
+      linewidth = 0.25
+    ) +
+    geom_sf(
+      data = states, 
+      color = "gray80", 
+      fill = NA, 
+      linewidth = 0.25
+    ) +
     coord_sf(
       default_crs = sf::st_crs(4326),
       xlim = c(-125, -65),
@@ -40,19 +54,22 @@ plot_na_grid <- function(species_data = NULL) {
     ) +
     labs(x = "Longitude", y = "Latitude") +
     # Remove space from bottom for closer legend
-    theme(plot.margin = margin(0, 0, -1, 0, "cm"),
-          axis.text = element_text(size = 12),
-          axis.title = element_text(size = 14)) 
-  
+    theme(
+      plot.margin = margin(0, 0, -1, 0, "cm"),
+      axis.text = element_text(size = 12),
+      axis.title = element_text(size = 14)
+    )
+
   print(x)
 }
 
 
 # Set lower and upper scale limits for
 # NMDS plots
-plot_scale_limits <- function(vec, res, fun){
-  if (fun == "min")
+plot_scale_limits <- function(vec, res, fun) {
+  if (fun == "min") {
     floor(min(vec) / res) * res
-  else
+  } else {
     ceiling(max(vec) / res) * res
+  }
 }
