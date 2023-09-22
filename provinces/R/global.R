@@ -3,6 +3,11 @@ library(ggplot2)
 
 # Global vars -------------------------------------------------------------
 
+# Define file name constants
+base_rmd <- "provinces.Rmd"
+base_pdf <- "provinces.pdf"
+
+
 world <- ne_countries(scale = "medium", continent = "North America", returnclass = "sf")
 states <- st_as_sf(maps::map("state", plot = FALSE, fill = TRUE))
 
