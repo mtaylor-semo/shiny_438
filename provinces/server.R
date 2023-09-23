@@ -57,7 +57,7 @@ server <- function(input, output, session) {
       req(input$question1)
       appendTab(inputId = "tabs", tab = species_tab, select = TRUE)
     } else {
-      showTab(inputId = "tabs", target = "Species Richness", select = TRUE)
+      showTab(inputId = "tabs", target = "Family Richness", select = TRUE)
     }
   })
 

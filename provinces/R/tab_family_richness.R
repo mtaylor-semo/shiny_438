@@ -2,7 +2,7 @@
 # Define Family Richness tab ---------------------------------------------
 
 species_tab <- tabPanel(
-  "Species Richness",
+  "Family Richness",
   fluidRow(
     column(
       3,
