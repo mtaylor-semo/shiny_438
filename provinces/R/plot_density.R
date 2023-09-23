@@ -1,14 +1,6 @@
-# Plot functions used by Provinces app.
-library(RColorBrewer)
-mycolors <- brewer.pal(8, "Dark2")
+# Raster density plots for all U.S. species
+# and select families.
 
-# Plot function for Richness exercise -------------------------------------
-
-# Plot the North American data grid for N.A.
-# and specific groups of fishes.
-# Called from nagrid_diversity.R and diversity.R
-# Both files set up exact same format (for now) so
-# no function variables needed.
 plot_na_grid <- function(species_data = NULL) {
   ggplot(data = world) +
     geom_raster(
@@ -60,15 +52,3 @@ plot_na_grid <- function(species_data = NULL) {
       axis.title = element_text(size = 14)
     )
 }
-
-
-# Set lower and upper scale limits for
-# NMDS plots
-plot_scale_limits <- function(vec, res, fun) {
-  if (fun == "min") {
-    floor(min(vec) / res) * res
-  } else {
-    ceiling(max(vec) / res) * res
-  }
-}
-
