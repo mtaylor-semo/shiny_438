@@ -75,13 +75,22 @@ server <- function(input, output, session) {
     }
   })
 
-
+  observeEvent(input$spp_menu, {
+    output$species_info <- renderText(get_species_info(input$spp_menu))
+  })
   ## Outputs -------------------------------------------------------------
 
   # output$prediction_pc <- renderUI({
   #   p("You predicted:")
   #   sprintf("%s", input$predict_na_richness)
   # })
+  
+  output$spp_info <- renderUI({
+    p(get_species_info(input$spp_menu),
+    img(src = get_species_image(input$spp_menu), width = "97%"))
+    
+    #img(src = get_species_image(input$spp_menu), width = "97%")
+  })
 
   output$prediction_na_richness <- renderUI({
     p("You predicted:")
@@ -96,7 +105,6 @@ server <- function(input, output, session) {
       plot_na_grid(
         species_data = prepare_data(nagrid)
       )
-      #plots$na_richness
     },
     res = res,
     width = "100%"

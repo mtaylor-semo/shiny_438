@@ -131,8 +131,10 @@ species_tab <- tabPanel(
           choices = names(species_groups),
           multiple = FALSE
         ),
-        hr(),
-        p(strong("Be sure to examine all assigned taxa."))
+        #p(strong("Be sure to examine all assigned taxa."))
+        #textOutput("species_info"),
+        #img(get_species_image(input$spp_menu)),
+        uiOutput("spp_info")
       ),
       actionButton(
         inputId = "btn_next_spp",
