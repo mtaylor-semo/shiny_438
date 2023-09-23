@@ -1,7 +1,36 @@
 library(tidyr)
 library(ggplot2)
+library(readr)
+library(dplyr)
+library(stringr)
+
+library(shinycssloaders)
+
+library(sf)
+library(rnaturalearth)
+library(rnaturalearthdata)
+library(rgeos)
+library(maps)
+
+library(vegan)
+library(ggdendro)
+library(dendextend)
 
 # Global vars -------------------------------------------------------------
+
+
+# Semo colors for plots. Cardiac Red and Riverfront used most often.
+semo_palette <- c("#9d2235", 
+                  "#003b5c", 
+                  "#000000", 
+                  "#C8102E", 
+                  "#A2AAAD")
+names(semo_palette) <- c("cardiac_red", 
+                         "riverfront", 
+                         "rich_black", 
+                         "semo_red", 
+                         "pewter")
+
 
 # Define file name constants
 base_rmd <- "provinces.Rmd"
@@ -10,11 +39,6 @@ base_pdf <- "provinces.pdf"
 
 world <- ne_countries(scale = "medium", continent = "North America", returnclass = "sf")
 states <- st_as_sf(maps::map("state", plot = FALSE, fill = TRUE))
-
-
-# Semo colors for plots. Cardiac Red and Riverfront
-semo_palette <- c("#9d2235", "#003b5c", "#000000", "#C8102E", "#A2AAAD")
-names(semo_palette) <- c("cardiac_red", "riverfront", "rich_black", "semo_red", "pewter")
 
 # Set resolution of plot to 96 dpi. Most users
 # are PC.
@@ -27,10 +51,15 @@ res = 96
 # state_fishes contains fishes for select U.S. states
 # species_groups contains select families of U.S. freshwater fishes
 # Rivers is the data set to plot the rivers.
-nagrid <- read_csv("data/NAfish_grid.csv", show_col_types = FALSE) %>% select(-1)
+nagrid <- read_csv("data/NAfish_grid.csv", 
+                   show_col_types = FALSE) %>% 
+  dplyr::select(-1)
+rivers <- read_table("data/rivers.txt", 
+                     col_names = c("X1", "X2"), 
+                     show_col_types = FALSE)
+
 state_fishes <- readRDS("data/state_fishes.rds")
 species_groups <- readRDS("data/species_groups.rds")
-rivers <- read_table("data/rivers.txt", col_names = c("X1", "X2"), show_col_types = FALSE)
 
 
 # Global functions --------------------------------------------------------

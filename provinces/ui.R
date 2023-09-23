@@ -3,9 +3,6 @@
 # Libraries ---------------------------------------------------------------
 
 library(shiny)
-library(stringr)
-library(ggplot2)
-library(shinycssloaders)
 
 ## UI ----------------------------------------------------------------------
 
