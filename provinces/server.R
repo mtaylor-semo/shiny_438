@@ -31,10 +31,11 @@ server <- function(input, output, session) {
 
   observeEvent(input$btn_next_inst, {
     if (is.null(input$student_name)) {
-      #    removeTab(inputId = "tabs", target = "Instructions")
-      appendTab(inputId = "tabs", tab = predictions_tab, select = TRUE)
+      # appendTab(inputId = "tabs", tab = predictions_tab, select = TRUE)
+      appendTab(inputId = "tabs", tab = cluster_nmds_tab, select = TRUE)
     } else {
-      showTab(inputId = "tabs", target = "Predictions", select = TRUE)
+      # showTab(inputId = "tabs", target = "Predictions", select = TRUE)
+      showTab(inputId = "tabs", target = "Clusters", select = TRUE)
     }
   })
 
@@ -62,13 +63,25 @@ server <- function(input, output, session) {
   })
 
   observeEvent(input$btn_next_spp, {
-    if (is.null(input$summary)) {
-      # result_check(exp = input$pc_result)
+    if (is.null(NULL)) {
       req(
         input$pc_q5,
         input$pc_q4,
         input$pc_q6
       )
+      appendTab(inputId = "tabs", tab = cluster_nmds_tab, select = TRUE)
+    } else {
+      showTab(inputId = "tabs", target = "Clusters", select = TRUE)
+    }
+  })
+  
+  observeEvent(input$btn_next_cn, {
+    if (is.null(input$summary)) {
+      # req(
+      #   input$pc_q5,
+      #   input$pc_q4,
+      #   input$pc_q6
+      # )
       appendTab(inputId = "tabs", tab = summary_tab, select = TRUE)
     } else {
       showTab(inputId = "tabs", target = "Summary", select = TRUE)
@@ -122,6 +135,25 @@ server <- function(input, output, session) {
   ) %>%
     bindCache(input$spp_menu)
 
+  output$cluster_plot <- renderPlot(
+    {
+      
+      plot_cluster(state_fishes[[input$state_menu]], input$cutoff)
+    },
+    res = res,
+    width = "100%"
+  ) %>%
+    bindCache(input$state_menu)
+
+  # output$nmds_plot <- renderPlot(
+  #   {
+  #     plot_nmds(state_fishes[[input$state_menu]])
+  #   },
+  #   res = res,
+  #   width = "100%"
+  # ) %>%
+  #   bindCache(input$state_menu)
+  
   # Report Download ---------------------------------------------------------
   # Report output idea from Shiny Gallery
 
