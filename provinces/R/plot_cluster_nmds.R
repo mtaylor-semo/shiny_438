@@ -1,6 +1,4 @@
 # Plot functions used by Provinces app.
-library(RColorBrewer)
-mycolors <- brewer.pal(8, "Dark2")
 
 # Set lower and upper scale limits for
 # NMDS plots
@@ -42,7 +40,7 @@ plot_cluster <- function(dend_obj = NULL) {
 
 # NMDS plot ---------------------------------------------------------------
 
-plot_nmds <- function(scores = NULL, cut_colors = NULL) {
+plot_nmds <- function(scores = NULL) {
   
   min_y <- plot_scale_limits(scores$NMDS2, 0.1, "min")
   max_y <- plot_scale_limits(scores$NMDS2, 0.1, "max")
@@ -52,20 +50,20 @@ plot_nmds <- function(scores = NULL, cut_colors = NULL) {
   
   ggplot(scores) +
   geom_point(aes(
-    x = NMDS1, y = NMDS2,
-    color = grp),
+    x = NMDS1, y = NMDS2),
+    color = scores$colr,
     size = 3
   ) +
   geom_text(aes(x = NMDS1, 
                 y = NMDS2, 
-                label = label, 
-                color = grp), 
+                label = label),
+            color = scores$colr,
             size = 4,
             vjust = -1, 
             hjust = .50) + 
   geom_hline(yintercept = 0, color = "gray70", linewidth = 0.3) +
   geom_vline(xintercept = 0, color = "gray70", linewidth = 0.3) +
-  scale_colour_manual(values = cut_colors, guide = NULL) +
+  scale_colour_manual(values = mycolors, guide = NULL) +
   scale_y_continuous(breaks = seq(min_y, max_y, 0.1),
                      limits = c(min_y, max_y)) +
   scale_x_continuous(breaks = seq(min_x, max_x, 0.1),

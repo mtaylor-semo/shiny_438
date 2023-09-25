@@ -30,7 +30,8 @@ server <- function(input, output, session) {
     dist = NULL,
     clust = NULL,
     num_groups_to_cut = NULL,
-    colors = NULL
+    colors = NULL,
+    dend = NULL
   )
   
   nmds <- reactiveValues(
@@ -160,7 +161,7 @@ server <- function(input, output, session) {
       
       # cluster$colors <- mycolors #[1:cluster$num_groups_to_cut]
 
-      dend <- as.dendrogram(cluster$clust, rotate = TRUE) %>%
+      cluster$dend <- as.dendrogram(cluster$clust) %>%
         set("branches_k_color",
             value = mycolors, k = cluster$num_groups_to_cut
         ) %>%
@@ -170,7 +171,7 @@ server <- function(input, output, session) {
         set("branches_lwd", 1.0) %>%
         set("labels_cex", 1)
       
-      plot_cluster(rev(dend))
+      plot_cluster(cluster$dend)
     },
     res = res,
     width = "100%"
@@ -188,22 +189,35 @@ server <- function(input, output, session) {
       
       nmds$tree_cut <- dendextend::cutree(
         cluster$clust,
-        k = cluster$num_groups_to_cut
+        k = cluster$num_groups_to_cut,
+        order_clusters_as_data = FALSE
       )
 
+      print(nmds$tree_cut)
+      
+      order <- as.character(unlist(nmds$tree_cut))
+      print(order)
+      label <- names(nmds$tree_cut)
+      print(label)
+      colrs <- get_leaves_branches_col(cluster$dend)
+      print(colrs)
+      
+      tmp.df <- data.frame(label = label, colr = colrs)
+      
+      print(tmp.df)
+      
       nmds$watershed_scores <-
         scores(
           nmds$mds,
           display = "sites",
           tidy = TRUE
-        ) %>%
-        mutate(grp = factor(nmds$tree_cut,
-          levels = c("1", "2", "3", "4", "5", "6", "7"),
-          ordered = TRUE
-        ))
+        ) %>% 
+        left_join(x = ., y = tmp.df, by = "label")# %>%
+        #mutate(colr = mycolors[nmds$tree_cut])
+      
+      print(nmds$watershed_scores)
 
-      print(cluster$colors)
-      plot_nmds(nmds$watershed_scores, cut_colors = mycolors)
+      plot_nmds(nmds$watershed_scores)
     },
     res = res,
     width = "100%"

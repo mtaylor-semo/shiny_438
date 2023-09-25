@@ -15,6 +15,7 @@ library(maps)
 library(vegan)
 library(ggdendro)
 library(dendextend)
+library(RColorBrewer)
 
 # Global vars -------------------------------------------------------------
 
@@ -31,6 +32,7 @@ names(semo_palette) <- c("cardiac_red",
                          "semo_red", 
                          "pewter")
 
+mycolors <- brewer.pal(8, "Dark2")
 
 # Define file name constants
 base_rmd <- "provinces.Rmd"
