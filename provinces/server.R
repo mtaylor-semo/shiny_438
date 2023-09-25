@@ -5,7 +5,6 @@
 server <- function(input, output, session) {
   session$onSessionEnded(stopApp)
 
-
   ## Error message outputs ---------------------------------------------------
 
   output$prediction_error <- renderText({
@@ -25,6 +24,21 @@ server <- function(input, output, session) {
   plots <- reactiveValues(na_richness = NULL, pc = NULL)
 
   # results <- reactiveValues(ca = NULL)
+  
+  cluster <- reactiveValues(
+    hel = NULL,
+    dist = NULL,
+    clust = NULL,
+    num_groups_to_cut = NULL,
+    colors = NULL
+  )
+  
+  nmds <- reactiveValues(
+    mds = NULL,
+    watershed_scores = NULL,
+    tree_cut = NULL
+  )
+
 
 
   ## Button observers --------------------------------------------------------
@@ -91,6 +105,7 @@ server <- function(input, output, session) {
   observeEvent(input$spp_menu, {
     output$species_info <- renderText(get_species_info(input$spp_menu))
   })
+  
   ## Outputs -------------------------------------------------------------
 
   # output$prediction_pc <- renderUI({
@@ -134,25 +149,66 @@ server <- function(input, output, session) {
     width = "100%"
   ) %>%
     bindCache(input$spp_menu)
-
+  
   output$cluster_plot <- renderPlot(
     {
+      fish.hel <- decostand(state_fishes[[input$state_menu]], method = "hellinger")
+      fish.dist <- vegdist(fish.hel, method = "bray", binary = TRUE)
+      cluster$clust <- hclust(fish.dist, method = "ward.D2")
       
-      plot_cluster(state_fishes[[input$state_menu]], input$cutoff)
+      cluster$num_groups_to_cut <- state_cuts[input$state_menu]
+      
+      # cluster$colors <- mycolors #[1:cluster$num_groups_to_cut]
+
+      dend <- as.dendrogram(cluster$clust, rotate = TRUE) %>%
+        set("branches_k_color",
+            value = mycolors, k = cluster$num_groups_to_cut
+        ) %>%
+        set("labels_colors", 
+            value = mycolors, 
+            k = cluster$num_groups_to_cut) %>%
+        set("branches_lwd", 1.0) %>%
+        set("labels_cex", 1)
+      
+      plot_cluster(rev(dend))
     },
     res = res,
     width = "100%"
   ) %>%
     bindCache(input$state_menu)
 
-  # output$nmds_plot <- renderPlot(
-  #   {
-  #     plot_nmds(state_fishes[[input$state_menu]])
-  #   },
-  #   res = res,
-  #   width = "100%"
-  # ) %>%
-  #   bindCache(input$state_menu)
+  output$nmds_plot <- renderPlot(
+    {
+      nmds$mds <- metaMDS(
+        state_fishes[[input$state_menu]],
+        k = 2,
+        trymax = 100,
+        trace = 0
+      )
+      
+      nmds$tree_cut <- dendextend::cutree(
+        cluster$clust,
+        k = cluster$num_groups_to_cut
+      )
+
+      nmds$watershed_scores <-
+        scores(
+          nmds$mds,
+          display = "sites",
+          tidy = TRUE
+        ) %>%
+        mutate(grp = factor(nmds$tree_cut,
+          levels = c("1", "2", "3", "4", "5", "6", "7"),
+          ordered = TRUE
+        ))
+
+      print(cluster$colors)
+      plot_nmds(nmds$watershed_scores, cut_colors = mycolors)
+    },
+    res = res,
+    width = "100%"
+  ) %>%
+    bindCache(input$state_menu)
   
   # Report Download ---------------------------------------------------------
   # Report output idea from Shiny Gallery

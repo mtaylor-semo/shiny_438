@@ -36,6 +36,9 @@ names(semo_palette) <- c("cardiac_red",
 base_rmd <- "provinces.Rmd"
 base_pdf <- "provinces.pdf"
 
+# Vector of cut numbers to group the clusters
+state_cuts <- c(7, 6, 7, 7, 4, 5, 6)
+names(state_cuts) <- c("Alabama", "Georgia", "Mississippi", "Missouri", "Montana", "NorthCarolina", "Virginia")
 
 world <- ne_countries(scale = "medium", continent = "North America", returnclass = "sf")
 states <- st_as_sf(maps::map("state", plot = FALSE, fill = TRUE))
