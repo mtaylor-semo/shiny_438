@@ -47,10 +47,10 @@ server <- function(input, output, session) {
   observeEvent(input$btn_next_inst, {
     if (is.null(input$student_name)) {
       # appendTab(inputId = "tabs", tab = predictions_tab, select = TRUE)
-      appendTab(inputId = "tabs", tab = cluster_nmds_tab, select = TRUE)
+      appendTab(inputId = "tabs", tab = nmds_tab, select = TRUE)
     } else {
       # showTab(inputId = "tabs", target = "Predictions", select = TRUE)
-      showTab(inputId = "tabs", target = "Clusters", select = TRUE)
+      showTab(inputId = "tabs", target = "NMDS", select = TRUE)
     }
   })
 
@@ -159,8 +159,6 @@ server <- function(input, output, session) {
       
       cluster$num_groups_to_cut <- state_cuts[input$state_menu]
       
-      # cluster$colors <- mycolors #[1:cluster$num_groups_to_cut]
-
       cluster$dend <- as.dendrogram(cluster$clust) %>%
         set("branches_k_color",
             value = mycolors, k = cluster$num_groups_to_cut
@@ -193,18 +191,11 @@ server <- function(input, output, session) {
         order_clusters_as_data = FALSE
       )
 
-      print(nmds$tree_cut)
-      
-      order <- as.character(unlist(nmds$tree_cut))
-      print(order)
-      label <- names(nmds$tree_cut)
-      print(label)
-      colrs <- get_leaves_branches_col(cluster$dend)
-      print(colrs)
-      
-      tmp.df <- data.frame(label = label, colr = colrs)
-      
-      print(tmp.df)
+      tmp.df <-
+        data.frame(
+          label = names(nmds$tree_cut), 
+          colr = get_leaves_branches_col(cluster$dend)
+        )
       
       nmds$watershed_scores <-
         scores(
@@ -212,10 +203,7 @@ server <- function(input, output, session) {
           display = "sites",
           tidy = TRUE
         ) %>% 
-        left_join(x = ., y = tmp.df, by = "label")# %>%
-        #mutate(colr = mycolors[nmds$tree_cut])
-      
-      print(nmds$watershed_scores)
+        left_join(x = ., y = tmp.df, by = "label")
 
       plot_nmds(nmds$watershed_scores)
     },
@@ -223,6 +211,7 @@ server <- function(input, output, session) {
     width = "100%"
   ) %>%
     bindCache(input$state_menu)
+
   
   # Report Download ---------------------------------------------------------
   # Report output idea from Shiny Gallery
