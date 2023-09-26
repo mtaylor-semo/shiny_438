@@ -114,22 +114,6 @@ prepare_data <- function(.data) {
 ## Virginia 6
 # 3 Missouri 7
 
-# Number of cuts for the cluster and nmds analysis.
-# Cut number provided to students for each state.
-readCutoff <- function() {
-  cutoff <- readline(prompt = "Enter the number of clusters provided for you: ")
-  if (!grepl("^[5-7]$", cutoff)) { # Ensure cuts are between 5 and 7
-    cat(file = stderr(), "The cluster number must be a number between 5-7.")
-    return(
-      readCutoff()
-    )
-  }
-  return(
-    as.integer(cutoff)
-  )
-}
-
-
 ## Prediction check. Move requirement check for predictions here.
 ## sn = student_name, ps = pred_state, ra = pred_ra, pc = pred_ca
 pred_check <- function(sn = NULL, na = NULL, pc = NULL) {
