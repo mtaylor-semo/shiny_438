@@ -40,17 +40,17 @@ server <- function(input, output, session) {
     tree_cut = NULL
   )
 
+  #state_choice <- reactiveVal()
+
 
 
   ## Button observers --------------------------------------------------------
 
   observeEvent(input$btn_next_inst, {
     if (is.null(input$student_name)) {
-      # appendTab(inputId = "tabs", tab = predictions_tab, select = TRUE)
-      appendTab(inputId = "tabs", tab = nmds_tab, select = TRUE)
+      appendTab(inputId = "tabs", tab = predictions_tab, select = TRUE)
     } else {
-      # showTab(inputId = "tabs", target = "Predictions", select = TRUE)
-      showTab(inputId = "tabs", target = "NMDS", select = TRUE)
+      showTab(inputId = "tabs", target = "Predictions", select = TRUE)
     }
   })
 
@@ -78,19 +78,38 @@ server <- function(input, output, session) {
   })
 
   observeEvent(input$btn_next_spp, {
-    if (is.null(NULL)) {
+    if (is.null(input$cluster_q4)) {
       req(
         input$pc_q5,
         input$pc_q4,
         input$pc_q6
       )
-      appendTab(inputId = "tabs", tab = cluster_nmds_tab, select = TRUE)
+      appendTab(inputId = "tabs", tab = cluster_tab, select = TRUE)
     } else {
-      showTab(inputId = "tabs", target = "Clusters", select = TRUE)
+      showTab(inputId = "tabs", target = "Cluster", select = TRUE)
     }
   })
   
-  observeEvent(input$btn_next_cn, {
+  observeEvent(input$btn_next_cluster, {
+    if (is.null(input$nmds_q4)) {
+      appendTab(inputId = "tabs", tab = nmds_tab, select = TRUE)
+      #showTab(inputId = "tabs", target = "NMDS", select = TRUE)
+    } else {
+      showTab(inputId = "tabs", target = "NMDS", select = TRUE)
+    }
+    # if (is.null(NULL)) {
+    #   # req(
+    #   #   input$pc_q5,
+    #   #   input$pc_q4,
+    #   #   input$pc_q6
+    #   # )
+    #   appendTab(inputId = "tabs", tab = nmds_tab, select = TRUE)
+    # } else {
+    #   showTab(inputId = "tabs", target = "NMDS", select = TRUE)
+    # }
+  })
+
+  observeEvent(input$btn_next_nmds, {
     if (is.null(input$summary)) {
       # req(
       #   input$pc_q5,
@@ -102,7 +121,7 @@ server <- function(input, output, session) {
       showTab(inputId = "tabs", target = "Summary", select = TRUE)
     }
   })
-
+  
   observeEvent(input$spp_menu, {
     output$species_info <- renderText(get_species_info(input$spp_menu))
   })
@@ -151,13 +170,25 @@ server <- function(input, output, session) {
   ) %>%
     bindCache(input$spp_menu)
   
-  output$cluster_plot <- renderPlot(
+  state_choice <- reactiveVal()
+  
+  observeEvent(input$state_menu_cluster, {
+    state_choice(input$state_menu_cluster)
+    print("Inside cluster")
+  })
+  
+  observeEvent(input$state_menu_nmds, {
+    state_choice(input$state_menu_nmds)
+    print("Inside nmds")
+  })
+  
+  output$cluster_plot <- output$cluster_plot_rep <- renderPlot(
     {
-      fish.hel <- decostand(state_fishes[[input$state_menu]], method = "hellinger")
+      fish.hel <- decostand(state_fishes[[state_choice()]], method = "hellinger")
       fish.dist <- vegdist(fish.hel, method = "bray", binary = TRUE)
       cluster$clust <- hclust(fish.dist, method = "ward.D2")
       
-      cluster$num_groups_to_cut <- state_cuts[input$state_menu]
+      cluster$num_groups_to_cut <- state_cuts[state_choice()]
       
       cluster$dend <- as.dendrogram(cluster$clust) %>%
         set("branches_k_color",
@@ -174,12 +205,13 @@ server <- function(input, output, session) {
     res = res,
     width = "100%"
   ) %>%
-    bindCache(input$state_menu)
+    bindCache(input$state_menu_cluster, input$state_menu_nmds)
+  
 
   output$nmds_plot <- renderPlot(
     {
       nmds$mds <- metaMDS(
-        state_fishes[[input$state_menu]],
+        state_fishes[[state_choice()]],
         k = 2,
         trymax = 100,
         trace = 0
@@ -210,7 +242,7 @@ server <- function(input, output, session) {
     res = res,
     width = "100%"
   ) %>%
-    bindCache(input$state_menu)
+    bindCache(input$state_menu_cluster, input$state_menu_nmds)
 
   
   # Report Download ---------------------------------------------------------
