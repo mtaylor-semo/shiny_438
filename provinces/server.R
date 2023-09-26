@@ -11,13 +11,14 @@ server <- function(input, output, session) {
     has_empty_input(list(input$student_name, input$predict_na_richness))
   })
 
+  output$na_richness_result_error <- renderText({
+    has_empty_input(list(input$question1))
+  })
+  
   # output$pc_result_error <- renderText({
   #   has_empty_input(list(pc_q4, pc_q5, pc_q6))
   # })
 
-  output$na_richness_result_error <- renderText({
-    has_empty_input(list(input$question1))
-  })
 
   ## Reactive values ---------------------------------------------------------
 
@@ -121,8 +122,8 @@ server <- function(input, output, session) {
     }
   })
   
-  observeEvent(input$spp_menu, {
-    output$species_info <- renderText(get_species_info(input$spp_menu))
+  observeEvent(input$family_menu, {
+    output$species_info <- renderText(get_species_info(input$family_menu))
   })
   
   ## Outputs -------------------------------------------------------------
@@ -133,10 +134,10 @@ server <- function(input, output, session) {
   # })
   
   output$spp_info <- renderUI({
-    p(get_species_info(input$spp_menu),
-    img(src = get_species_image(input$spp_menu), width = "97%"))
+    p(get_species_info(input$family_menu),
+    img(src = get_species_image(input$family_menu), width = "97%"))
     
-    #img(src = get_species_image(input$spp_menu), width = "97%")
+    #img(src = get_species_image(input$family_menu), width = "97%")
   })
 
   output$prediction_na_richness <- renderUI({
@@ -150,7 +151,7 @@ server <- function(input, output, session) {
   output$na_richness_plot <- renderPlot(
     {
       plot_na_grid(
-        species_data = prepare_data(nagrid)
+        plot_data = prepare_data(nagrid)
       )
     },
     res = res,
@@ -158,16 +159,16 @@ server <- function(input, output, session) {
   ) %>%
     bindCache(nagrid)
 
-  output$pc_plot <- renderPlot(
+  output$family_plot <- renderPlot(
     {
       plot_na_grid(
-        species_data = prepare_data(species_groups[[input$spp_menu]])
+        plot_data = prepare_data(species_groups[[input$family_menu]])
       )
     },
     res = res,
     width = "100%"
   ) %>%
-    bindCache(input$spp_menu)
+    bindCache(input$family_menu)
   
   observeEvent(input$state_menu_cluster, {
     #print("update cluster")

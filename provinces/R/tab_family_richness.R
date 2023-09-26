@@ -8,7 +8,7 @@ species_tab <- tabPanel(
       3,
       wellPanel(
         selectInput(
-          inputId = "spp_menu",
+          inputId = "family_menu",
           label = "Choose a species group",
           choices = names(species_groups),
           multiple = FALSE
@@ -29,7 +29,7 @@ species_tab <- tabPanel(
     ),
     column(
       9,
-      plotOutput("pc_plot",
+      plotOutput("family_plot",
                  width = "97%",
                  height = "600px"
       ) %>% 

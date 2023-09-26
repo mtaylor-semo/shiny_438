@@ -1,10 +1,10 @@
 # Raster density plots for all U.S. species
 # and select families.
 
-plot_na_grid <- function(species_data = NULL) {
+plot_na_grid <- function(plot_data = NULL) {
   ggplot(data = world) +
     geom_raster(
-      data = species_data,
+      data = plot_data,
       aes(x = long, y = lat, fill = N),
       interpolate = TRUE
     ) +
