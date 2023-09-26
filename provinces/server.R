@@ -40,8 +40,7 @@ server <- function(input, output, session) {
     tree_cut = NULL
   )
 
-  #state_choice <- reactiveVal()
-
+  state_choice <- reactiveVal()
 
 
   ## Button observers --------------------------------------------------------
@@ -170,16 +169,28 @@ server <- function(input, output, session) {
   ) %>%
     bindCache(input$spp_menu)
   
-  state_choice <- reactiveVal()
-  
   observeEvent(input$state_menu_cluster, {
+    #print("update cluster")
     state_choice(input$state_menu_cluster)
-    print("Inside cluster")
+  })
+  
+  output$state_menu_nmds <- renderUI({
+    selectInput(
+      inputId = "state_menu_nmds",
+      label = "Choose a state",
+      choices = names(state_fishes),
+      selected = state_choice(),
+      multiple = FALSE
+    )
   })
   
   observeEvent(input$state_menu_nmds, {
     state_choice(input$state_menu_nmds)
-    print("Inside nmds")
+    updateSelectInput(
+      session = getDefaultReactiveDomain(),
+      inputId = "state_menu_cluster",
+      selected = state_choice()
+    )
   })
   
   output$cluster_plot <- output$cluster_plot_rep <- renderPlot(

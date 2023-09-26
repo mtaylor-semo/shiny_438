@@ -7,13 +7,14 @@ nmds_tab <- tabPanel(
     column(
       3,
       wellPanel(
-        selectInput(
-          inputId = "state_menu_nmds",
-          label = "Choose a state",
-          choices = names(state_fishes),
-          selected = "Montana",
-          multiple = FALSE
-        ),
+        uiOutput("state_menu_nmds")
+        # selectInput(
+        #   inputId = "state_menu_nmds",
+        #   label = "Choose a state",
+        #   choices = names(state_fishes),
+        #   selected = "Montana",
+        #   multiple = FALSE
+        # ),
       ),
       actionButton(
         inputId = "btn_next_nmds",
