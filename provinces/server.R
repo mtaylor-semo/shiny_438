@@ -15,9 +15,13 @@ server <- function(input, output, session) {
     has_empty_input(list(input$question1))
   })
   
-  # output$pc_result_error <- renderText({
-  #   has_empty_input(list(pc_q4, pc_q5, pc_q6))
-  # })
+  output$family_result_error <- renderText({
+    has_empty_input(list(input$question2, input$question3))
+  })
+  
+  output$cluster_result_error <- renderText({
+    has_empty_input(list(question4))
+  })
 
 
   ## Reactive values ---------------------------------------------------------
@@ -69,7 +73,7 @@ server <- function(input, output, session) {
   })
 
   observeEvent(input$btn_next_na, {
-    if (is.null(input$pc_q4)) {
+    if (is.null(input$question2)) {
       req(input$question1)
       appendTab(inputId = "tabs", tab = species_tab, select = TRUE)
     } else {
@@ -77,12 +81,11 @@ server <- function(input, output, session) {
     }
   })
 
-  observeEvent(input$btn_next_spp, {
-    if (is.null(input$cluster_q4)) {
+  observeEvent(input$btn_next_family, {
+    if (is.null(input$question4)) {
       req(
-        input$pc_q5,
-        input$pc_q4,
-        input$pc_q6
+        input$question2,
+        input$question3,
       )
       appendTab(inputId = "tabs", tab = cluster_tab, select = TRUE)
     } else {
@@ -91,12 +94,15 @@ server <- function(input, output, session) {
   })
   
   observeEvent(input$btn_next_cluster, {
-    if (is.null(input$nmds_q4)) {
+    if (is.null(input$question5)) {
+      req(
+        question4
+      )
       appendTab(inputId = "tabs", tab = nmds_tab, select = TRUE)
-      #showTab(inputId = "tabs", target = "NMDS", select = TRUE)
     } else {
       showTab(inputId = "tabs", target = "NMDS", select = TRUE)
     }
+    
     # if (is.null(NULL)) {
     #   # req(
     #   #   input$pc_q5,

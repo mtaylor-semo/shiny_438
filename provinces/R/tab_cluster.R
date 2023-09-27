@@ -20,9 +20,9 @@ cluster_tab <- tabPanel(
         label = "Next",
         width = "35%"
       ),
-      #span(textOutput("pc_result_error"),
-      #     style = "color:#9D2235"
-      #)
+      span(textOutput("cluster_result_error"),
+          style = "color:#9D2235"
+      )
     ),
     column(
       9,
@@ -31,9 +31,6 @@ cluster_tab <- tabPanel(
       ) %>% 
         withSpinner(type = 4,
                     color = semo_palette["cardiac_red"]),
-      #hr(),
-      # plotOutput("nmds_plot",
-      #            width = "97%")
     )
   ),
   fluidRow(
@@ -44,7 +41,7 @@ cluster_tab <- tabPanel(
         do U.S. freshwater fishes follow Rapoport’s Rule for geographic
         range size? Explain."),
       textAreaInput(
-        inputId = "cluster_q4",
+        inputId = "question4",
         label = NULL,
         rows = 5,
         width = "97%"

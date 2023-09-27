@@ -9,21 +9,19 @@ species_tab <- tabPanel(
       wellPanel(
         selectInput(
           inputId = "family_menu",
-          label = "Choose a species group",
+          label = "Choose a family:",
           choices = names(species_groups),
           multiple = FALSE
         ),
-        #p(strong("Be sure to examine all assigned taxa."))
-        #textOutput("species_info"),
-        #img(get_species_image(input$spp_menu)),
         uiOutput("spp_info")
       ),
+      p(strong("Be sure to view all families listed.")),
       actionButton(
-        inputId = "btn_next_spp",
+        inputId = "btn_next_family",
         label = "Next",
         width = "35%"
       ),
-      span(textOutput("pc_result_error"),
+      span(textOutput("family_result_error"),
            style = "color:#9D2235"
       )
     ),
@@ -42,35 +40,21 @@ species_tab <- tabPanel(
     column(
       width = 6,
       offset = 3,
-      p("Based on this figure, combined with the previous graphs,
-        do U.S. freshwater fishes follow Rapoport’s Rule for geographic
-        range size? Explain."),
+      p(strong("Question:"), question2_text),
       textAreaInput(
-        inputId = "pc_q4",
+        inputId = "question2",
         label = NULL,
         rows = 5,
         width = "97%"
       ),
       hr(),
-      p("Considering the geographic ranges east of the Rocky Mountains,
-       what region of the U.S. seems to have most of the smaller bubbles?
-       Why do you think this is?"),
+      p(strong("Question:"), question3_text),
       textAreaInput(
-        inputId = "pc_q5",
+        inputId = "question3",
         label = NULL,
         rows = 5,
         width = "97%"
-      ),
-      hr(),
-      p("What geographic region west of the Rocky Mountains seems
-        to have the fewest bubbles? (Or, most of the smallest bubbles?)
-        Why do you think this is?"),
-      textAreaInput(
-        inputId = "pc_q6",
-        label = NULL,
-        rows = 5,
-        width = "97%"
-      ),
-    ),
+      )
+    )
   )
 )
