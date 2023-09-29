@@ -20,6 +20,19 @@ ui <- tagList(
       "Introduction",
       fluidRow(
         column(
+          2,
+          align = "right",
+          offset = 9,
+          p("Start here!", style = "color:#9D2235")
+        ),
+        column(
+          1,
+          next_btn("btn_next_intro")
+        )
+      ),
+      hr(),
+      fluidRow(
+        column(
           width = 6,
           img(src = "montana_watersheds.png", width = "97%"),
           br(),
@@ -37,6 +50,7 @@ ui <- tagList(
             all of the smaller streams and rivers (tributaries) that
             flow into the larger river." 
           ),
+          
           p("The watersheds of Montana are shown at left (top). The
             watershed boundaries are overlaid on the rivers of 
             Montana (bottom) to help you visualize the relationship.
@@ -44,37 +58,28 @@ ui <- tagList(
             continental divide is the division between rivers that flow
             east to the Atlantic Ocean or west to the Pacific Ocean."
           ),
+          
           p(strong("Similarity")),
+          
           p("Species similarity is a measure of how many species are shared
             among watersheds. Consider this simple presence/absence matrix
             for four watersheds and six species."),
+          
           tableOutput("similarity_table"),
+          
           p("Watersheds A and B have a high similarity because they share
             Species 1 and Species 3. Further, Watersheds A and B have a low
             similarity with Watershed C because they also share Species 3.
             Watersheds A and B have zero similarity with Watersheds D
             because they share zero species.", strong("Which two watersheds
-            have the highest similarity and why?"), "(This is a thought question.)")
+            have the highest similarity and why?"), "(This is a thought 
+            question.)")
         ),
         column(
           3,
           br()
         )
-      ),
-      hr(),
-      fluidRow(
-        column(
-          2,
-          align = "right",
-          offset = 9,
-          p("Start here!", style = "color:#9D2235")
-        ),
-        column(
-          1,
-          next_btn("btn_next_intro")
-        )
-      ),
-      hr()
+      )
     )
   )
 ) # end UI

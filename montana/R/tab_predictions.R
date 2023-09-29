@@ -3,6 +3,25 @@ predictions_tab <- tabPanel(
   "Predictions",
   fluidRow(
     column(
+      1,
+      prev_btn("btn_prev_pred"),
+    ),
+    column(
+      3,
+      align = "right",
+      offset = 7,
+      span(textOutput("prediction_error"),
+           style = "color:#9D2235"
+      )
+    ),
+    column(
+      1,
+      next_btn("btn_next_pred"),
+    )
+  ),
+  hr(),
+  fluidRow(
+    column(
       width = 6,
       img(src = "montana_watersheds.png", width = "97%"),
       hr(),
@@ -28,8 +47,9 @@ predictions_tab <- tabPanel(
       ),
       hr(),
       p("Four watersheds are at higher elevations in the Rocky Mountains. The
-        watersheds are the Kootenai, Clark Fork, Upper Missouri, and Sasketchewan
-        (Sask.). The other watersheds are in the Montana plains."),
+        watersheds are the Kootenai, Clark Fork, Upper Missouri, and
+        Sasketchewan (Sask.). The other watersheds are in the Montana plains."),
+      
       p(strong("Question:"), "Based on what you know so far, do you think
         that the fish fauna of Upper Missouri and Saskatchewan (Sask.) will
         be more similar to the Lower Missouri and other eastern slope watersheds
@@ -43,25 +63,5 @@ predictions_tab <- tabPanel(
         width = "90%"
       )
     )
-  ),
-  hr(),
-  fluidRow(
-    column(
-      1,
-      prev_btn("btn_prev_pred"),
-    ),
-    column(
-      3,
-      align = "right",
-      offset = 7,
-      span(textOutput("prediction_error"),
-           style = "color:#9D2235"
-      )
-    ),
-    column(
-      1,
-      next_btn("btn_next_pred"),
-    )
-  ),
-  hr()
+  )
 )
