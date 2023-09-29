@@ -34,7 +34,7 @@ server <- function(input, output, session) {
   
   # Reactive values ---------------------------------------------------------
 
-  plots <- reactiveValues(na_richness = NULL, pc = NULL)
+  plots <- reactiveValues(cluster = NULL, nmds = NULL)
 
   # results <- reactiveValues(ca = NULL)
   
@@ -149,7 +149,8 @@ server <- function(input, output, session) {
         set("branches_lwd", 1.0) %>%
         set("labels_cex", 1)
       
-      plot_cluster(cluster$dend)
+      plots$cluster <- plot_cluster(cluster$dend)
+      plots$cluster
     },
     res = res,
     width = "100%"
