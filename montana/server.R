@@ -5,29 +5,34 @@
 server <- function(input, output, session) {
   session$onSessionEnded(stopApp)
   
-  ## Error message outputs ---------------------------------------------------
+  # Error message outputs ---------------------------------------------------
 
   output$prediction_error <- renderText({
-    has_empty_input(list(input$predictions_question1, input$predictions_question2))
+    has_empty_input(
+      list(
+        input$predictions_question1, 
+        input$predictions_question2
+      )
+    )
   })
-  # 
-  # output$na_richness_result_error <- renderText({
-  #   has_empty_input(list(input$question1))
-  # })
-  # 
-  # output$family_result_error <- renderText({
-  #   has_empty_input(list(input$question2, input$question3))
-  # })
-  # 
+
   output$cluster_result_error <- renderText({
-    has_empty_input(list(input$cluster_question1))
+    has_empty_input(
+      list(
+        input$cluster_question1
+      )
+    )
   })
 
   output$nmds_result_error <- renderText({
-    has_empty_input(list(input$nmds_question1))
+    has_empty_input(
+      list(
+        input$nmds_question1
+      )
+    )
   })
   
-  ## Reactive values ---------------------------------------------------------
+  # Reactive values ---------------------------------------------------------
 
   plots <- reactiveValues(na_richness = NULL, pc = NULL)
 
@@ -52,7 +57,6 @@ server <- function(input, output, session) {
   ## Button observers --------------------------------------------------------
 
   observeEvent(input$btn_next_intro, {
-    #shinyjs::runjs("window.scrollTo(0, 0)")
     next_tab(
       tab = predictions_tab, 
       target = "Predictions", 
@@ -84,19 +88,29 @@ server <- function(input, output, session) {
     )
   })
 
+  # observeEvent(input$btn_prev_nmds, {
+  #   showTab(
+  #     inputId = "tabs", 
+  #     target = "Cluster", 
+  #     select = TRUE
+  #   )
+  # })
+  # 
+
   observeEvent(input$btn_prev_nmds, {
-    showTab(inputId = "tabs", target = "Cluster", select = TRUE)
+    prev_tab(target = "Cluster")
+  })
+  
+  observeEvent(input$btn_next_nmds, {
+    req(input$nmds_question1)
+    next_tab(
+      tab = summary_tab,
+      target = "Summary",
+      test = input$summary
+    )
   })
   
 
-  observeEvent(input$btn_next_nmds, {
-    if (is.null(input$summary)) {
-      appendTab(inputId = "tabs", tab = summary_tab, select = TRUE)
-    } else {
-      showTab(inputId = "tabs", target = "Summary", select = TRUE)
-    }
-  })
-  
   ## Outputs -------------------------------------------------------------
 
   output$similarity_table <- renderTable(
@@ -117,30 +131,6 @@ server <- function(input, output, session) {
     output$question2_prediction <- 
     renderText(input$predictions_question2)
   
-  # observeEvent(input$state_menu_cluster, {
-  #   #print("update cluster")
-  #   state_choice(input$state_menu_cluster)
-  # })
-  
-  # output$state_menu_nmds <- renderUI({
-  #   selectInput(
-  #     inputId = "state_menu_nmds",
-  #     label = "Choose a state",
-  #     choices = names(state_fishes),
-  #     selected = state_choice(),
-  #     multiple = FALSE
-  #   )
-  # })
-  
-  # observeEvent(input$state_menu_nmds, {
-  #   state_choice(input$state_menu_nmds)
-  #   updateSelectInput(
-  #     session = getDefaultReactiveDomain(),
-  #     inputId = "state_menu_cluster",
-  #     selected = state_choice()
-  #   )
-  # })
-  # 
   output$cluster_plot <- output$cluster_plot_rep <- renderPlot(
     {
       fish.hel <- decostand(mt, method = "hellinger")
@@ -210,7 +200,11 @@ server <- function(input, output, session) {
   output$downloadReport <- downloadHandler(
     base_rmd,
     filename = function() {
-      stu_name <- str_to_lower(str_split(input$student_name, " ", simplify = TRUE))
+      stu_name <- str_to_lower(
+        str_split(
+          input$student_name, " ", simplify = TRUE
+        )
+      )
 
       paste(
         paste0(
