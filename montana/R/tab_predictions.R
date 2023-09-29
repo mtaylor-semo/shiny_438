@@ -46,15 +46,16 @@ predictions_tab <- tabPanel(
         width = "90%"
       ),
       hr(),
-      p("Four watersheds are at higher elevations in the Rocky Mountains. The
-        watersheds are the Kootenai, Clark Fork, Upper Missouri, and
-        Sasketchewan (Sask.). The other watersheds are in the Montana plains."),
+      p("The Kootenai and Clark Fork watersheds
+        are in the Rocky Mountains, west of the divide. The Upper 
+        Missouri and Saskatchewan (Sask.) watersheds are also in the
+        Rocky Mountains, but east of the divide."),
       
-      p(strong("Question:"), "Based on what you know so far, do you think
-        that the fish fauna of Upper Missouri and Saskatchewan (Sask.) will
-        be more similar to the Lower Missouri and other eastern slope watersheds
-        or more similar to the Kootenai and Clark Fork watersheds (western
-        slope)?"),
+      p(strong("Question:"), "Based on what you know so far, do you think that 
+        the fishes of the Upper Missouri and Saskatchewan watersheds will be
+        more similar to the Kootenai and Clark Fork (both in the mountains)
+        or more similar to the other eastern watersheds, like the Lower 
+        Missouri, in the plains of Montana?"),
       textAreaInput(
         inputId = "predictions_question2",
         label = NULL, # "Enter your prediction:",
