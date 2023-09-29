@@ -4,23 +4,23 @@
 
 server <- function(input, output, session) {
   session$onSessionEnded(stopApp)
-
+  
   ## Error message outputs ---------------------------------------------------
 
   output$prediction_error <- renderText({
-    has_empty_input(list(input$student_name, input$predict_na_richness))
+    has_empty_input(list(input$predictions_question1, input$predictions_question2))
   })
-
-  output$na_richness_result_error <- renderText({
-    has_empty_input(list(input$question1))
-  })
-  
-  output$family_result_error <- renderText({
-    has_empty_input(list(input$question2, input$question3))
-  })
-  
+  # 
+  # output$na_richness_result_error <- renderText({
+  #   has_empty_input(list(input$question1))
+  # })
+  # 
+  # output$family_result_error <- renderText({
+  #   has_empty_input(list(input$question2, input$question3))
+  # })
+  # 
   output$cluster_result_error <- renderText({
-    has_empty_input(list(question4))
+    has_empty_input(list(input$cluster_question1))
   })
 
 
@@ -45,102 +45,60 @@ server <- function(input, output, session) {
     tree_cut = NULL
   )
 
-  state_choice <- reactiveVal()
-
 
   ## Button observers --------------------------------------------------------
 
   observeEvent(input$btn_next_intro, {
-    appendTab(inputId = "tabs", tab = prediction_tab, select = TRUE)
+    #shinyjs::runjs("window.scrollTo(0, 0)")
+    next_tab(
+      tab = predictions_tab, 
+      target = "Predictions", 
+      test = input$predictions_question1)
+  })
+  
+  observeEvent(input$btn_prev_pred, {
+    prev_tab("Introduction")
   })
 
   observeEvent(input$btn_next_pred, {
-    if (is.null(input$richness_area_q1)) {
-      req(input$student_name, input$predict_na_richness)
-      # Comment out for development.
-      # pred_check(sn = input$student_name,
-      #            ra = input$predict_na_richness)
-
-      removeTab(inputId = "tabs", target = "Predictions")
-      appendTab(inputId = "tabs", tab = na_richess_tab, select = TRUE)
-    } else {
-      showTab(inputId = "tabs", target = "North America", select = TRUE)
-    }
+    req(input$predictions_question1, input$predictions_question2)
+    next_tab(
+      tab = cluster_tab, 
+      target = "Cluster",
+      test = input$cluster_question1)
   })
-
-  observeEvent(input$btn_next_na, {
-    if (is.null(input$question2)) {
-      req(input$question1)
-      appendTab(inputId = "tabs", tab = species_tab, select = TRUE)
-    } else {
-      showTab(inputId = "tabs", target = "Family Richness", select = TRUE)
-    }
-  })
-
-  observeEvent(input$btn_next_family, {
-    if (is.null(input$question4)) {
-      req(
-        input$question2,
-        input$question3,
-      )
-      appendTab(inputId = "tabs", tab = cluster_tab, select = TRUE)
-    } else {
-      showTab(inputId = "tabs", target = "Cluster", select = TRUE)
-    }
+  
+  observeEvent(input$btn_prev_cluster, {
+    prev_tab(target = "Predictions")
   })
   
   observeEvent(input$btn_next_cluster, {
-    if (is.null(input$question5)) {
-      req(
-        question4
-      )
-      appendTab(inputId = "tabs", tab = nmds_tab, select = TRUE)
-    } else {
-      showTab(inputId = "tabs", target = "NMDS", select = TRUE)
-    }
-    
-    # if (is.null(NULL)) {
-    #   # req(
-    #   #   input$pc_q5,
-    #   #   input$pc_q4,
-    #   #   input$pc_q6
-    #   # )
-    #   appendTab(inputId = "tabs", tab = nmds_tab, select = TRUE)
-    # } else {
-    #   showTab(inputId = "tabs", target = "NMDS", select = TRUE)
-    # }
+    req(input$cluster_question1)
+    next_tab(
+      tab = nmds_tab,
+      target = "NMDS",
+      test = input$nmds_question1
+    )
   })
+
+  observeEvent(input$btn_prev_nmds, {
+    showTab(inputId = "tabs", target = "Cluster", select = TRUE)
+  })
+  
 
   observeEvent(input$btn_next_nmds, {
     if (is.null(input$summary)) {
-      # req(
-      #   input$pc_q5,
-      #   input$pc_q4,
-      #   input$pc_q6
-      # )
       appendTab(inputId = "tabs", tab = summary_tab, select = TRUE)
     } else {
       showTab(inputId = "tabs", target = "Summary", select = TRUE)
     }
   })
   
-  observeEvent(input$family_menu, {
-    output$species_info <- renderText(get_species_info(input$family_menu))
-  })
-  
   ## Outputs -------------------------------------------------------------
 
-  # output$prediction_pc <- renderUI({
-  #   p("You predicted:")
-  #   sprintf("%s", input$predict_na_richness)
-  # })
-  
-  output$spp_info <- renderUI({
-    p(get_species_info(input$family_menu),
-    img(src = get_species_image(input$family_menu), width = "97%"))
-    
-    #img(src = get_species_image(input$family_menu), width = "97%")
-  })
+  output$similarity_table <- renderTable(
+    similarity_table,
+    digits = 0)
 
   output$prediction_na_richness <- renderUI({
     p("You predicted:")
@@ -148,61 +106,45 @@ server <- function(input, output, session) {
   })
 
 
-  ## Richness and area -------------------------------------------------
+  output$question1n_prediction <- 
+    output$question1_prediction <- 
+    renderText(input$predictions_question1)
 
-  output$na_richness_plot <- renderPlot(
-    {
-      plot_na_grid(
-        plot_data = prepare_data(nagrid)
-      )
-    },
-    res = res,
-    width = "100%"
-  ) %>%
-    bindCache(nagrid)
-
-  output$family_plot <- renderPlot(
-    {
-      plot_na_grid(
-        plot_data = prepare_data(species_groups[[input$family_menu]])
-      )
-    },
-    res = res,
-    width = "100%"
-  ) %>%
-    bindCache(input$family_menu)
+  output$question2n_prediction <- 
+    output$question2_prediction <- 
+    renderText(input$predictions_question2)
   
-  observeEvent(input$state_menu_cluster, {
-    #print("update cluster")
-    state_choice(input$state_menu_cluster)
-  })
+  # observeEvent(input$state_menu_cluster, {
+  #   #print("update cluster")
+  #   state_choice(input$state_menu_cluster)
+  # })
   
-  output$state_menu_nmds <- renderUI({
-    selectInput(
-      inputId = "state_menu_nmds",
-      label = "Choose a state",
-      choices = names(state_fishes),
-      selected = state_choice(),
-      multiple = FALSE
-    )
-  })
+  # output$state_menu_nmds <- renderUI({
+  #   selectInput(
+  #     inputId = "state_menu_nmds",
+  #     label = "Choose a state",
+  #     choices = names(state_fishes),
+  #     selected = state_choice(),
+  #     multiple = FALSE
+  #   )
+  # })
   
-  observeEvent(input$state_menu_nmds, {
-    state_choice(input$state_menu_nmds)
-    updateSelectInput(
-      session = getDefaultReactiveDomain(),
-      inputId = "state_menu_cluster",
-      selected = state_choice()
-    )
-  })
-  
+  # observeEvent(input$state_menu_nmds, {
+  #   state_choice(input$state_menu_nmds)
+  #   updateSelectInput(
+  #     session = getDefaultReactiveDomain(),
+  #     inputId = "state_menu_cluster",
+  #     selected = state_choice()
+  #   )
+  # })
+  # 
   output$cluster_plot <- output$cluster_plot_rep <- renderPlot(
     {
-      fish.hel <- decostand(state_fishes[[state_choice()]], method = "hellinger")
+      fish.hel <- decostand(mt, method = "hellinger")
       fish.dist <- vegdist(fish.hel, method = "bray", binary = TRUE)
       cluster$clust <- hclust(fish.dist, method = "ward.D2")
       
-      cluster$num_groups_to_cut <- state_cuts[state_choice()]
+      cluster$num_groups_to_cut <- 4
       
       cluster$dend <- as.dendrogram(cluster$clust) %>%
         set("branches_k_color",
@@ -225,7 +167,7 @@ server <- function(input, output, session) {
   output$nmds_plot <- renderPlot(
     {
       nmds$mds <- metaMDS(
-        state_fishes[[state_choice()]],
+        mt,
         k = 2,
         trymax = 100,
         trace = 0
