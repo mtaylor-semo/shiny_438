@@ -34,10 +34,7 @@ predictions_tab <- tabPanel(
         (eastern slope). The continental divide
         is a potent barrier to dispersal of freshwater fishes because
         fishes cannot move from one side of the divide to the other side."),
-      p(strong("Question:"), "Based on what you know so far, do you think
-        that the fish fauna of the western slope
-        will be similar to or different from watersheds of the eastern slope?
-        Why?"),
+      p(strong("Question:"), predictions_question1),
       textAreaInput(
         inputId = "predictions_question1",
         label = NULL, # "Enter your prediction:",
@@ -51,11 +48,7 @@ predictions_tab <- tabPanel(
         Missouri and Saskatchewan (Sask.) watersheds are also in the
         Rocky Mountains, but east of the divide."),
       
-      p(strong("Question:"), "Based on what you know so far, do you think that 
-        the fishes of the Upper Missouri and Saskatchewan watersheds will be
-        more similar to the Kootenai and Clark Fork (both in the mountains)
-        or more similar to the other eastern watersheds, like the Lower 
-        Missouri, in the plains of Montana?"),
+      p(strong("Question:"), predictions_question2),
       textAreaInput(
         inputId = "predictions_question2",
         label = NULL, # "Enter your prediction:",

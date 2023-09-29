@@ -77,10 +77,7 @@ nmds_tab <- tabPanel(
     column(
       width = 6,
       p(
-        strong("Question:"), "Do the results of NMDS change how you compare
-          the overall results (NMDS and cluster analysis) to both of your
-          predictions? Summarize the results in comparison to your predictions",
-        strong("with an emphasis on the NMDS plot.")
+        strong("Question:"), nmds_question1
       ),
       textAreaInput(
         inputId = "nmds_question1",

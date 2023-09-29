@@ -80,9 +80,7 @@ cluster_tab <- tabPanel(
     ),
     column(
       width = 6,
-      p(strong("Question:"), "How do the results of the cluster analysis compare
-        to and how both of your predictions? Summarize the results in comparison
-        to your predictions."),
+      p(strong("Question:"), cluster_question1),
       textAreaInput(
         inputId = "cluster_question1",
         label = NULL,
