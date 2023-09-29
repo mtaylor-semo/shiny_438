@@ -1,0 +1,56 @@
+---
+title: \assignmentTitle
+mainfont: Linux Libertine O
+header-includes:
+  \newcommand*{\assignmentTitle}{Introduction to Cluster and NMDS analyses}
+---
+
+
+```{r setup, include=FALSE, echo=FALSE}
+knitr::opts_knit$set(eval.after = "fig.cap")
+```
+
+<!-- Have to be defined here so they can be used in LaTex header. -->
+<!-- First page header -->
+\newcommand{\stuName}{`r input$student_name`} 
+<!-- Last page footer -->
+\newcommand{\firstFancyfoot}{{\footnotesize Report generated `r format(Sys.time(), "%a %d %B %Y %X")`}}
+\thispagestyle{first_page}
+
+\subsection*{\assignmentTitle}
+
+### Introduction and Predictions
+
+
+\begin{enumerate}
+\begin{multicols}{2}
+\item `r predictions_question1`
+
+\textbf{You predicted} “`r fix_special_chars(input$predictions_question1)`”
+
+\item `r predictions_question2`
+
+\textbf{You explained} “`r fix_special_chars(input$predictions_question2)`”
+
+\item `r cluster_question1`
+
+\textbf{You explained} “`r fix_special_chars(input$cluster_question1)`”
+
+\item `r nmds_question1`
+
+\textbf{You explained} “`r fix_special_chars(input$nmds_question1)`”
+
+\end{multicols}
+
+\end{enumerate}
+
+```{r fig.dim=c(6.5,4), echo=FALSE, fig.cap=paste("Species richness or relative area per degree of latitude in the U.S."), fig.align='left'}
+plots$cluster
+```
+
+***
+
+`r fix_special_chars(input$summary)`
+
+<!-- Time stamp the report -->
+\thispagestyle{last_page}
