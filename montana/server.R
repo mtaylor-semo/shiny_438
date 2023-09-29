@@ -23,7 +23,10 @@ server <- function(input, output, session) {
     has_empty_input(list(input$cluster_question1))
   })
 
-
+  output$nmds_result_error <- renderText({
+    has_empty_input(list(input$nmds_question1))
+  })
+  
   ## Reactive values ---------------------------------------------------------
 
   plots <- reactiveValues(na_richness = NULL, pc = NULL)
