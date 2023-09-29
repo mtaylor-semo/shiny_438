@@ -55,7 +55,7 @@ fix_special_chars <- function(str = NULL) {
 
 has_empty_input <- function(lst = NULL) {
   if (any(lst == "")) {
-    "Please answer all questions."
+    "Please answer all questions below."
   }
 }
 
