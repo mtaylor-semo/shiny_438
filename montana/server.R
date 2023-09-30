@@ -32,6 +32,22 @@ server <- function(input, output, session) {
     )
   })
   
+  output$stu_name_error <- renderText({
+    if (input$student_name == "") {
+      msg <- "Please enter your name"
+    } else {
+      msg <- ""
+    }
+  })
+  
+  output$next_ready <- renderText({
+    if (input$student_name == "") {
+      msg <- ""
+    } else {
+      msg = "Press Next after reading."
+    }
+  })
+
   # Reactive values ---------------------------------------------------------
 
   plots <- reactiveValues(cluster = NULL, nmds = NULL)
@@ -57,6 +73,7 @@ server <- function(input, output, session) {
   ## Button observers --------------------------------------------------------
 
   observeEvent(input$btn_next_intro, {
+    req(input$student_name)
     next_tab(
       tab = predictions_tab, 
       target = "Predictions", 
@@ -87,15 +104,6 @@ server <- function(input, output, session) {
       test = input$nmds_question1
     )
   })
-
-  # observeEvent(input$btn_prev_nmds, {
-  #   showTab(
-  #     inputId = "tabs", 
-  #     target = "Cluster", 
-  #     select = TRUE
-  #   )
-  # })
-  # 
 
   observeEvent(input$btn_prev_nmds, {
     prev_tab(target = "Cluster")
@@ -154,8 +162,7 @@ server <- function(input, output, session) {
     },
     res = res,
     width = "100%"
-  ) %>%
-    bindCache(input$state_menu_cluster, input$state_menu_nmds)
+  )  %>% bindCache()
   
 
   output$nmds_plot <- renderPlot(
@@ -187,12 +194,12 @@ server <- function(input, output, session) {
         ) %>% 
         left_join(x = ., y = tmp.df, by = "label")
 
-      plot_nmds(nmds$watershed_scores)
+      plots$nmds <- plot_nmds(nmds$watershed_scores)
+      plots$nmds
     },
     res = res,
     width = "100%"
-  ) %>%
-    bindCache(input$state_menu_cluster, input$state_menu_nmds)
+  ) %>% bindCache()
 
   
   # Report Download ---------------------------------------------------------
