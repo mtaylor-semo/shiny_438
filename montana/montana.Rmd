@@ -44,8 +44,9 @@ knitr::opts_knit$set(eval.after = "fig.cap")
 
 \end{enumerate}
 
-```{r fig.dim=c(6.5,4), echo=FALSE, fig.cap=paste("Species richness or relative area per degree of latitude in the U.S."), fig.align='left'}
+```{r fig.dim=c(6.5,4), echo=FALSE, fig.cap=paste("Cluster (left) and NMDS (right) plots showing similarity of Montana watersheds based on similarity of fish fauna."),  fig.show='hold', out.width="49%"}
 plots$cluster
+plots$nmds
 ```
 
 ***
