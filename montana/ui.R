@@ -20,10 +20,29 @@ ui <- tagList(
       "Introduction",
       fluidRow(
         column(
+          1,
+          p(strong("Name:"))
+        ),
+        column(
           2,
+          textInput(
+            "student_name",
+            label = NULL,
+            placeholder = "First Last",
+            width = "100%"
+          )
+        ),
+        column(
+          3,
+          align = "left",
+          span(textOutput("stu_name_error"), style = "color:#9D2235")
+        ),
+        column(
+          3,
           align = "right",
-          offset = 9,
-          p("Start here!", style = "color:#9D2235")
+          offset = 2,
+          span(textOutput("next_ready"), style = "color:#9D2235")
+          #p("Start here!", style = "color:#9D2235")
         ),
         column(
           1,
@@ -42,7 +61,7 @@ ui <- tagList(
           width = 6,
           p("In an upcoming exercise, you will interpret output
             from cluster and non-metric multidimensional 
-            scaling (NMDS) analysess. These analyses group 'objects' 
+            scaling (NMDS) analyses. These analyses group 'objects' 
             based on similarity."
           ),
           p("The 'objects' in this exercise are the watersheds of
