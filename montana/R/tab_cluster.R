@@ -59,12 +59,13 @@ cluster_tab <- tabPanel(
         is arbitrary. For example, the cluster with the Kootenai and Clark Fork
         watersheds could be the uppermost cluster, followed by the cluster with
         the Saskatchewan and Upper Missouri. Similarity is conveyed", 
-        em("only"), "by the branching pattern."),
+        em("only"), "by the branching pattern.)"),
       
-      p("Cluster plots are good for initial inspection of the data but we can
-        get better results. First, compare the results of the cluster analysis
-        to your predictions below, then click the next button to learn about
-        another tool.")
+      p("Cluster plots are good for initial inspection of the data. They give
+        an initial idea of watershed similarity but it cannot show how similar
+        or differt the watersheds are. We can get better results. First, compare
+        the results of the cluster analysis to your predictions below, then 
+        click the Next button to learn about another help analysis.")
     )
   ),
   hr(),

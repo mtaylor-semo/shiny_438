@@ -11,9 +11,8 @@ summary_tab <- tabPanel(
       wellPanel(
         p(
           em("Write a summary of what you learned from this lesson."),
-          "Your summary must address geographic range size at both large
-          geographic scales (North America), small scale (one stage), and
-          regional scales (the south to north trend)."
+          "Your summary must how cluster and NMDS analyses together
+          help identify biogeographic provinces and ecoregions."
         ),
         br(),
         p(
