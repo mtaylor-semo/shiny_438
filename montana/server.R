@@ -162,7 +162,7 @@ server <- function(input, output, session) {
     },
     res = res,
     width = "100%"
-  )  %>% bindCache()
+  )  %>% bindCache(NULL)
   
 
   output$nmds_plot <- renderPlot(
@@ -199,7 +199,7 @@ server <- function(input, output, session) {
     },
     res = res,
     width = "100%"
-  ) %>% bindCache()
+  ) %>% bindCache(NULL)
 
   
   # Report Download ---------------------------------------------------------
