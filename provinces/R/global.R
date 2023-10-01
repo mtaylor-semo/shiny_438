@@ -38,6 +38,15 @@ mycolors <- brewer.pal(8, "Dark2")
 base_rmd <- "provinces.Rmd"
 base_pdf <- "provinces.pdf"
 
+# Reference list for the optimum cluster cuts for each state.
+## Alabama 7, PCO
+## Mississippi 7, PCO
+## Georgia Fishes 6
+## North Carolina 5
+## South Carolina 5 NO LONGER USED
+## Virginia 6
+## Missouri 7
+
 # Vector of cut numbers to group the clusters
 state_cuts <- c(7, 6, 7, 7, 4, 5, 6)
 names(state_cuts) <- c("Alabama", "Georgia", "Mississippi", "Missouri", "Montana", "NorthCarolina", "Virginia")
@@ -49,6 +58,8 @@ states <- st_as_sf(maps::map("state", plot = FALSE, fill = TRUE))
 # are PC.
 res = 96
 
+# Number of rows to use for textInput questions
+nrows= 5
 
 # Open data files ---------------------------------------------------------
 
@@ -77,9 +88,42 @@ fix_special_chars <- function(str = NULL) {
 
 has_empty_input <- function(lst = NULL) {
   if (any(lst == "")) {
-    "Please answer all questions."
+    "Please answer all questions below."
   }
 }
+
+# Called from Rmd file to replace LaTeX special
+# characters with escaped version.
+fix_special_chars <- function(str = NULL) {
+  str_replace_all(str, "([#%$_])", "\\\\\\1")
+}
+
+has_empty_input <- function(lst = NULL) {
+  if (any(lst == "")) {
+    "Please answer all questions below."
+  }
+}
+
+next_btn <- function(id) {
+  actionButton(inputId = id, label = "Next")
+}
+
+prev_btn <- function(id) {
+  actionButton(inputId = id, label = "Prev")
+}
+
+next_tab <- function(tab = NULL, target = NULL, test = NULL) {
+  if (is.null(test)) {
+    appendTab(inputId = "tabs", tab = tab, select = TRUE)
+  } else {
+    showTab(inputId = "tabs", target = target, select = TRUE)
+  }
+}
+
+prev_tab <- function(target) {
+  showTab(inputId = "tabs", target = target, select = TRUE)
+}
+
 
 # Pivot csv data to long format for ggplot2
 prepare_data <- function(.data) {
@@ -99,33 +143,4 @@ prepare_data <- function(.data) {
     )
 }
 
-# Province functions ------------------------------------------------------
-
-# Functions used by the Provinces exercise.
-
-# Will I need these in Shiny?
-
-# Reference list for the optimum cluster cuts for each state.
-## Alabama 7, PCO
-## Mississippi 7, PCO
-## Georgia Fishes 6
-## North Carolina 5
-## South Carolina 5 NO LONGER USED
-## Virginia 6
-# 3 Missouri 7
-
-## Prediction check. Move requirement check for predictions here.
-## sn = student_name, ps = pred_state, ra = pred_ra, pc = pred_ca
-pred_check <- function(sn = NULL, na = NULL, pc = NULL) {
-  req(sn, na, pc)
-}
-
-result_check <- function(exp = NULL) {
-  req(exp)
-}
-
-
-empty_field <- function(input_field) {
-  ifelse (input_field == "", TRUE, FALSE)
-}
 
