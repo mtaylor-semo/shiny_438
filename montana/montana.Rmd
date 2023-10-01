@@ -32,6 +32,8 @@ Ocean. Watersheds west of the divide flow west to the Pacific Ocean.
 
 \end{multicols}
 
+***
+
 \begin{enumerate}
 \begin{multicols}{2}
 \item `r predictions_question1`
