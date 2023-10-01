@@ -232,6 +232,8 @@ server <- function(input, output, session) {
       )
       src <- normalizePath(base_rmd)
       src_tex <- normalizePath("tex/tex_header.tex")
+      src_www <- normalizePath("www/montana_watersheds.png")
+      print(src_www)
       # temporarily switch to the temp dir, in case you do not have write
       # permission to the current working directory
       owd <- setwd(tempdir())
@@ -239,13 +241,14 @@ server <- function(input, output, session) {
       # file.copy(src, "rapoports_rule.Rmd", overwrite = TRUE)
       file.copy(src, base_rmd, overwrite = TRUE)
       file.copy(src_tex, "tex_header.tex", overwrite = TRUE)
+      file.copy(src_www, "montana_watersheds.png", overwrite = TRUE)
 
       library(rmarkdown)
 
       out <- render(
         base_rmd,
         pdf_document(
-          latex_engine = "lualatex",
+          latex_engine = "pdflatex",
           keep_tex = FALSE,
           includes = includes(in_header = "tex_header.tex")
         )

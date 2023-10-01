@@ -2,9 +2,8 @@
 title: \assignmentTitle
 mainfont: Linux Libertine O
 header-includes:
-  \newcommand*{\assignmentTitle}{Introduction to Cluster and NMDS analyses}
+  \newcommand*{\assignmentTitle}{Introduction to cluster and \textsc{nmds} analyses}
 ---
-
 
 ```{r setup, include=FALSE, echo=FALSE}
 knitr::opts_knit$set(eval.after = "fig.cap")
@@ -19,8 +18,19 @@ knitr::opts_knit$set(eval.after = "fig.cap")
 
 \subsection*{\assignmentTitle}
 
-### Introduction and Predictions
+\begin{multicols}{2}
+Cluster and \textsc{nmds} are two useful analytical techniques to explore
+biogeographic provinces and ecoregions. For this exercise, you will use a
+dataset of 53 species of freshwater fishes that live in Montana's 10 watersheds (right). The watersheds span across Montana's eastern Great Plains and
+western Rocky Mountains. The mountains are divided by the 
+\textbf{continental divide}. Watersheds east of the divide flow to the Atlantic
+Ocean. Watersheds west of the divide flow west to the Pacific Ocean. 
 
+\columnbreak
+
+\includegraphics[width=0.95\linewidth]{`r paste0(tempdir(),"/montana_watersheds.png")`}
+
+\end{multicols}
 
 \begin{enumerate}
 \begin{multicols}{2}
@@ -44,7 +54,7 @@ knitr::opts_knit$set(eval.after = "fig.cap")
 
 \end{enumerate}
 
-```{r fig.dim=c(6.5,4), echo=FALSE, fig.cap=paste("Cluster (left) and NMDS (right) plots showing similarity of Montana watersheds based on similarity of fish fauna."),  fig.show='hold', out.width="49%"}
+```{r fig.dim=c(6.5,4), echo=FALSE, fig.cap=paste("Cluster (left) and \\textsc{nmds} (right) plots showing similarity of Montana watersheds based on similarity of fish fauna."),  fig.show='hold', out.width="49%"}
 plots$cluster
 plots$nmds
 ```
@@ -53,5 +63,5 @@ plots$nmds
 
 `r fix_special_chars(input$summary)`
 
-<!-- Time stamp the report -->
-\thispagestyle{last_page}
+<!-- Time stamp the report 
+\thispagestyle{last_page}-->

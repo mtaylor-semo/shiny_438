@@ -1,9 +1,10 @@
 \AtBeginDocument{\let\maketitle\relax}
 
-\usepackage{fontspec}
-\setmainfont[Ligatures={Common,TeX}, BoldFont={* Bold}, ItalicFont={* Italic}, Numbers={OldStyle}]{Linux Libertine O}
-\usepackage{microtype}
+%\usepackage{fontspec}
+%\setmainfont[Ligatures={Common,TeX}, BoldFont={* Bold}, ItalicFont={* Italic}, Numbers={OldStyle}]{Linux Libertine O}
+%\usepackage{microtype}
 
+\usepackage{lipsum}
 \usepackage{enumitem}
 \setlist[enumerate]{leftmargin=-\parindent}
 \setlist[1]{labelindent=\parindent}
@@ -31,11 +32,12 @@
 	\fancyhf{}
 	\fancyhead[L]{\coursename}
 	\fancyhead[R]{\textsc{Name:} \stuName}
+	\fancyfoot[L]{\firstFancyfoot}
 	\renewcommand{\headrulewidth}{0pt}
 }
 
-\fancypagestyle{last_page}{%
-	\fancyhf{}
-	\fancyfoot[L]{\firstFancyfoot}
-}
+%\fancypagestyle{last_page}{%
+%	\fancyhf{}
+%	\fancyfoot[L]{\firstFancyfoot}
+%}
 
