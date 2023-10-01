@@ -1,5 +1,3 @@
-# Plot functions used by Provinces app.
-
 # Set lower and upper scale limits for
 # NMDS plots
 plot_scale_limits <- function(vec, res, fun) {
@@ -10,21 +8,7 @@ plot_scale_limits <- function(vec, res, fun) {
   }
 }
 
-# prep_cluster_data <- function(state = "Montana", cutoff = 4) {
-#   fish.hel <- decostand(state, method = "hellinger")
-#   fish.dist <- vegdist(fish.hel, method = "bray", binary = TRUE)
-#   fish.clust <- hclust(fish.dist, method = "ward.D2")
-#   fish.clust.cut <- cutree(fish.clust, k = cutoff)
-#   list(fish.clust, fish.clust.cut)
-# }
-# fishFile <- state_fishes$Montana
-#clustCut <- 4
-
-# Transform the data using hellinger, then calculate Bray-Curtis
-# distance between watersheds
-
 # Cluster analysis --------------------------------------------------------
-
 
 plot_cluster <- function(dend_obj = NULL) {
   ggplot(dend_obj, horiz = TRUE, offset_labels = -0.02) +
@@ -78,5 +62,3 @@ plot_nmds <- function(scores = NULL) {
     axis.text = element_blank()
   )
 }
-# 
-# print(nmdplt)

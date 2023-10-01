@@ -52,8 +52,6 @@ server <- function(input, output, session) {
 
   plots <- reactiveValues(cluster = NULL, nmds = NULL)
 
-  # results <- reactiveValues(ca = NULL)
-  
   cluster <- reactiveValues(
     hel = NULL,
     dist = NULL,
@@ -238,7 +236,6 @@ server <- function(input, output, session) {
       # permission to the current working directory
       owd <- setwd(tempdir())
       on.exit(setwd(owd))
-      # file.copy(src, "rapoports_rule.Rmd", overwrite = TRUE)
       file.copy(src, base_rmd, overwrite = TRUE)
       file.copy(src_tex, "tex_header.tex", overwrite = TRUE)
       file.copy(src_www, "montana_watersheds.png", overwrite = TRUE)

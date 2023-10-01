@@ -1,5 +1,3 @@
-library(dplyr)
-library(stringr)
 
 # Summary tab -------------------------------------------------------------
 

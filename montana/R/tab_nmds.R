@@ -83,6 +83,7 @@ nmds_tab <- tabPanel(
         inputId = "nmds_question1",
         label = NULL,
         rows = nrows,
+        placeholder = "Summarize the results…",
         width = "97%"
       )
     )
