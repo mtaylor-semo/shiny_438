@@ -24,32 +24,36 @@ nmds_tab <- tabPanel(
   hr(),
   fluidRow(
     column(
-      3,
-      wellPanel(
-        uiOutput("state_menu_nmds")
-      ),
-    ),
-    column(
-      9,
+      8,
       plotOutput(
         "nmds_plot",
         width = "97%",
         height = "500px"
-      ) # %>%
-      # withSpinner(type = 4,
-      #             color = semo_palette["cardiac_red"])
+      ) %>%
+        withSpinner(
+          type = 4,
+          color = semo_palette["cardiac_red"]
+        )
     ),
+    column(
+      4,
+      uiOutput("state_menu_nmds"),
+      plotOutput(
+        "cluster_plot_rep",
+        width = "97%",
+        height = "400px"
+      ),
+      p("Choose the Cluster tab (or press the Prev button) to view a larger
+        version of the cluster plot.")
+    ),
+    hr(),
     fluidRow(
       column(
         6,
-        plotOutput(
-          "cluster_plot_rep",
-          width = "97%",
-          height = "400px"
-        )
+        p("state watershed maps here?")
       ),
       column(
-        width = 5,
+        width = 6,
         p("Based on this figure, combined with the previous graphs,
         do U.S. freshwater fishes follow Rapoport’s Rule for geographic
         range size? Explain."),
