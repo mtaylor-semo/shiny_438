@@ -7,6 +7,22 @@ server <- function(input, output, session) {
 
   ## Error message outputs ---------------------------------------------------
 
+  output$stu_name_error <- renderText({
+    if (input$student_name == "") {
+      msg <- "Please enter your name"
+    } else {
+      msg <- ""
+    }
+  })
+  
+  output$next_ready <- renderText({
+    if (input$student_name == "") {
+      msg <- ""
+    } else {
+      msg = "Press Next after reading."
+    }
+  })
+  
   output$prediction_error <- renderText({
     has_empty_input(list(input$student_name, input$predict_na_richness))
   })
@@ -50,28 +66,26 @@ server <- function(input, output, session) {
 
   ## Button observers --------------------------------------------------------
 
-  observeEvent(input$btn_next_inst, {
-    if (is.null(input$student_name)) {
-      appendTab(inputId = "tabs", tab = predictions_tab, select = TRUE)
-    } else {
-      showTab(inputId = "tabs", target = "Predictions", select = TRUE)
-    }
+  observeEvent(input$btn_next_intro, {
+    req(input$student_name)
+    next_tab(
+      tab = predictions_tab, 
+      target = "Predictions", 
+      test = input$predict_na_richness)
   })
-
+  
+  observeEvent(input$btn_prev_pred, {
+    prev_tab("Introduction")
+  })
+  
   observeEvent(input$btn_next_pred, {
-    if (is.null(input$richness_area_q1)) {
-      req(input$student_name, input$predict_na_richness)
-      # Comment out for development.
-      # pred_check(sn = input$student_name,
-      #            ra = input$predict_na_richness)
-
-      removeTab(inputId = "tabs", target = "Predictions")
-      appendTab(inputId = "tabs", tab = na_richess_tab, select = TRUE)
-    } else {
-      showTab(inputId = "tabs", target = "North America", select = TRUE)
-    }
+    req(input$predictions_question1, input$predictions_question2)
+    next_tab(
+      tab = cluster_tab, 
+      target = "Cluster",
+      test = input$cluster_question1)
   })
-
+  
   observeEvent(input$btn_next_na, {
     if (is.null(input$question2)) {
       req(input$question1)
