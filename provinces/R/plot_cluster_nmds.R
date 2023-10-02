@@ -65,7 +65,8 @@ plot_nmds <- function(scores = NULL) {
   geom_vline(xintercept = 0, color = "gray70", linewidth = 0.3) +
   scale_colour_manual(values = mycolors, guide = NULL) +
   scale_y_continuous(breaks = seq(min_y, max_y, 0.1),
-                     limits = c(min_y, max_y)) +
+                     limits = c(min_y, max_y),
+                     expand = c(0, 0.3)) +
   scale_x_continuous(breaks = seq(min_x, max_x, 0.1),
                      limits = c(min_x, max_x)) +
   coord_equal() +
