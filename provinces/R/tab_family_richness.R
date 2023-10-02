@@ -39,15 +39,15 @@ family_richness_tab <- tabPanel(
       9,
       plotOutput("family_plot",
         width = "97%",
-        height = "600px"
+        height = "450px"
       ) %>%
         withSpinner(
           type = 4,
           color = semo_palette["cardiac_red"]
-        ),
-      hr()
+        )
     )
   ),
+  hr(),
   fluidRow(
     column(
       width = 6,
