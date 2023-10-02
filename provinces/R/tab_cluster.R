@@ -12,8 +12,9 @@ cluster_tab <- tabPanel(
       3,
       align = "right",
       offset = 7,
-      span(textOutput("cluster_result_error"),
-           style = "color:#9D2235"
+      span(
+        textOutput("cluster_result_error"),
+        style = "color:#9D2235"
       )
     ),
     column(
@@ -23,7 +24,7 @@ cluster_tab <- tabPanel(
   ),
 
   hr(),
-  
+
   fluidRow(
     column(
       6,
@@ -35,9 +36,10 @@ cluster_tab <- tabPanel(
         multiple = FALSE,
         width = "50%"
       ),
-      plotOutput("cluster_plot",
-                 width = "97%"
-      ) %>% 
+      plotOutput(
+        "cluster_plot",
+        width = "97%"
+      ) %>%
         withSpinner(type = 4,
                     color = semo_palette["cardiac_red"]),
     ),
