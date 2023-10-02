@@ -29,7 +29,7 @@ plot_scale_limits <- function(vec, res, fun) {
 plot_cluster <- function(dend_obj = NULL) {
   ggplot(dend_obj, horiz = TRUE) +
     scale_x_continuous(expand = c(-1, -1)) +
-    scale_y_reverse(expand = c(0, 1)) +
+    scale_y_reverse(expand = expansion(add = c(0, 1))) +
     theme(
       axis.title = element_blank(),
       axis.text = element_blank(),
