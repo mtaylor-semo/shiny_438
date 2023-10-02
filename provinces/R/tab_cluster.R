@@ -5,6 +5,27 @@ cluster_tab <- tabPanel(
   "Cluster",
   fluidRow(
     column(
+      1,
+      prev_btn("btn_prev_cluster"),
+    ),
+    column(
+      3,
+      align = "right",
+      offset = 7,
+      span(textOutput("cluster_result_error"),
+           style = "color:#9D2235"
+      )
+    ),
+    column(
+      1,
+      next_btn("btn_next_cluster"),
+    )
+  ),
+
+  hr(),
+  
+  fluidRow(
+    column(
       3,
       wellPanel(
         selectInput(
@@ -13,15 +34,7 @@ cluster_tab <- tabPanel(
           choices = names(state_fishes),
           selected = "Montana",
           multiple = FALSE
-        ),
-      ),
-      actionButton(
-        inputId = "btn_next_cluster",
-        label = "Next",
-        width = "35%"
-      ),
-      span(textOutput("cluster_result_error"),
-          style = "color:#9D2235"
+        )
       )
     ),
     column(
@@ -41,7 +54,7 @@ cluster_tab <- tabPanel(
         do U.S. freshwater fishes follow Rapoport’s Rule for geographic
         range size? Explain."),
       textAreaInput(
-        inputId = "question4",
+        inputId = "cluster_question1",
         label = NULL,
         rows = 5,
         width = "97%"
@@ -51,7 +64,7 @@ cluster_tab <- tabPanel(
        what region of the U.S. seems to have most of the smaller bubbles?
        Why do you think this is?"),
       textAreaInput(
-        inputId = "cluster_q5",
+        inputId = "cluster_question2",
         label = NULL,
         rows = 5,
         width = "97%"
@@ -61,7 +74,7 @@ cluster_tab <- tabPanel(
         to have the fewest bubbles? (Or, most of the smallest bubbles?)
         Why do you think this is?"),
       textAreaInput(
-        inputId = "cluster_q6",
+        inputId = "cluster_question3",
         label = NULL,
         rows = 5,
         width = "97%"

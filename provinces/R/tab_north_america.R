@@ -4,8 +4,30 @@ na_richess_tab <- tabPanel(
   "North America",
   fluidRow(
     column(
+      1,
+      prev_btn("btn_prev_na"),
+    ),
+    column(
+      2,
+      p("Scroll down for questions.")
+    ),
+    column(
+      3,
+      align = "right",
+      offset = 5,
+      span(textOutput("na_richness_result_error"),
+           style = "color:#9D2235"
+      )
+    ),
+    column(
+      1,
+      next_btn("btn_next_na"),
+    )
+  ),
+  hr(),
+  fluidRow(
+    column(
       12,
-      p("Scroll down for questions."),
       plotOutput("na_richness_plot",
                  height = "600px"
       ) %>% 
@@ -15,23 +37,23 @@ na_richess_tab <- tabPanel(
       p("Density plot of species richness for U.S. Freshwater fishes. Brighter
         colors indicate greater species richness. Look carefully at the western
         U.S. Notice that richness increases somewhat along the coast. Notice
-        too that richness tends to follow the rivers."),
-      hr()
+        too that richness tends to follow the rivers.")
     )
   ),
+  hr(),
   fluidRow(
     column(
-      3,
+      6,
       p(strong("You predicted:")),
       uiOutput("prediction_na_richness")
     ),
     column(
       6,
-      p(strong("Question:"), question1_text),
+      p(strong("Question:"), na_question1_text),
       textAreaInput(
-        inputId = "question1",
+        inputId = "na_question1",
         label = NULL,
-        rows = 5,
+        rows = nrows,
         width = "97%"
       ),
       hr(),
@@ -43,14 +65,8 @@ na_richess_tab <- tabPanel(
         dollars."
       ),
       hr(),
-      p("Press the Next button to make relief maps of different species
+      p("Press the Next button above to make relief maps of different species
         groups.")
-    ),
-    column(
-      3,
-      br(),
-      actionButton(inputId = "btn_next_na", label = "Next", width = "35%"),
-      span(textOutput("na_richness_result_error"), style = "color:#9D2235")
     )
   )
 )

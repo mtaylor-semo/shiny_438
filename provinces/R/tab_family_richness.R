@@ -1,8 +1,26 @@
-
 # Define Family Richness tab ---------------------------------------------
 
-species_tab <- tabPanel(
+family_richness_tab <- tabPanel(
   "Family Richness",
+  fluidRow(
+    column(
+      1,
+      prev_btn("btn_prev_family_richness"),
+    ),
+    column(
+      3,
+      align = "right",
+      offset = 7,
+      span(textOutput("family_richness_result_error"),
+        style = "color:#9D2235"
+      )
+    ),
+    column(
+      1,
+      next_btn("btn_next_family_richness"),
+    )
+  ),
+  hr(),
   fluidRow(
     column(
       3,
@@ -16,43 +34,38 @@ species_tab <- tabPanel(
         uiOutput("spp_info")
       ),
       p(strong("Be sure to view all families listed.")),
-      actionButton(
-        inputId = "btn_next_family",
-        label = "Next",
-        width = "35%"
-      ),
-      span(textOutput("family_result_error"),
-           style = "color:#9D2235"
-      )
     ),
     column(
       9,
       plotOutput("family_plot",
-                 width = "97%",
-                 height = "600px"
-      ) %>% 
-        withSpinner(type = 4,
-                    color = semo_palette["cardiac_red"]),
+        width = "97%",
+        height = "600px"
+      ) %>%
+        withSpinner(
+          type = 4,
+          color = semo_palette["cardiac_red"]
+        ),
       hr()
     )
   ),
   fluidRow(
     column(
       width = 6,
-      offset = 3,
-      p(strong("Question:"), question2_text),
+      p(strong("Question:"), family_richness_question1_text),
       textAreaInput(
-        inputId = "question2",
+        inputId = "family_richness_question1",
         label = NULL,
-        rows = 5,
+        rows = nrows,
         width = "97%"
       ),
-      hr(),
-      p(strong("Question:"), question3_text),
+    ),
+    column(
+      6,
+      p(strong("Question:"), family_richness_question2_text),
       textAreaInput(
-        inputId = "question3",
+        inputId = "family_richness_question2",
         label = NULL,
-        rows = 5,
+        rows = nrows,
         width = "97%"
       )
     )

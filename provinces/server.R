@@ -28,18 +28,26 @@ server <- function(input, output, session) {
   })
 
   output$na_richness_result_error <- renderText({
-    has_empty_input(list(input$question1))
+    has_empty_input(list(input$na_question1))
   })
   
-  output$family_result_error <- renderText({
-    has_empty_input(list(input$question2, input$question3))
+  output$family_richness_result_error <- renderText({
+    has_empty_input(
+      list(
+        input$family_richness_question1, 
+        input$family_richness_question2
+      )
+    )
   })
   
   output$cluster_result_error <- renderText({
-    has_empty_input(list(question4))
+    has_empty_input(list(input$cluster_question1))
   })
 
-
+  output$nmds_result_error <- renderText({
+    has_empty_input(list(input$nmds_question1))
+  })
+  
   ## Reactive values ---------------------------------------------------------
 
   plots <- reactiveValues(na_richness = NULL, pc = NULL)
@@ -79,67 +87,74 @@ server <- function(input, output, session) {
   })
   
   observeEvent(input$btn_next_pred, {
-    req(input$predictions_question1, input$predictions_question2)
+    req(input$predict_na_richness)
     next_tab(
-      tab = cluster_tab, 
-      target = "Cluster",
-      test = input$cluster_question1)
+      tab = na_richess_tab, 
+      target = "North America",
+      test = input$na_question1)
+  })
+  
+  observeEvent(input$btn_prev_na, {
+    prev_tab("Predictions")
   })
   
   observeEvent(input$btn_next_na, {
-    if (is.null(input$question2)) {
-      req(input$question1)
-      appendTab(inputId = "tabs", tab = species_tab, select = TRUE)
-    } else {
-      showTab(inputId = "tabs", target = "Family Richness", select = TRUE)
-    }
+    req(input$na_question1)
+    next_tab(
+      tab = family_richness_tab,
+      target = "Family Richness",
+      test = input$family_richness_question1
+    )
   })
 
-  observeEvent(input$btn_next_family, {
-    if (is.null(input$question4)) {
-      req(
-        input$question2,
-        input$question3,
-      )
-      appendTab(inputId = "tabs", tab = cluster_tab, select = TRUE)
-    } else {
-      showTab(inputId = "tabs", target = "Cluster", select = TRUE)
-    }
+  observeEvent(input$btn_prev_family_richness, {
+    prev_tab("North America")
+  })
+  
+  observeEvent(input$btn_next_family_richness, {
+    req(
+      input$family_richness_question1,
+      input$family_richness_question2
+    )
+    next_tab(
+      tab = cluster_tab,
+      target = "Cluster",
+      test = input$cluster_question1
+    )
+  })
+  
+  observeEvent(input$btn_prev_cluster, {
+    prev_tab("Family Richness")
   })
   
   observeEvent(input$btn_next_cluster, {
-    if (is.null(input$question5)) {
-      req(
-        question4
-      )
-      appendTab(inputId = "tabs", tab = nmds_tab, select = TRUE)
-    } else {
-      showTab(inputId = "tabs", target = "NMDS", select = TRUE)
-    }
-    
-    # if (is.null(NULL)) {
-    #   # req(
-    #   #   input$pc_q5,
-    #   #   input$pc_q4,
-    #   #   input$pc_q6
-    #   # )
-    #   appendTab(inputId = "tabs", tab = nmds_tab, select = TRUE)
-    # } else {
-    #   showTab(inputId = "tabs", target = "NMDS", select = TRUE)
-    # }
+    req(
+      input$cluster_question1,
+      input$cluster_question2,
+      input$cluster_question3
+    )
+    next_tab(
+      tab = nmds_tab,
+      target = "NMDS",
+      test = input$nmds_question1
+    )
   })
 
+  observeEvent(input$btn_prev_nmds,{
+    prev_tab("Cluster")
+  })
+  
   observeEvent(input$btn_next_nmds, {
-    if (is.null(input$summary)) {
-      # req(
-      #   input$pc_q5,
-      #   input$pc_q4,
-      #   input$pc_q6
-      # )
-      appendTab(inputId = "tabs", tab = summary_tab, select = TRUE)
-    } else {
-      showTab(inputId = "tabs", target = "Summary", select = TRUE)
-    }
+    req(input$nmds_question1)
+    next_tab(
+      tab = summary_tab,
+      target = "Summary",
+      test = input$summary
+    )
+  })
+  
+  observeEvent(input$btn_prev_summary, {
+    prev_tab("NMDS")
   })
   
   observeEvent(input$family_menu, {
@@ -148,16 +163,9 @@ server <- function(input, output, session) {
   
   ## Outputs -------------------------------------------------------------
 
-  # output$prediction_pc <- renderUI({
-  #   p("You predicted:")
-  #   sprintf("%s", input$predict_na_richness)
-  # })
-  
   output$spp_info <- renderUI({
     p(get_species_info(input$family_menu),
     img(src = get_species_image(input$family_menu), width = "97%"))
-    
-    #img(src = get_species_image(input$family_menu), width = "97%")
   })
 
   output$prediction_na_richness <- renderUI({

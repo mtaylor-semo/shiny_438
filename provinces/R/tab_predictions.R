@@ -53,7 +53,7 @@ predictions_tab <- tabPanel(
       textAreaInput(
         inputId = "predict_na_richness",
         label = NULL, # "Enter your prediction:",
-        rows = 6,
+        rows = nrows,
         placeholder = "U.S. species richness prediction…",
         width = "90%"
       )
