@@ -15,8 +15,9 @@ na_richess_tab <- tabPanel(
       3,
       align = "right",
       offset = 5,
-      span(textOutput("na_richness_result_error"),
-           style = "color:#9D2235"
+      span(
+        textOutput("na_richness_result_error"),
+        style = "color:#9D2235"
       )
     ),
     column(
@@ -28,16 +29,19 @@ na_richess_tab <- tabPanel(
   fluidRow(
     column(
       12,
-      plotOutput("na_richness_plot",
-                 height = "600px"
-      ) %>% 
-        withSpinner(type = 4,
-                    color = semo_palette["cardiac_red"]),
+      plotOutput(
+        "na_richness_plot",
+        height = "600px"
+      ) %>%
+        withSpinner(
+          type = 4,
+          color = semo_palette["cardiac_red"]
+        ),
       br(),
       p("Density plot of species richness for U.S. Freshwater fishes. Brighter
         colors indicate greater species richness. Look carefully at the western
-        U.S. Notice that richness increases somewhat along the coast. Notice
-        too that richness tends to follow the rivers.")
+        half of the country. Notice that richness increases somewhat along the
+        coast. Notice too that richness tends to follow the rivers.")
     )
   ),
   hr(),
@@ -45,7 +49,9 @@ na_richess_tab <- tabPanel(
     column(
       6,
       p(strong("You predicted:")),
-      uiOutput("prediction_na_richness")
+      uiOutput("prediction_na_richness"),
+      hr(),
+      img(src = "relief_map.jpg", width = "97%")
     ),
     column(
       6,
