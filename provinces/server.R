@@ -92,6 +92,9 @@ server <- function(input, output, session) {
       tab = na_richess_tab, 
       target = "North America",
       test = input$na_question1)
+    hideTab(
+      inputId = "tabs",
+      target = "Predictions")
   })
   
   observeEvent(input$btn_prev_na, {
