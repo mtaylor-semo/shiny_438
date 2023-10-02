@@ -18,10 +18,41 @@ ui <- tagList(
 
     # Instructions tab -------------------------------------------------------
     tabPanel(
-      "Instructions",
+      "Introduction",
       fluidRow(
         column(
-          width = 3,
+          1,
+          p(strong("Name:"))
+        ),
+        column(
+          2,
+          textInput(
+            "student_name",
+            label = NULL,
+            placeholder = "First Last",
+            width = "100%"
+          )
+        ),
+        column(
+          3,
+          align = "left",
+          span(textOutput("stu_name_error"), style = "color:#9D2235")
+        ),
+        column(
+          3,
+          align = "right",
+          offset = 2,
+          span(textOutput("next_ready"), style = "color:#9D2235")
+        ),
+        column(
+          1,
+          next_btn("btn_next_intro")
+        )
+      ),
+      hr(),
+      fluidRow(
+        column(
+          width = 6,
           img(src = "relief_map.jpg", width = "97%"),
           br(),
           p("Shaded relief map of the U.S. Color indicates elevation.
@@ -48,19 +79,6 @@ ui <- tagList(
           p("After you explore species richness for North America, you will
             explore the distribution of species richness for specific groups 
             of fishes."),
-          hr(),
-          p("Choose the Next button to begin."),
-          hr()
-        ),
-        column(
-          3,
-          br(),
-          actionButton(
-            inputId = "btn_next_inst",
-            label = "Next",
-            width = "35%"
-          ),
-          p("Start here!", style = "color:#9D2235")
         )
       )
     )
