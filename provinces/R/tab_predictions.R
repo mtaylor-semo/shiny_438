@@ -3,14 +3,34 @@ predictions_tab <- tabPanel(
   "Predictions",
   fluidRow(
     column(
-      width = 3,
-      textInput("student_name",
-                "Enter your name:",
-                placeholder = "First Last"
-      ),
+      1,
+      prev_btn("btn_prev_pred"),
+    ),
+    column(
+      3,
+      align = "right",
+      offset = 7,
+      span(textOutput("prediction_error"),
+           style = "color:#9D2235"
+      )
+    ),
+    column(
+      1,
+      next_btn("btn_next_pred"),
+    )
+  ),
+  hr(),
+  fluidRow(
+    column(
+      width = 6,
+      img(src = "relief_map.jpg", width = "97%"),
+      br(),
+      p("Shaded relief map of the U.S. Color indicates elevation.
+            Darker green is low elevation close to sea level. Light colors
+            indicate high elevation in the mountains."),
       hr(),
-      p(),
-      p("Enter your predictions at right, then press the 'Next' button."),
+      p("Image credit:"),
+      tags$a(href = "https://www.jpl.nasa.gov/images/pia03377-shaded-relief-with-height-as-color-north-america", "NASA Jet Propulsion Lab, California Institute of Technology.")
     ),
     column(
       6,
@@ -25,7 +45,8 @@ predictions_tab <- tabPanel(
                fishes?")),
       p("Where in the U.S. do you think species richness will be the highest?
         Northeastern U.S.? Southeastern U.S.? Northwest? Southwest? Midwest?
-        Take a look at the map of U.S.~rivers that was given to you?  Below,
+        You may already an idea from the Rapoport's Rule exercises.
+        Take a look at the map of U.S. rivers that was given to you?  Below,
         name the region and 3--4 rivers in that region where you think
         diversity may be the highest. Explain your reasoning."),
       hr(),
@@ -35,20 +56,7 @@ predictions_tab <- tabPanel(
         rows = 6,
         placeholder = "U.S. species richness prediction…",
         width = "90%"
-      ),
-      br()
-    ),
-    column(
-      3,
-      br(),
-      actionButton(
-        inputId = "btn_next_pred",
-        label = "Next",
-        width = "35%"
-      ),
-      span(textOutput("prediction_error"),
-           style = "color:#9D2235"
-      ),
+      )
     )
   )
 )
