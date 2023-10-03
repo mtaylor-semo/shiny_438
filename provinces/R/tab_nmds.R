@@ -50,7 +50,7 @@ nmds_tab <- tabPanel(
     fluidRow(
       column(
         6,
-        p("state watershed maps here?")
+        uiOutput("watershed_map_nmds")
       ),
       column(
         width = 6,
