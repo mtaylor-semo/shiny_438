@@ -32,7 +32,7 @@ cluster_tab <- tabPanel(
         inputId = "state_menu_cluster",
         label = "Choose a state",
         choices = names(state_fishes),
-        selected = "Montana",
+        selected = "Virginia",
         multiple = FALSE,
         width = "50%"
       ),
@@ -42,6 +42,9 @@ cluster_tab <- tabPanel(
       ) %>%
         withSpinner(type = 4,
                     color = semo_palette["cardiac_red"]),
+      br(),
+      hr(),
+      uiOutput("watershed_map_cluster")
     ),
     column(
       width = 6,
