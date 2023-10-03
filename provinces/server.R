@@ -171,6 +171,20 @@ server <- function(input, output, session) {
     img(src = get_species_image(input$family_menu), width = "97%"))
   })
 
+  output$watershed_map_cluster <-
+    output$watershed_map_nmds <- renderUI({
+      watershed_map <- str_to_lower(
+        paste0(
+          state_choice(), "_watersheds.png"
+        )
+      )
+      if (file.exists(paste0("www/", watershed_map))) {
+        img(src = watershed_map, width = "97%")
+      } else {
+        p("Watershed map not available.")
+      }
+    })
+
   output$prediction_na_richness <- renderUI({
     p("You predicted:")
     sprintf("%s", input$predict_na_richness)
