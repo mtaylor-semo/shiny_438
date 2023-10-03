@@ -47,9 +47,13 @@ base_pdf <- "provinces.pdf"
 ## Virginia 6
 ## Missouri 7
 
+# 2 October 2023: Remove Montana from dataset as that is moved to
+# spearate exercise. Add South Carolina so complete fall line from
+# Virginia to Mississippi
+
 # Vector of cut numbers to group the clusters
-state_cuts <- c(7, 6, 7, 7, 4, 5, 6)
-names(state_cuts) <- c("Alabama", "Georgia", "Mississippi", "Missouri", "Montana", "NorthCarolina", "Virginia")
+state_cuts <- c(6, 6, 7, 7, 5, 5, 6)
+names(state_cuts) <- c("Alabama", "Georgia", "Mississippi", "Missouri",  "NorthCarolina", "SouthCarolina", "Virginia")
 
 world <- ne_countries(scale = "medium", continent = "North America", returnclass = "sf")
 states <- st_as_sf(maps::map("state", plot = FALSE, fill = TRUE))
