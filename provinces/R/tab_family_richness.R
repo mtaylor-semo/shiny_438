@@ -4,16 +4,16 @@ family_richness_tab <- tabPanel(
   "Family Richness",
   fluidRow(
     column(
-      1,
-      prev_btn("btn_prev_family_richness"),
-    ),
-    column(
       3,
       align = "right",
       offset = 7,
       span(textOutput("family_richness_result_error"),
         style = "color:#9D2235"
       )
+    ),
+    column(
+      1,
+      prev_btn("btn_prev_family_richness"),
     ),
     column(
       1,
