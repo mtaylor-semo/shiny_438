@@ -4,16 +4,16 @@ nmds_tab <- tabPanel(
   "NMDS",
   fluidRow(
     column(
-      1,
-      prev_btn("btn_prev_nmds")
-    ),
-    column(
       3,
       offset = 7,
       align = "right",
       span(textOutput("nmds_result_error"),
            style = "color:#9D2235"
       )
+    ),
+    column(
+      1,
+      prev_btn("btn_prev_nmds")
     ),
     column(
       1,

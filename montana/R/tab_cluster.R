@@ -5,16 +5,16 @@ cluster_tab <- tabPanel(
   "Cluster",
   fluidRow(
     column(
-      1,
-      prev_btn("btn_prev_cluster")
-    ),
-    column(
       3,
       offset = 7,
       align = "right",
       span(textOutput("cluster_result_error"),
            style = "color:#9D2235"
       )
+    ),
+    column(
+      1,
+      prev_btn("btn_prev_cluster")
     ),
     column(
       1,

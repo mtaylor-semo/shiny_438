@@ -3,10 +3,6 @@ predictions_tab <- tabPanel(
   "Predictions",
   fluidRow(
     column(
-      1,
-      prev_btn("btn_prev_pred"),
-    ),
-    column(
       3,
       align = "right",
       offset = 7,
@@ -14,6 +10,10 @@ predictions_tab <- tabPanel(
            style = "color:#9D2235"
       )
     ),
+   column(
+     1,
+     prev_btn("btn_prev_pred"),
+   ),
     column(
       1,
       next_btn("btn_next_pred"),
