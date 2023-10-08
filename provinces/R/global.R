@@ -40,20 +40,20 @@ base_rmd <- "provinces.Rmd"
 base_pdf <- "provinces.pdf"
 
 # Reference list for the optimum cluster cuts for each state.
-## Alabama 7, PCO
-## Mississippi 7, PCO
+## Alabama 6, PCO
 ## Georgia Fishes 6
+## Mississippi 7, PCO
+## Missouri 5
 ## North Carolina 5
-## South Carolina 5 NO LONGER USED
-## Virginia 6
-## Missouri 7
+## South Carolina 5
+## Virginia 5
 
 # 2 October 2023: Remove Montana from dataset as that is moved to
 # spearate exercise. Add South Carolina so complete fall line from
 # Virginia to Mississippi
 
 # Vector of cut numbers to group the clusters
-state_cuts <- c(6, 6, 7, 5, 5, 5, 6)
+state_cuts <- c(6, 6, 7, 5, 5, 5, 5)
 names(state_cuts) <- c("Alabama", "Georgia", "Mississippi", "Missouri",  "NorthCarolina", "SouthCarolina", "Virginia")
 
 world <- ne_countries(scale = "medium", continent = "North America", returnclass = "sf")
@@ -84,18 +84,6 @@ state_fishes <- readRDS("data/state_fishes.rds")
 species_groups <- readRDS("data/species_groups.rds")
 
 # Global functions --------------------------------------------------------
-
-# Called from Rmd file to replace LaTeX special
-# characters with escaped version.
-fix_special_chars <- function(str = NULL) {
-  str_replace_all(str, "([#%$_])", "\\\\\\1")
-}
-
-has_empty_input <- function(lst = NULL) {
-  if (any(lst == "")) {
-    "Please answer all questions below."
-  }
-}
 
 # Called from Rmd file to replace LaTeX special
 # characters with escaped version.
