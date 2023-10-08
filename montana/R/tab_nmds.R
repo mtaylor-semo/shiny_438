@@ -37,7 +37,7 @@ nmds_tab <- tabPanel(
     column(
       6,
       p("This scatterplot is the result of a non-metric multidimensional scaling
-        analysis (NMDS). We don't need to cover the details of the analysis but
+        analysis (NMDS). We won't cover details of the analysis but
         it captures more of the similarity and differences among the watersheds.
         Watersheds that are closer to each other on the plot have greater
         similarity. Less similar watersheds are farther apart. (The 
@@ -52,7 +52,8 @@ nmds_tab <- tabPanel(
         same species but Montana does not have many species of fishes.)"),
       
       p("This plot shows the clear differences of the Saskatchewan and Upper
-        Missouri watersheds from each other and from the other watersheds. The
+        Missouri watersheds from each other and from the other Atlantic slope
+        watersheds. The
         Upper Missouri is about as different from the Upper Yellowstone and
         Bighorn as these two are from the Lower Yellowstone, Lower Missouri, 
         and Milk."),
@@ -60,7 +61,32 @@ nmds_tab <- tabPanel(
       p("Both cluster and NMDS analyses are useful tools to help identify
         biogeographic provinces and ecoregions at larger and smaller
         geographic scales. You will use these tools, and others, in the next
-        exercise.")
+        exercise."),
+      hr(),
+      column(
+        6,
+        p(
+          "Pacific slope watersheds:",
+          tags$ul(
+            tags$li("Clark Fork"),
+            tags$li("Kootenai")
+          )
+        )
+      ),
+      column(
+        6,
+        p(
+          "Atlantic slope watersheds:",
+          tags$ul(
+            tags$li("Bighorn"),
+            tags$li("Milk"),
+            tags$li("Missouri (upper and lower)"),
+            tags$li("Musselshell"),
+            tags$li("Saskatchewan"),
+            tags$li("Yellowstone (upper and lower)")
+          )
+        )
+      )
     )
   ),
   hr(),
@@ -70,8 +96,8 @@ nmds_tab <- tabPanel(
       p("For overall similarity, you predicted:"),
       textOutput("question1n_prediction"),
       br(),
-      p("For specific similarity between the western slope
-        and eastern slope watersheds, you predicted:"),
+      p("For specific similarity between the Pacific slope
+        and Atlantic slope watersheds, you predicted:"),
       textOutput("question2n_prediction")
     ),
     column(
