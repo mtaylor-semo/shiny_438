@@ -29,9 +29,9 @@ predictions_tab <- tabPanel(
     column(
       6,
       p("The Kootenai and Clark Fork watersheds flow west towards the
-        Pacific Ocean (western slope). The remaining watersheds all
+        Pacific Ocean (Pacific slope). The remaining watersheds all
         flow east to the Atlantic Ocean via the Mississippi River
-        (eastern slope). The continental divide
+        (Atlantic slope). The continental divide
         is a potent barrier to dispersal of freshwater fishes because
         fishes cannot move from one side of the divide to the other side."),
       p(strong("Question:"), predictions_question1),

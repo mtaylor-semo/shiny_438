@@ -74,7 +74,7 @@ ui <- tagList(
             Montana (bottom) to help you visualize the relationship.
             The thick black line (top) is the continental divide. The
             continental divide is the division between rivers that flow
-            east to the Atlantic Ocean or west to the Pacific Ocean."
+            west to the Pacific Ocean or east to the Atlantic Ocean."
           ),
           
           p(strong("Similarity")),
