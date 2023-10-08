@@ -79,49 +79,9 @@ rivers <- read_table("data/rivers.txt",
                      col_names = c("X1", "X2"), 
                      show_col_types = FALSE)
 
-fix_missouri <- function(df) {
-  
-  motibble <- as_tibble(df, rownames = "watershed")
-  
-  merge_groups <- list(
-    Black = c("Black_Up", "Black_Low", "Current", "Eleven_Pt", "Spring_White", "L_Black"),
-    #Black_Up = c("Black_Up"),
-    #Black_Low = c("Black_Low"),
-    Chariton = c("Chariton"),
-    #Current = c("Current", "Jacks_Fk", "L_Black"),
-    Gasconade = c("Gasconade", "Big_Piney"),
-    Grand = c("Grand"),
-    #Lamine = c("Lamine", "Blackwater"), # Consider adding to Missouri
-    Meramec = c("Meramec", "Big", "Bourbeuse"),
-    Miss_Low = c("Miss_Low", "Head_Div"),
-    Miss_Up = c("Miss_Up", "Cuivre", "North", "Fabius", "Wyaconda", "Fox", "Low_Des_Moines"),
-    Missouri = c("Missouri", "Moreau", "Tarkio", "Nodaway", "Lamine", "Blackwater"), # Consider moving Lamine here
-    Neosho = c("Spring_Neosho", "Elk"),
-    Osage_East = c("Osage_East", "Niangua"),
-    Osage_West = c("Osage_West", "Sac", "Pomme_De_Terre", "South_Grand"),
-    Platte = c("Platte"),
-    Salt = c("Salt"),
-    StFrancis_Low = c("StFrancis_Low"),
-    StFrancis_Up = c("StFrancis_Up"), 
-    White = c("White", "James", "NFk_White")
-  )
-  
-  
-  # modified code based on original (see below)
-  # from https://stackoverflow.com/a/77225302/3832941
-  enframe(merge_groups, name = "main", value = "watershed") %>% 
-    unnest(watershed) %>% 
-    left_join(motibble, by = "watershed") %>% 
-    summarise(across(-watershed, ~ as.numeric(sum(.x) > 0)), .by = main) %>% 
-    rename(watershed = main) %>% 
-    column_to_rownames("watershed")
-}
 
 state_fishes <- readRDS("data/state_fishes.rds")
 species_groups <- readRDS("data/species_groups.rds")
-
-state_fishes$Missouri <- fix_missouri(state_fishes$Missouri)
-
 
 # Global functions --------------------------------------------------------
 
