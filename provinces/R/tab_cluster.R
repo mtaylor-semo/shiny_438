@@ -42,7 +42,6 @@ cluster_tab <- tabPanel(
       ) %>%
         withSpinner(type = 4,
                     color = semo_palette["cardiac_red"]),
-      br(),
       hr(),
       uiOutput("watershed_map_cluster")
     ),
