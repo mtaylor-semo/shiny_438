@@ -41,7 +41,7 @@ nmds_tab <- tabPanel(
         it captures more of the similarity and differences among the watersheds.
         Watersheds that are closer to each other on the plot have greater
         similarity. Less similar watersheds are farther apart. (The 
-        left-to-rightor lower-to-upper directions on the x- and y-axes are 
+        left-to-right or lower-to-upper directions on the x- and y-axes are 
         meaningless. The plot could be flipped in both directions but the
         interpretation is the same."),
       
@@ -49,7 +49,7 @@ nmds_tab <- tabPanel(
         Lower Missouri. In fact, they have the same species so they occupy
         the same location on the scatterplot. Same for the Kootenai and Clark
         Fork watersheds. (It's not common to have watersheds with exactly the
-        same species but Montana does not have very many species of fishes.)"),
+        same species but Montana does not have many species of fishes.)"),
       
       p("This plot shows the clear differences of the Saskatchewan and Upper
         Missouri watersheds from each other and from the other watersheds. The

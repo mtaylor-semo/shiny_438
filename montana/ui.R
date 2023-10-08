@@ -86,7 +86,7 @@ ui <- tagList(
           tableOutput("similarity_table"),
           
           p("Watersheds A and B have a high similarity because they share
-            Species 1 and Species 3. Further, Watersheds A and B have a low
+            Species 1 and Species 3. Watersheds A and B have a low
             similarity with Watershed C because they also share Species 3.
             Watersheds A and B have zero similarity with Watersheds D
             because they share zero species.", strong("Which two watersheds
