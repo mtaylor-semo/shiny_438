@@ -42,7 +42,6 @@ ui <- tagList(
           align = "right",
           offset = 2,
           span(textOutput("next_ready"), style = "color:#9D2235")
-          #p("Start here!", style = "color:#9D2235")
         ),
         column(
           1,
