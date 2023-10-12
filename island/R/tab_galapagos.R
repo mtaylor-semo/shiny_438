@@ -38,12 +38,6 @@ galapagos_tab <- tabPanel(
     column(
       6,
       uiOutput("plot_menu"),
-      # selectInput(
-      #   inputId = "galapagos_plot_xaxis",
-      #   label = "Choose X-axis variable",
-      #   choices = c("area", "elevation"),
-      #   selected = "area"
-      # ),
       plotOutput(
         "galapagos_plot",
         # height = "500px"
