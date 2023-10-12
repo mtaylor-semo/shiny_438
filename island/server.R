@@ -54,7 +54,12 @@ server <- function(input, output, session) {
    options = list(
      dom = "tip",
      order = list()
-   ) 
+   ),
+   state = 
+     list(
+       birds = "Birds per Island",
+       islands = "Area"
+     )
   )
   
 
@@ -169,14 +174,14 @@ server <- function(input, output, session) {
         "galapagos_bird_plot",
         label = "Choose a plot type",
         choices = c("Birds per Island", "Islands per Bird"),
-        selected = "Birds per Island"
+        selected = values$state$birds
       )
     } else if (input$choose_galapagos_data_set == "Islands") {
       selectInput(
         inputId = "galapagos_plot_xaxis",
         label = "Choose X-axis variable",
         choices = c("Area", "Elevation"),
-        selected = "Area"
+        selected = values$state$islands
       )
     } else {
       renderText("somthing has gone horribly wrong")
