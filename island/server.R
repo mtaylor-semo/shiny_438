@@ -175,8 +175,8 @@ server <- function(input, output, session) {
       selectInput(
         inputId = "galapagos_plot_xaxis",
         label = "Choose X-axis variable",
-        choices = c("area", "elevation"),
-        selected = "area"
+        choices = c("Area", "Elevation"),
+        selected = "Area"
       )
     } else {
       renderText("somthing has gone horribly wrong")
@@ -196,7 +196,7 @@ server <- function(input, output, session) {
       output$galapagos_plot <- renderPlot(
         plot_galapagos(
           plot_data = islands,
-          xaxis = input$galapagos_plot_xaxis)
+          xaxis = str_to_lower(input$galapagos_plot_xaxis))
       )
     }
   })
@@ -217,7 +217,7 @@ server <- function(input, output, session) {
 
   # observe(
   #   if (!is.null(input$galapagos_plot_axis)) {
-  #     if (input$galapagos_plot_xaxis == "area") {
+  #     if (input$galapagos_plot_xaxis == "Area") {
   #       values$options$order <- list(2, "asc")
   #     } else {
   #       values$options$order <- list(3, "asc")
@@ -234,7 +234,7 @@ server <- function(input, output, session) {
       values$options$order <- list(1, "desc")
     } else if (input$choose_galapagos_data_set == "Islands") {
       if (!is.null(input$galapagos_plot_xaxis)) {
-        if (input$galapagos_plot_xaxis == "area") {
+        if (input$galapagos_plot_xaxis == "Area") {
           values$options$order <- list(2, "asc")
         } else {
           values$options$order <- list(3, "asc")
@@ -251,7 +251,7 @@ server <- function(input, output, session) {
   #   if (input$choose_galapagos_data_set == "Birds") {
   #     values$options$order <- list(1, "desc")
   #   } else {
-  #     if (input$galapagos_plot_xaxis == "area") {
+  #     if (input$galapagos_plot_xaxis == "Area") {
   #       values$options$order <- list(2, "asc")
   #     } else {
   #       values$options$order <- list(3, "asc")
