@@ -37,12 +37,13 @@ galapagos_tab <- tabPanel(
       DTOutput("island_summary", width = "95%"),    ),
     column(
       6,
-      selectInput(
-        inputId = "galapagos_plot_xaxis",
-        label = "Choose X-axis variable",
-        choices = c("area", "elevation"),
-        selected = "area"
-      ),
+      uiOutput("plot_menu"),
+      # selectInput(
+      #   inputId = "galapagos_plot_xaxis",
+      #   label = "Choose X-axis variable",
+      #   choices = c("area", "elevation"),
+      #   selected = "area"
+      # ),
       plotOutput(
         "galapagos_plot",
         # height = "500px"

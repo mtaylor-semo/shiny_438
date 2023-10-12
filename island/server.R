@@ -57,27 +57,6 @@ server <- function(input, output, session) {
    ) 
   )
   
-  # plots <- reactiveValues(na_richness = NULL, pc = NULL)
-
-  # results <- reactiveValues(ca = NULL)
-  
-  # cluster <- reactiveValues(
-  #   hel = NULL,
-  #   dist = NULL,
-  #   clust = NULL,
-  #   num_groups_to_cut = NULL,
-  #   colors = NULL,
-  #   dend = NULL
-  # )
-  # 
-  # nmds <- reactiveValues(
-  #   mds = NULL,
-  #   watershed_scores = NULL,
-  #   tree_cut = NULL
-  # )
-  # 
-  # state_choice <- reactiveVal()
-
 
   ## Button observers --------------------------------------------------------
 
@@ -183,6 +162,26 @@ server <- function(input, output, session) {
     p("You predicted:")
     sprintf("%s", input$predict_na_richness)
   })
+  
+  output$plot_menu <- renderUI({
+    if (input$choose_galapagos_data_set == "Birds") {
+        selectInput(
+        "galapagos_bird_plot",
+        label = "Choose a plot type",
+        choices = c("Birds per Island", "Islands per Bird"),
+        selected = "Birds per Island"
+      )
+    } else if (input$choose_galapagos_data_set == "Islands") {
+      selectInput(
+        inputId = "galapagos_plot_xaxis",
+        label = "Choose X-axis variable",
+        choices = c("area", "elevation"),
+        selected = "area"
+      )
+    } else {
+      renderText("somthing has gone horribly wrong")
+    }
+  })
 
 
 
@@ -202,6 +201,19 @@ server <- function(input, output, session) {
     }
   })
 
+  observeEvent(input$galapagos_bird_plot, {
+    if (!is.null(input$galapagos_bird_plot)) {
+      if (input$galapagos_bird_plot == "Birds per Island") {
+        output$galapagos_plot <- renderPlot({
+          plot_birds_per_island()
+        })
+      } else {
+        output$galapagos_plot <- renderPlot({
+          plot_islands_per_bird()
+        })
+      }
+    }
+  })
 
   # observe(
   #   if (!is.null(input$galapagos_plot_axis)) {
@@ -281,15 +293,15 @@ server <- function(input, output, session) {
   #   )
   # })
   
-  observeEvent(input$state_menu_nmds, {
-    state_choice(input$state_menu_nmds)
-    updateSelectInput(
-      session = getDefaultReactiveDomain(),
-      inputId = "state_menu_cluster",
-      selected = state_choice()
-    )
-  })
-  
+  # observeEvent(input$state_menu_nmds, {
+  #   state_choice(input$state_menu_nmds)
+  #   updateSelectInput(
+  #     session = getDefaultReactiveDomain(),
+  #     inputId = "state_menu_cluster",
+  #     selected = state_choice()
+  #   )
+  # })
+  # 
 
 
 
