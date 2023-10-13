@@ -192,34 +192,139 @@ server <- function(input, output, session) {
 
 # Galapagos ---------------------------------------------------------------
 
-  observeEvent(input$choose_galapagos_data_set, {
-    if (input$choose_galapagos_data_set == "Birds") {
+####### Next two blocks work fine but always revert menu. 
+  ##### Goin to try to fix. These are in the last working commit. f276c46c
+  # observeEvent(input$choose_galapagos_data_set, {
+  #   if (input$choose_galapagos_data_set == "Birds") {
+  #     output$galapagos_plot <- renderPlot(
+  #       plot_birds_per_island()  
+  #     )
+  #   } else {
+  #     output$galapagos_plot <- renderPlot(
+  #       plot_galapagos(
+  #         plot_data = islands,
+  #         xaxis = str_to_lower(input$galapagos_plot_xaxis))
+  #     )
+  #   }
+  # })
+
+  # observeEvent(input$galapagos_bird_plot, {
+  #   if (!is.null(input$galapagos_bird_plot)) {
+  #     if (input$galapagos_bird_plot == "Birds per Island") {
+  #       output$galapagos_plot <- renderPlot({
+  #         plot_birds_per_island()
+  #       })
+  #     } else {
+  #       output$galapagos_plot <- renderPlot({
+  #         plot_islands_per_bird()
+  #       })
+  #     }
+  #   }
+  # })
+
+  ###### End the two working blocks.
+  
+  ###### Here is where the edits starts.
+  
+  observe({
+  if (!is.null(input$galapagos_bird_plot)) {
+    if (input$galapagos_bird_plot == "Birds per Island") {
+      output$galapagos_plot <- renderPlot({
+        plot_birds_per_island()
+      })
+      values$state$birds <- "Birds per Island"
+    } else {
+      output$galapagos_plot <- renderPlot({
+        plot_islands_per_bird()
+      })
+      values$state$birds <- "Islands per Bird"
+    }
+  }
+})
+
+observe({
+  if (!is.null(input$galapagos_plot_xaxis)) {
+    if (input$galapagos_plot_xaxis == "Area") {
       output$galapagos_plot <- renderPlot(
-        plot_birds_per_island()  
+        plot_galapagos(
+          plot_data = islands,
+          xaxis = str_to_lower(input$galapagos_plot_xaxis)
+        )
       )
+      values$state$islands <- "Area"
     } else {
       output$galapagos_plot <- renderPlot(
         plot_galapagos(
           plot_data = islands,
-          xaxis = str_to_lower(input$galapagos_plot_xaxis))
+          xaxis = str_to_lower(input$galapagos_plot_xaxis)
+        )
       )
+      values$state$islands <- "Elevation"
     }
-  })
+  }
+})
 
-  observeEvent(input$galapagos_bird_plot, {
-    if (!is.null(input$galapagos_bird_plot)) {
-      if (input$galapagos_bird_plot == "Birds per Island") {
-        output$galapagos_plot <- renderPlot({
-          plot_birds_per_island()
-        })
-      } else {
-        output$galapagos_plot <- renderPlot({
-          plot_islands_per_bird()
-        })
-      }
+observe({
+  req(input$choose_galapagos_data_set)
+  if (input$choose_galapagos_data_set == "Birds") {
+    if (values$state$birds == "Birds per Island") {
+      output$galapagos_plot <- renderPlot({
+        plot_birds_per_island()
+      })
+      updateSelectInput(
+        session = getDefaultReactiveDomain(),
+        inputId = "galapagos_bird_plot",
+        selected = values$state$birds
+      )
+      values$state$birds <- "Birds per Island"
+    } else {
+      output$galapagos_plot <- renderPlot({
+        plot_islands_per_bird()
+      })
+      updateSelectInput(
+        session = getDefaultReactiveDomain(),
+        inputId = "galapagos_bird_plot",
+        selected = values$state$birds
+      )
+      values$state$birds <- "Islands per Bird"
     }
-  })
+  } else {
+    if (values$state$islands == "Area") {
+      output$galapagos_plot <- renderPlot({
+        plot_galapagos(
+          plot_data = islands,
+          # xaxis = str_to_lower(input$galapagos_plot_xaxis)
+          xaxis = str_to_lower(values$state$islands)
+        )
+      })
+      updateSelectInput(
+        session = getDefaultReactiveDomain(),
+        inputId = "galapagos_plot_xaxis",
+        selected = values$state$islands
+      )
+      values$state$islands <- "Area"
+    } else {
+      print(values$state$islands)
+      output$galapagos_plot <- renderPlot({
+        plot_galapagos(
+          plot_data = islands,
+          # xaxis = str_to_lower(input$galapagos_plot_xaxis)
+          xaxis = str_to_lower(values$state$islands)
+        )
+      })
+      updateSelectInput(
+        session = getDefaultReactiveDomain(),
+        inputId = "galapagos_plot_xaxis",
+        selected = values$state$islands
+      )
+      values$state$islands <- "Elevation"
+    }
+  }
+})
 
+# NO EDITS BELOW THIS LINE ------------------------------------------------
+
+  
   # observe(
   #   if (!is.null(input$galapagos_plot_axis)) {
   #     if (input$galapagos_plot_xaxis == "Area") {
