@@ -77,6 +77,35 @@ islands <-
   summarize(richness = sum(presence)) %>% 
   left_join(x = ., y = islands, by = "island")
 
+
+herps <- read_csv("island/data/carib_herps.csv") %>% 
+  mutate(
+    lspecies = log10(species), 
+    larea = log10(area)
+  )
+
+beetle <- read_csv("island/data/florida_beetles.csv") %>% 
+  mutate(
+    lspecies = log10(species),
+    larea = log10(area),
+    ldist = log10(distance)
+  )
+
+mtn <- read_csv("island/data/montaine_mammals.csv") %>% 
+  mutate(
+    lspecies = log10(species),
+    larea = log10(area),
+    ldist_mtn = log10(dist_mtn),
+    ldist_main = log10(dist_mainland)
+  )
+
+arthro <- read_csv("island/data/arboreal_arthropods.csv") %>% 
+  mutate(
+    lspecies = log10(species),
+    area = log10(area)
+  )
+
+
 # Global functions --------------------------------------------------------
 
 # Called from Rmd file to replace LaTeX special
