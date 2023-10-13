@@ -293,7 +293,6 @@ observe({
       output$galapagos_plot <- renderPlot({
         plot_galapagos(
           plot_data = islands,
-          # xaxis = str_to_lower(input$galapagos_plot_xaxis)
           xaxis = str_to_lower(values$state$islands)
         )
       })
@@ -304,7 +303,6 @@ observe({
       )
       values$state$islands <- "Area"
     } else {
-      print(values$state$islands)
       output$galapagos_plot <- renderPlot({
         plot_galapagos(
           plot_data = islands,
@@ -339,23 +337,23 @@ observe({
   # )
 
   observe({
-  if (!is.null(input$choose_galapagos_data_set)) {
-    if (input$choose_galapagos_data_set == "Birds") {
-      values$options$order <- list(1, "desc")
-    } else if (input$choose_galapagos_data_set == "Islands") {
-      if (!is.null(input$galapagos_plot_xaxis)) {
-        if (input$galapagos_plot_xaxis == "Area") {
-          values$options$order <- list(2, "asc")
-        } else {
-          values$options$order <- list(3, "asc")
+    if (!is.null(input$choose_galapagos_data_set)) {
+      if (input$choose_galapagos_data_set == "Birds") {
+        values$options$order <- list(1, "desc")
+      } else if (input$choose_galapagos_data_set == "Islands") {
+        if (!is.null(input$galapagos_plot_xaxis)) {
+          if (input$galapagos_plot_xaxis == "Area") {
+            values$options$order <- list(2, "asc")
+          } else {
+            values$options$order <- list(3, "asc")
+          }
         }
       }
     }
-  }
-  output$island_summary <- renderDT({
-    build_data_table(sort_order = values$options)
+    output$island_summary <- renderDT({
+      build_data_table(sort_order = values$options)
+    })
   })
-})
   
   # observeEvent(input$choose_galapagos_data_set, {
   #   if (input$choose_galapagos_data_set == "Birds") {
