@@ -264,6 +264,17 @@ observe({
   }
 })
 
+## Move this up later.
+update_selector <- function(id = NULL, value = NULL) {
+  reactive({
+    updateSelectInput(
+      session = getDefaultReactiveDomain(),
+      inputId = id,
+      selected = value
+    )
+  })
+}
+
 observe({
   req(input$choose_galapagos_data_set)
   if (input$choose_galapagos_data_set == "Birds") {
@@ -271,22 +282,18 @@ observe({
       output$galapagos_plot <- renderPlot({
         plot_birds_per_island()
       })
-      updateSelectInput(
-        session = getDefaultReactiveDomain(),
-        inputId = "galapagos_bird_plot",
-        selected = values$state$birds
-      )
+      
+      update_selector(id = "galapagos_bird_plot", value = values$state$birds)
       values$state$birds <- "Birds per Island"
+      
     } else {
       output$galapagos_plot <- renderPlot({
         plot_islands_per_bird()
       })
-      updateSelectInput(
-        session = getDefaultReactiveDomain(),
-        inputId = "galapagos_bird_plot",
-        selected = values$state$birds
-      )
+      
+      update_selector("galapagos_bird_plot", values$state$birds)
       values$state$birds <- "Islands per Bird"
+      
     }
   } else {
     if (values$state$islands == "Area") {
@@ -296,25 +303,19 @@ observe({
           xaxis = str_to_lower(values$state$islands)
         )
       })
-      updateSelectInput(
-        session = getDefaultReactiveDomain(),
-        inputId = "galapagos_plot_xaxis",
-        selected = values$state$islands
-      )
+      
+      update_selector("galapagos_plot_xaxis", values$state$islands)
       values$state$islands <- "Area"
+      
     } else {
       output$galapagos_plot <- renderPlot({
         plot_galapagos(
           plot_data = islands,
-          # xaxis = str_to_lower(input$galapagos_plot_xaxis)
           xaxis = str_to_lower(values$state$islands)
         )
       })
-      updateSelectInput(
-        session = getDefaultReactiveDomain(),
-        inputId = "galapagos_plot_xaxis",
-        selected = values$state$islands
-      )
+      
+      update_selector("galapagos_plot_xaxis", values$state$islands)
       values$state$islands <- "Elevation"
     }
   }
