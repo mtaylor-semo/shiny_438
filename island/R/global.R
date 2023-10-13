@@ -116,7 +116,7 @@ prev_tab <- function(target) {
 plot_galapagos <- function(plot_data = NULL, xaxis = NULL) {
   ggplot(
     req(plot_data, xaxis),
-    aes_string(x = xaxis)
+    aes(x = .data[[xaxis]])
   ) +
     geom_point(
       aes(y = richness),
@@ -125,6 +125,7 @@ plot_galapagos <- function(plot_data = NULL, xaxis = NULL) {
     ) +
     geom_smooth(
       aes(y = richness),
+      formula = y ~ x,  # Needed to suppress console msg
       method = "lm",
       color = semo_palette["cardiac_red"],
       fill = semo_palette["pewter"]
@@ -133,7 +134,7 @@ plot_galapagos <- function(plot_data = NULL, xaxis = NULL) {
     theme_minimal() +
     labs(
       x = ifelse(
-        aes_(xaxis) == "area",
+        aes(.data[[xaxis]]) == "area",
         "Island area (sq. km)",
         "Elevation (m)"
       ),
