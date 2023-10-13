@@ -31,13 +31,8 @@ server <- function(input, output, session) {
       has_empty_input(list(input$galapagos_question1))
   })
   
-  output$family_richness_result_error <- renderText({
-    has_empty_input(
-      list(
-        input$family_richness_question1, 
-        input$family_richness_question2
-      )
-    )
+  output$ib_result_error <- renderText({
+    has_empty_input(list(input$ib_question1))
   })
   
   output$cluster_result_error <- renderText({
@@ -80,43 +75,39 @@ server <- function(input, output, session) {
   observeEvent(input$btn_next_pred, {
     if (error_check) req(input$predict_na_richness)
     next_tab(
-      tab = galapagos_tab,
-      target = "Galapagps",
+      tab = ib_tab,
+      target = "Islands and Animals",
       test = NULL)
     hideTab(
       inputId = "tabs",
       target = "Predictions")
   })
-  # 
-  # observeEvent(input$btn_prev_na, {
-  #   prev_tab("Predictions")
-  # })
-  # 
-  # observeEvent(input$btn_next_na, {
-  #   req(input$na_question1)
-  #   next_tab(
-  #     tab = family_richness_tab,
-  #     target = "Family Richness",
-  #     test = input$family_richness_question1
-  #   )
-  # })
-  # 
-  # observeEvent(input$btn_prev_family_richness, {
-  #   prev_tab("North America")
-  # })
-  # 
-  # observeEvent(input$btn_next_family_richness, {
-  #   req(
-  #     input$family_richness_question1,
-  #     input$family_richness_question2
-  #   )
-  #   next_tab(
-  #     tab = cluster_tab,
-  #     target = "Cluster",
-  #     test = input$cluster_question1
-  #   )
-  # })
-  # 
+
+  observeEvent(input$btn_prev_ib, {
+    prev_tab("Predictions")
+  })
+
+  observeEvent(input$btn_next_ib, {
+    req(input$ib_question1)
+    next_tab(
+      tab = galapagos_tab,
+      target = "Galapagos",
+      test = NULL)
+  })
+
+  observeEvent(input$btn_prev_galapagos, {
+    prev_tab("Islands and Animals")
+  })
+
+  observeEvent(input$btn_next_galapagos, {
+    req(input$galapagos_question1)
+    next_tab(
+      tab = summary_tab,
+      target = "Summary",
+      test = input$summary
+    )
+  })
+
   # observeEvent(input$btn_prev_cluster, {
   #   prev_tab("Family Richness")
   # })
