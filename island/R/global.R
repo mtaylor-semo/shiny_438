@@ -3,7 +3,7 @@ library(ggplot2)
 library(readr)
 library(dplyr)
 library(stringr)
-library(vroom)
+library(broom)
 library(ggrepel)
 library(DT)
 
@@ -79,20 +79,20 @@ islands <-
   left_join(x = ., y = islands, by = "island")
 
 
-herps <- read_csv("island/data/carib_herps.csv") %>% 
+herps <- read_csv("data/carib_herps.csv") %>% 
   mutate(
     lspecies = log10(species), 
     larea = log10(area)
   )
 
-beetle <- read_csv("island/data/florida_beetles.csv") %>% 
+beetles <- read_csv("data/florida_beetles.csv") %>% 
   mutate(
     lspecies = log10(species),
     larea = log10(area),
     ldist = log10(distance)
   )
 
-mtn <- read_csv("island/data/montaine_mammals.csv") %>% 
+mtn <- read_csv("data/montaine_mammals.csv") %>% 
   mutate(
     lspecies = log10(species),
     larea = log10(area),
@@ -100,7 +100,7 @@ mtn <- read_csv("island/data/montaine_mammals.csv") %>%
     ldist_main = log10(dist_mainland)
   )
 
-arthro <- read_csv("island/data/arboreal_arthropods.csv") %>% 
+arthro <- read_csv("data/arboreal_arthropods.csv") %>% 
   subset(island != "IN1") %>% 
   mutate(
     lspecies = log10(species),
@@ -144,7 +144,7 @@ prev_tab <- function(target) {
 
 # Return a tibble of results for tabulating
 lm_summary <- function(x = NULL, y = NULL) {
-  vroom::tidy(lm(x ~ y))
+  broom::tidy(lm(y ~ x))
 }
 
 
@@ -240,6 +240,7 @@ ib_plot <- function(df, x, y) {
   }
   ggplot(df, aes(x = .data[[x]], y = .data[[y]])) +
     geom_smooth(
+      formula = "y ~ x",
       method = "lm",
       se = FALSE,
       color = semo_palette["pewter"], 

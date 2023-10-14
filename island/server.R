@@ -180,6 +180,82 @@ server <- function(input, output, session) {
   })
 
 
+# IB ----------------------------------------------------------------------
+
+  observe({
+    req(input$ib_group)
+    switch(input$ib_group,
+      "Caribbean Herps" = {
+        output$ib_table <-
+          renderTable(
+            lm_summary(
+              x = herps$area,
+              y = herps$species
+            )
+          )
+        output$ib_plot <-
+          renderPlot(
+            ib_plot(
+              herps,
+              x = "species",
+              y = "area"
+            )
+          )
+      },
+      "Florida Beetles" = {
+        output$ib_table <-
+          renderTable(
+            lm_summary(
+              x = beetles$area,
+              y = beetles$species
+            )
+          )
+        output$ib_plot <-
+          renderPlot(
+            ib_plot(
+              beetles,
+              x = "species",
+              y = "area"
+            )
+          )
+      },
+      "Montaine Mammals" = {
+        output$ib_table <-
+          renderTable(
+            lm_summary(
+              x = mtn$area,
+              y = mtn$species
+            )
+          )
+        output$ib_plot <-
+          renderPlot(
+            ib_plot(
+              mtn,
+              x = "species",
+              y = "area"
+            )
+          )
+      },
+      "Arboreal Arthropods" = {
+        output$ib_table <-
+          renderTable(
+            lm_summary(
+              x = arthro$area,
+              y = arthro$species
+            )
+          )
+        output$ib_plot <-
+          renderPlot(
+            ib_plot(
+              arthro,
+              x = "species",
+              y = "area"
+            )
+          )
+      }
+    )
+  })
+
 
 # Galapagos ---------------------------------------------------------------
 
