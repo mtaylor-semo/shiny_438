@@ -197,8 +197,8 @@ server <- function(input, output, session) {
           renderPlot(
             ib_plot(
               herps,
-              x = "species",
-              y = "area"
+              x = "area",
+              y = "species"
             )
           )
       },
@@ -214,8 +214,8 @@ server <- function(input, output, session) {
           renderPlot(
             ib_plot(
               beetles,
-              x = "species",
-              y = "area"
+              x = "area",
+              y = "species"
             )
           )
       },
@@ -231,8 +231,8 @@ server <- function(input, output, session) {
           renderPlot(
             ib_plot(
               mtn,
-              x = "species",
-              y = "area"
+              x = "area",
+              y = "species"
             )
           )
       },
@@ -248,8 +248,8 @@ server <- function(input, output, session) {
           renderPlot(
             ib_plot(
               arthro,
-              x = "species",
-              y = "area"
+              x = "area",
+              y = "species"
             )
           )
       }
