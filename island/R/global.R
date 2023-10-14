@@ -1,9 +1,10 @@
 library(tidyr)
 library(ggplot2)
 library(readr)
-library(tibble) # Remove once MO data set is finalized. Needed for column_to_rownames
 library(dplyr)
 library(stringr)
+library(vroom)
+library(ggrepel)
 library(DT)
 
 library(shinycssloaders)
@@ -100,6 +101,7 @@ mtn <- read_csv("island/data/montaine_mammals.csv") %>%
   )
 
 arthro <- read_csv("island/data/arboreal_arthropods.csv") %>% 
+  subset(island != "IN1") %>% 
   mutate(
     lspecies = log10(species),
     area = log10(area)
@@ -140,6 +142,13 @@ prev_tab <- function(target) {
   showTab(inputId = "tabs", target = target, select = TRUE)
 }
 
+# Return a tibble of results for tabulating
+lm_summary <- function(x = NULL, y = NULL) {
+  vroom::tidy(lm(x ~ y))
+}
+
+
+# Plots -------------------------------------------------------------------
 
 # Modify this so that user chooses axes.
 plot_galapagos <- function(plot_data = NULL, xaxis = NULL) {
@@ -220,6 +229,42 @@ plot_islands_per_bird <- function() {
       axis.title = element_text(size = 14)
     )
 }
+
+ib_plot <- function(df, x, y) {
+  if (deparse(substitute(df)) == "herps") {
+    lab = c("10", "100", "1000", "10,000", "100,000")
+    brks = c(10, 100, 1000, 10000, 100000)
+  } else {
+    lab = waiver()
+    brks = waiver()
+  }
+  ggplot(df, aes(x = .data[[x]], y = .data[[y]])) +
+    geom_smooth(
+      method = "lm",
+      se = FALSE,
+      color = semo_palette["pewter"], 
+      linewidth = 0.75
+    ) +
+    geom_point(
+      color = semo_palette["cardiac_red"],
+      size = 2,
+    ) +
+    theme_minimal() +
+    scale_x_log10(
+      labels = lab,
+      breaks = brks
+    ) +
+    scale_y_log10() +
+    labs(
+      x = "Island Area (sq. km)",
+      y = "Species Richness"
+    ) +
+    geom_text_repel(aes(label = island)) +
+    theme(panel.grid = element_blank())
+}
+
+
+# Data tables -------------------------------------------------------------
 
 build_data_table <- function(sort_order = NULL) {
   islands %>% 
