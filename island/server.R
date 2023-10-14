@@ -88,7 +88,7 @@ server <- function(input, output, session) {
   })
 
   observeEvent(input$btn_next_ib, {
-    req(input$ib_question1)
+    if (error_check) req(input$ib_question1)
     next_tab(
       tab = galapagos_tab,
       target = "Galapagos",
@@ -100,7 +100,7 @@ server <- function(input, output, session) {
   })
 
   observeEvent(input$btn_next_galapagos, {
-    req(input$galapagos_question1)
+    if (error_check) req(input$galapagos_question1)
     next_tab(
       tab = summary_tab,
       target = "Summary",
