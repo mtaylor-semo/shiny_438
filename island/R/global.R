@@ -248,7 +248,7 @@ ib_plot <- function(df, x, y) {
     ) +
     geom_point(
       color = semo_palette["cardiac_red"],
-      size = 2,
+      size = 3,
     ) +
     theme_minimal() +
     scale_x_log10(
@@ -260,8 +260,13 @@ ib_plot <- function(df, x, y) {
       x = "Island Area (sq. km)",
       y = "Species Richness"
     ) +
-    geom_text_repel(aes(label = island)) +
-    theme(panel.grid = element_blank())
+    geom_text_repel(
+      aes(label = island),
+      size = 5) +
+    theme(
+      panel.grid = element_blank(),
+      axis.text = element_text(size = 13),
+      axis.title = element_text(size = 14))
 }
 
 
