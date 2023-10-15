@@ -59,7 +59,6 @@ server <- function(input, output, session) {
    mtn_xaxis = "area"
   )
   
-
   ## Button observers --------------------------------------------------------
 
   observeEvent(input$btn_next_intro, {
@@ -195,7 +194,6 @@ observe({
 build_beetle_ui <- function() {
   
   table <- renderTable({
-    print(unlist(values$beetles_xaxis))
     lm_summary(
       x = unlist(beetles[values$beetles_xaxis]),
       y = beetles$species
@@ -279,6 +277,43 @@ build_mammal_ui <- function() {
   )
 }
 
+# Toggle button idea from
+# https://stackoverflow.com/a/74475204/3832941
+observeEvent(input$arthro_by_island, {
+  if (input$arthro_by_island %% 2 != 0) {
+    updateActionButton(session, "arthro_by_island", label = "Plot All Data")
+  } else {
+    updateActionButton(session, "arthro_by_island", NULL, label = "Plot By Island")
+  }
+})
+
+# Toggling between plots from
+# https://stackoverflow.com/a/63044795/3832941
+arthro_plot <- reactiveVal(TRUE)
+
+observeEvent(input$arthro_by_island, {
+  arthro_plot(!arthro_plot())
+})
+
+arthro_plot1 <-
+  ib_plot(
+    arthro,
+    x = "area",
+    y = "species"
+  )
+
+arthro_plot2 <- plot_arthro_by_island()
+  
+which_arthro <- reactive({
+  if (arthro_plot()) {
+    arthro_plot1
+  } else {
+    arthro_plot2
+  }
+})
+# End toggle plots.
+
+
 build_arthro_ui <- function() {
   
   table <- renderTable(
@@ -289,11 +324,7 @@ build_arthro_ui <- function() {
   )
   
   plot <- renderPlot(
-    ib_plot(
-      arthro,
-      x = "area",
-      y = "species"
-    )
+    which_arthro()
   )
   
   tagList(
@@ -302,8 +333,8 @@ build_arthro_ui <- function() {
       table,
       br(),
       actionButton(
-        "arthro_by_year",
-        label = "Plot by year",
+        "arthro_by_island",
+        label = "Plot by Island",
         width = "35%"
       )
     ),
