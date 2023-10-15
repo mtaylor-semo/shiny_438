@@ -54,7 +54,9 @@ server <- function(input, output, session) {
      list(
        birds = "Birds per Island",
        islands = "Area"
-     )
+     ),
+   beetles_xaxis = "area",
+   mtn_xaxis = "area"
   )
   
 
@@ -108,43 +110,6 @@ server <- function(input, output, session) {
     )
   })
 
-  # observeEvent(input$btn_prev_cluster, {
-  #   prev_tab("Family Richness")
-  # })
-  # 
-  # observeEvent(input$btn_next_cluster, {
-  #   req(
-  #     input$cluster_question1,
-  #     input$cluster_question2,
-  #     input$cluster_question3
-  #   )
-  #   next_tab(
-  #     tab = nmds_tab,
-  #     target = "NMDS",
-  #     test = input$nmds_question1
-  #   )
-  # })
-  # 
-  # observeEvent(input$btn_prev_nmds,{
-  #   prev_tab("Cluster")
-  # })
-  # 
-  # observeEvent(input$btn_next_nmds, {
-  #   req(input$nmds_question1)
-  #   next_tab(
-  #     tab = summary_tab,
-  #     target = "Summary",
-  #     test = input$summary
-  #   )
-  # })
-  # 
-  # observeEvent(input$btn_prev_summary, {
-  #   prev_tab("NMDS")
-  # })
-  # 
-  # observeEvent(input$family_menu, {
-  #   output$species_info <- renderText(get_species_info(input$family_menu))
-  # })
 
   ## Outputs -------------------------------------------------------------
 
@@ -193,39 +158,62 @@ server <- function(input, output, session) {
   })
 
 build_herp_ui <- function() {
+  table <- renderTable(
+    lm_summary(
+      x = herps$area,
+      y = herps$species
+    )
+  )
+  plot <- renderPlot(
+    ib_plot(
+      herps,
+      x = "area",
+      y = "species"
+    )
+  )
   tagList(
     column(
       6,
-      table <- renderTable(
-        lm_summary(
-          x = herps$area,
-          y = herps$species
-        )
-      )
+      table
     ),
     column(
       6,
-      plot <- renderPlot(
-        ib_plot(
-          herps,
-          x = "area",
-          y = "species"
-        )
-      )
+      plot
     )
   )
 }
 
+observe({
+  req(input$beetle_xaxis)
+  values$beetles_xaxis <- if_else(
+    input$beetle_xaxis == "Area",
+    "area",     # if
+    "distance"  # else
+  )
+})
+
 build_beetle_ui <- function() {
+  
+  table <- renderTable({
+    print(unlist(values$beetles_xaxis))
+    lm_summary(
+      x = unlist(beetles[values$beetles_xaxis]),
+      y = beetles$species
+    )
+  })
+  
+  plot <- renderPlot(
+    ib_plot(
+      beetles,
+      x = values$beetles_xaxis,
+      y = "species"
+    )
+  )
+  
   tagList(
     column(
       6,
-      table <- renderTable(
-        lm_summary(
-          x = beetles$area,
-          y = beetles$species
-        )
-      ),
+      table,
       br(),
       selectInput(
         inputId = "beetle_xaxis",
@@ -236,61 +224,92 @@ build_beetle_ui <- function() {
     ),
     column(
       6,
-      plot <- renderPlot(
-        ib_plot(
-          beetles,
-          x = "area",
-          y = "species"
-        )
-      )
+      plot
     )
   )
 }
 
+observe({
+  req(input$mtn_xaxis)
+  values$mtn_xaxis <- switch(
+    input$mtn_xaxis,
+    "Area" = "area",
+    "Distance Between Mountains" = "dist_mtn",
+    "Distance From Mainland" = "dist_mainland"
+  )
+})
+
 build_mammal_ui <- function() {
+  
+  table <- renderTable(
+    lm_summary(
+      x = unlist(mtn[values$mtn_xaxis]),
+      y = mtn$species
+    )
+  )
+  
+  plot <- renderPlot(
+    ib_plot(
+      mtn,
+      x = values$mtn_xaxis,
+      y = "species"
+    )
+  )
+  
   tagList(
     column(
       6,
-      table <- renderTable(
-        lm_summary(
-          x = mtn$area,
-          y = mtn$species
-        )
+      table,
+      br(),
+      selectInput(
+        inputId = "mtn_xaxis",
+        label = "Choose x-axis",
+        choices = c(
+          "Area", 
+          "Distance Between Mountains", 
+          "Distance From Mainland"
+        ),
+        selected = "Area"
       )
     ),
     column(
       6,
-      plot <- renderPlot(
-        ib_plot(
-          mtn,
-          x = "area",
-          y = "species"
-        )
-      )
+      plot
     )
   )
 }
 
 build_arthro_ui <- function() {
+  
+  table <- renderTable(
+    lm_summary(
+      x = arthro$area,
+      y = arthro$species
+    )
+  )
+  
+  plot <- renderPlot(
+    ib_plot(
+      arthro,
+      x = "area",
+      y = "species"
+    )
+  )
+  
   tagList(
     column(
       6,
-      table <- renderTable(
-        lm_summary(
-          x = arthro$area,
-          y = arthro$species
-        )
+      table,
+      br(),
+      actionButton(
+        "arthro_by_year",
+        label = "Plot by year",
+        width = "35%"
       )
     ),
     column(
       6,
-      plot <- renderPlot(
-        ib_plot(
-          arthro,
-          x = "area",
-          y = "species"
-        )
-      )
+      plot
     )
   )
 }
