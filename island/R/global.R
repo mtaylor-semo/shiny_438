@@ -27,7 +27,7 @@ names(semo_palette) <- c("cardiac_red",
                          "semo_red", 
                          "pewter")
 
-mycolors <- brewer.pal(8, "Dark2")
+# mycolors <- brewer.pal(8, "Dark2")
 
 # Define file name constants
 base_rmd <- "island_biogeo.Rmd"
@@ -269,7 +269,37 @@ ib_plot <- function(df, x, y) {
       axis.title = element_text(size = 14))
 }
 
-
+plot_arthro_by_island <- function() {
+  ggplot(arthro, aes(x = area, y = species)) +
+    geom_smooth(
+      formula = "y ~ x",
+      method = "lm",
+      se = FALSE,
+      color = semo_palette["pewter"],
+      linewidth = 0.75
+    ) +
+    geom_point(
+      size = 2,
+      color = semo_palette["cardiac_red"]
+    ) +
+    facet_wrap(facets = vars(island)) +
+    theme_minimal() +
+    scale_x_log10() +
+    scale_y_log10() +
+    geom_text_repel(
+      aes(label = year),
+      size = 4
+    ) +
+    theme(
+      panel.grid = element_blank(),
+      axis.text = element_text(size = 13),
+      axis.title = element_text(size = 14)
+    ) +
+    labs(
+      x = "Island Area (sq. m)",
+      y = "Species Richness"
+    )
+}
 # Data tables -------------------------------------------------------------
 
 build_data_table <- function(sort_order = NULL) {
