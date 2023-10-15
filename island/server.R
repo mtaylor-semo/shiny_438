@@ -185,77 +185,115 @@ server <- function(input, output, session) {
   observe({
     req(input$ib_group)
     switch(input$ib_group,
-      "Caribbean Herps" = {
-        output$ib_table <-
-          renderTable(
-            lm_summary(
-              x = herps$area,
-              y = herps$species
-            )
-          )
-        output$ib_plot <-
-          renderPlot(
-            ib_plot(
-              herps,
-              x = "area",
-              y = "species"
-            )
-          )
-      },
-      "Florida Beetles" = {
-        output$ib_table <-
-          renderTable(
-            lm_summary(
-              x = beetles$area,
-              y = beetles$species
-            )
-          )
-        output$ib_plot <-
-          renderPlot(
-            ib_plot(
-              beetles,
-              x = "area",
-              y = "species"
-            )
-          )
-      },
-      "Montaine Mammals" = {
-        output$ib_table <-
-          renderTable(
-            lm_summary(
-              x = mtn$area,
-              y = mtn$species
-            )
-          )
-        output$ib_plot <-
-          renderPlot(
-            ib_plot(
-              mtn,
-              x = "area",
-              y = "species"
-            )
-          )
-      },
-      "Arboreal Arthropods" = {
-        output$ib_table <-
-          renderTable(
-            lm_summary(
-              x = arthro$area,
-              y = arthro$species
-            )
-          )
-        output$ib_plot <-
-          renderPlot(
-            ib_plot(
-              arthro,
-              x = "area",
-              y = "species"
-            )
-          )
-      }
+      "Caribbean Herps" = output$ib_ui <- renderUI(build_herp_ui()),
+      "Florida Beetles" = output$ib_ui <- renderUI(build_beetle_ui()),
+      "Montaine Mammals" = output$ib_ui <- renderUI(build_mammal_ui()),
+      "Arboreal Arthropods" = output$ib_ui <- renderUI(build_arthro_ui())
     )
   })
 
+build_herp_ui <- function() {
+  tagList(
+    column(
+      6,
+      table <- renderTable(
+        lm_summary(
+          x = herps$area,
+          y = herps$species
+        )
+      )
+    ),
+    column(
+      6,
+      plot <- renderPlot(
+        ib_plot(
+          herps,
+          x = "area",
+          y = "species"
+        )
+      )
+    )
+  )
+}
+
+build_beetle_ui <- function() {
+  tagList(
+    column(
+      6,
+      table <- renderTable(
+        lm_summary(
+          x = beetles$area,
+          y = beetles$species
+        )
+      ),
+      br(),
+      selectInput(
+        inputId = "beetle_xaxis",
+        label = "Choose x-axis",
+        choices = c("Area", "Distance"),
+        selected = "Area"
+      )
+    ),
+    column(
+      6,
+      plot <- renderPlot(
+        ib_plot(
+          beetles,
+          x = "area",
+          y = "species"
+        )
+      )
+    )
+  )
+}
+
+build_mammal_ui <- function() {
+  tagList(
+    column(
+      6,
+      table <- renderTable(
+        lm_summary(
+          x = mtn$area,
+          y = mtn$species
+        )
+      )
+    ),
+    column(
+      6,
+      plot <- renderPlot(
+        ib_plot(
+          mtn,
+          x = "area",
+          y = "species"
+        )
+      )
+    )
+  )
+}
+
+build_arthro_ui <- function() {
+  tagList(
+    column(
+      6,
+      table <- renderTable(
+        lm_summary(
+          x = arthro$area,
+          y = arthro$species
+        )
+      )
+    ),
+    column(
+      6,
+      plot <- renderPlot(
+        ib_plot(
+          arthro,
+          x = "area",
+          y = "species"
+        )
+      )
+    )
+  )
+}
 
 # Galapagos ---------------------------------------------------------------
 
