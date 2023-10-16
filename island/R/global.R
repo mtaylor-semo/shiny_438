@@ -231,6 +231,7 @@ plot_islands_per_bird <- function() {
 }
 
 ib_plot <- function(df, x, y) {
+  
   if (deparse(substitute(df)) == "herps") {
     lab = c("10", "100", "1000", "10,000", "100,000")
     brks = c(10, 100, 1000, 10000, 100000)
@@ -238,6 +239,7 @@ ib_plot <- function(df, x, y) {
     lab = waiver()
     brks = waiver()
   }
+  
   ggplot(df, aes(x = .data[[x]], y = .data[[y]])) +
     geom_smooth(
       formula = "y ~ x",
@@ -283,17 +285,19 @@ plot_arthro_by_island <- function() {
       color = semo_palette["cardiac_red"]
     ) +
     facet_wrap(facets = vars(island)) +
-    theme_minimal() +
+    theme_bw() +
     scale_x_log10() +
     scale_y_log10() +
     geom_text_repel(
       aes(label = year),
-      size = 4
+      size = 5
     ) +
     theme(
       panel.grid = element_blank(),
       axis.text = element_text(size = 13),
-      axis.title = element_text(size = 14)
+      axis.title = element_text(size = 14),
+      strip.text = element_text(size = 12, color = semo_palette["semo_red"]),
+      strip.background = element_rect(fill = "white")
     ) +
     labs(
       x = "Island Area (sq. m)",
