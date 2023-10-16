@@ -157,12 +157,29 @@ server <- function(input, output, session) {
   })
 
 build_herp_ui <- function() {
-  table <- renderTable(
-    lm_summary(
-      x = herps$area,
-      y = herps$species
-    )
+  
+  x <- lm_summary(
+    x = herps$area,
+    y = herps$species
   )
+  # Do I want to use this?
+  intercept <- round(x[1, 2], 2)
+  slope <- round(x[2, 2], 2)
+  if (intercept >= 0) {
+    sign <- " + "} else {
+      sign <-  " - "
+      intercept = abs(intercept)
+    }
+  
+  regression_formula = paste0("Y = ", slope, "X", sign, intercept)
+  
+  table <- renderTable(x, digits = 3
+    # lm_summary(
+    #   x = herps$area,
+    #   y = herps$species
+    # )
+  )
+  
   plot <- renderPlot(
     ib_plot(
       herps,
@@ -173,7 +190,9 @@ build_herp_ui <- function() {
   tagList(
     column(
       6,
-      table
+      table,
+      br(),
+      p(herps_info)
     ),
     column(
       6,
@@ -258,6 +277,8 @@ build_mammal_ui <- function() {
     column(
       6,
       table,
+      br(),
+      p(mtn_info)
     ),
     column(
       6,
@@ -331,6 +352,8 @@ build_arthro_ui <- function() {
     column(
       6,
       table,
+      br(),
+      p(arthro_info)
     ),
     column(
       6,
