@@ -144,7 +144,15 @@ prev_tab <- function(target) {
 
 # Return a tibble of results for tabulating
 lm_summary <- function(x = NULL, y = NULL) {
-  broom::tidy(lm(y ~ x))
+  col_names <- c(
+    Term = "term",
+    Estimate = "estimate",
+    `Std Err` = "std.error",
+    `t value` = "statistic",
+    `p value` = "p.value"
+  )
+  broom::tidy(lm(y ~ x)) %>% 
+    rename(all_of(col_names))
 }
 
 
