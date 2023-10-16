@@ -36,21 +36,7 @@ ib_tab <- tabPanel(
   ),
   hr(),
   fluidRow(
-    # column(
-    #   6,
-    #   tableOutput(
-    #     "ib_table"
-    #   )
-    # ),
-    # column(
-    #   6,
-    #   # plotOutput(
-    #   #   "ib_plot",
-    #   # ),
-    #   br(),
-    #   #p("Words")
       uiOutput("ib_ui")
-#    ),
   ),
   hr(),
   fluidRow(
