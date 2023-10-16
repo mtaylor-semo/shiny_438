@@ -212,16 +212,16 @@ build_beetle_ui <- function() {
     column(
       6,
       table,
-      br(),
+    ),
+    column(
+      6,
       selectInput(
         inputId = "beetle_xaxis",
         label = "Choose x-axis",
         choices = c("Area", "Distance"),
         selected = "Area"
-      )
-    ),
-    column(
-      6,
+      ),
+      br(),
       plot
     )
   )
@@ -258,7 +258,9 @@ build_mammal_ui <- function() {
     column(
       6,
       table,
-      br(),
+    ),
+    column(
+      6,
       selectInput(
         inputId = "mtn_xaxis",
         label = "Choose x-axis",
@@ -268,10 +270,8 @@ build_mammal_ui <- function() {
           "Distance From Mainland"
         ),
         selected = "Area"
-      )
-    ),
-    column(
-      6,
+      ),
+      br(),
       plot
     )
   )
@@ -331,15 +331,16 @@ build_arthro_ui <- function() {
     column(
       6,
       table,
-      br(),
+    ),
+    column(
+      6,
       actionButton(
         "arthro_by_island",
         label = "Plot by Island",
         width = "35%"
-      )
-    ),
-    column(
-      6,
+      ),
+      br(),
+      br(),
       plot
     )
   )
