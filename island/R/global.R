@@ -15,17 +15,13 @@ library(RColorBrewer)
 
 error_check = FALSE # Use this to quickly turn off error checks during dev.
 
-# Semo colors for plots. Cardiac Red and Riverfront used most often.
-semo_palette <- c("#9d2235", 
-                  "#003b5c", 
-                  "#000000", 
-                  "#C8102E", 
-                  "#A2AAAD")
-names(semo_palette) <- c("cardiac_red", 
-                         "riverfront", 
-                         "rich_black", 
-                         "semo_red", 
-                         "pewter")
+semo_palette <- list(
+  cardiac_red = "#9d2235",
+  riverfront = "#003b5c",
+  rich_black = "#000000",
+  semo_red = "#C8102E",
+  pewter = "#A2AAAD"
+)
 
 # mycolors <- brewer.pal(8, "Dark2")
 
@@ -166,15 +162,15 @@ plot_galapagos <- function(plot_data = NULL, xaxis = NULL) {
   ) +
     geom_point(
       aes(y = richness),
-      color = semo_palette["cardiac_red"],
+      color = semo_palette$cardiac_red,
       size = 3
     ) +
     geom_smooth(
       aes(y = richness),
       formula = y ~ x,  # Needed to suppress console msg
       method = "lm",
-      color = semo_palette["cardiac_red"],
-      fill = semo_palette["pewter"]
+      color = semo_palette$cardiac_red,
+      fill = semo_palette$pewter
     ) +
     scale_x_log10() +
     theme_minimal() +
@@ -201,7 +197,7 @@ plot_birds_per_island <- function() {
           island, number_species
         )
       ), 
-      color = semo_palette["cardiac_red"],
+      color = semo_palette$cardiac_red,
       size = 3
     ) +
     scale_x_continuous(breaks = seq(6, 18, 2),
@@ -224,7 +220,7 @@ plot_islands_per_bird <- function() {
         x = number_islands,
         y = reorder(species, number_islands)
       ), 
-      color = semo_palette["cardiac_red"],
+      color = semo_palette$cardiac_red,
       size = 3
     ) +
     theme_minimal() +
@@ -238,7 +234,7 @@ plot_islands_per_bird <- function() {
     )
 }
 
-ib_plot <- function(df, x, y) {
+ib_plot <- function(df, x = NULL, y = NULL) {
   
   if (deparse(substitute(df)) == "herps") {
     lab = c("10", "100", "1000", "10,000", "100,000")
@@ -253,11 +249,11 @@ ib_plot <- function(df, x, y) {
       formula = "y ~ x",
       method = "lm",
       se = FALSE,
-      color = semo_palette["pewter"], 
+      color = semo_palette$pewter, 
       linewidth = 0.75
     ) +
     geom_point(
-      color = semo_palette["cardiac_red"],
+      color = semo_palette$cardiac_red,
       size = 3,
     ) +
     theme_minimal() +
@@ -285,12 +281,12 @@ plot_arthro_by_island <- function() {
       formula = "y ~ x",
       method = "lm",
       se = FALSE,
-      color = semo_palette["pewter"],
+      color = semo_palette$pewter,
       linewidth = 0.75
     ) +
     geom_point(
       size = 2,
-      color = semo_palette["cardiac_red"]
+      color = semo_palette$cardiac_red
     ) +
     facet_wrap(facets = vars(island)) +
     theme_bw() +
@@ -304,7 +300,7 @@ plot_arthro_by_island <- function() {
       panel.grid = element_blank(),
       axis.text = element_text(size = 13),
       axis.title = element_text(size = 14),
-      strip.text = element_text(size = 12, color = semo_palette["semo_red"]),
+      strip.text = element_text(size = 12, color = semo_palette$semo_red),
       strip.background = element_rect(fill = "white")
     ) +
     labs(
