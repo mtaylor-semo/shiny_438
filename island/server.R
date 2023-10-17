@@ -156,28 +156,15 @@ server <- function(input, output, session) {
     )
   })
 
+
+# Herps UI ----------------------------------------------------------------
+
 build_herp_ui <- function() {
   
-  x <- lm_summary(
-    x = herps$area,
-    y = herps$species
-  )
-  # Do I want to use this?
-  intercept <- round(x[1, 2], 2)
-  slope <- round(x[2, 2], 2)
-  if (intercept >= 0) {
-    sign <- " + "} else {
-      sign <-  " - "
-      intercept = abs(intercept)
-    }
-  
-  regression_formula = paste0("Y = ", slope, "X", sign, intercept)
-  
-  table <- renderTable(x, digits = 3
-    # lm_summary(
-    #   x = herps$area,
-    #   y = herps$species
-    # )
+  herps_regression <- lm_regress(
+    x = herps$larea,
+    y = herps$lspecies,
+    term = "Area"
   )
   
   plot <- renderPlot(
@@ -187,11 +174,14 @@ build_herp_ui <- function() {
       y = "species"
     )
   )
+  
   tagList(
     column(
       6,
-      table,
-      br(),
+      p(tags$b("Statistics")),
+      build_stats(herps_regression),
+      hr(),
+      p(tags$b("About the data")),
       p(herps_info)
     ),
     column(
@@ -200,6 +190,9 @@ build_herp_ui <- function() {
     )
   )
 }
+
+
+# Beetles UI --------------------------------------------------------------
 
 observe({
   req(input$beetle_xaxis)
@@ -212,13 +205,12 @@ observe({
 
 build_beetle_ui <- function() {
   
-  table <- renderTable({
-    lm_summary(
-      x = unlist(beetles[values$beetles_xaxis]),
-      y = beetles$species
-    )
-  })
-  
+  beetles_regression <- lm_regress(
+    x = unlist(beetles[values$beetles_xaxis]),
+    y = beetles$species,
+    term = input$beetle_xaxis
+  )
+
   plot <- renderPlot(
     ib_plot(
       beetles,
@@ -230,7 +222,11 @@ build_beetle_ui <- function() {
   tagList(
     column(
       6,
-      table,
+      p(tags$b("Statistics")),
+      build_stats(beetles_regression),
+      hr(),
+      p(tags$b("About the data")),
+      p(beetles_info)
     ),
     column(
       6,
@@ -238,7 +234,7 @@ build_beetle_ui <- function() {
         inputId = "beetle_xaxis",
         label = "Choose x-axis",
         choices = c("Area", "Distance"),
-        selected = "Area"
+        selected = input$beetle_xaxis
       ),
       br(),
       plot
@@ -256,13 +252,15 @@ observe({
   )
 })
 
+
+# Montaine Mammals UI -----------------------------------------------------
+
 build_mammal_ui <- function() {
   
-  table <- renderTable(
-    lm_summary(
-      x = unlist(mtn[values$mtn_xaxis]),
-      y = mtn$species
-    )
+  mtn_regression <- lm_regress(
+    x = unlist(mtn[values$mtn_xaxis]),
+    y = mtn$species,
+    term = input$mtn_xaxis
   )
   
   plot <- renderPlot(
@@ -276,8 +274,10 @@ build_mammal_ui <- function() {
   tagList(
     column(
       6,
-      table,
-      br(),
+      p(tags$b("Statistics")),
+      build_stats(mtn_regression),
+      hr(),
+      p(tags$b("About the data")),
       p(mtn_info)
     ),
     column(
@@ -290,13 +290,16 @@ build_mammal_ui <- function() {
           "Distance Between Mountains", 
           "Distance From Mainland"
         ),
-        selected = "Area"
+        selected = input$mtn_xaxis
       ),
       br(),
       plot
     )
   )
 }
+
+
+# Arboreal Arthropods UI --------------------------------------------------
 
 # Toggle button idea from
 # https://stackoverflow.com/a/74475204/3832941
@@ -337,11 +340,10 @@ which_arthro <- reactive({
 
 build_arthro_ui <- function() {
   
-  table <- renderTable(
-    lm_summary(
-      x = arthro$area,
-      y = arthro$species
-    )
+  arthro_regression <- lm_regress(
+    x = arthro$area,
+    y = arthro$species,
+    term = "Area"
   )
   
   plot <- renderPlot(
@@ -351,8 +353,10 @@ build_arthro_ui <- function() {
   tagList(
     column(
       6,
-      table,
-      br(),
+      p(tags$b("Statistics")),
+      build_stats(arthro_regression),
+      hr(),
+      p(tags$b("About the data")),
       p(arthro_info)
     ),
     column(
