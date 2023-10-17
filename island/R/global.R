@@ -37,6 +37,9 @@ res = 96
 # Number of rows to use for textInput questions
 nrows = 5
 
+# Number of digits to round for tables and formulas
+digits <- 4
+
 # Open data files ---------------------------------------------------------
 
 # Merge these two once you are sure of format
@@ -138,17 +141,60 @@ prev_tab <- function(target) {
   showTab(inputId = "tabs", target = target, select = TRUE)
 }
 
-# Return a tibble of results for tabulating
-lm_summary <- function(x = NULL, y = NULL) {
-  col_names <- c(
-    Term = "term",
-    Estimate = "estimate",
-    `Std Err` = "std.error",
-    `t value` = "statistic",
-    `p value` = "p.value"
+
+lm_regress <- function(x = NULL, y = NULL, term = "x") {
+  
+  # col_names <- c(
+  #   Term = "term",
+  #   Estimate = "estimate",
+  #   `Std Err` = "std.error",
+  #   `t value` = "statistic",
+  #   `p value` = "p.value"
+  # )
+  res_lm <- lm(y ~ x)
+  sum_lm <- summary(res_lm)
+  
+  result <- list()
+  # result$lm_tidy <- broom::tidy(res_lm) %>% rename(all_of(col_names))# %>% 
+  #   mutate(Term = ifelse(row_number() == 2, term, Term))
+  result$adjr <- round(sum_lm$adj.r.squared, digits)
+  result$intercept <- round(sum_lm$coefficients[1,1], digits)
+  result$beta <- round(sum_lm$coefficients[2,1], digits)
+  
+  result$p <- case_when(
+    sum_lm$coefficients[2,4] < 0.0001 ~ "< 0.0001",
+    sum_lm$coefficients[2,4] < 0.001 ~ "< 0.001",
+    sum_lm$coefficients[2,4] < 0.01 ~ "< 0.01",
+    sum_lm$coefficients[2,4] <= 0.05 ~ "< 0.05",
+    sum_lm$coefficients[2,4] > 0.05 ~ "> 0.05 (not significant)"
   )
-  broom::tidy(lm(y ~ x)) %>% 
-    rename(all_of(col_names))
+  
+  return(result)
+}
+
+build_stats <- function(x = NULL) {
+  if (!is.list(x)) {
+    return("x must be a list")
+  } else {
+    intercept <- x$intercept
+    beta <- x$beta
+    if (intercept >= 0) {
+      sign <- " + "} else {
+        sign <-  " - "
+        intercept = abs(intercept)
+      }
+    
+    regreq <- paste0("Regression equation: Y = ", beta, "X", sign, intercept)
+    adjr <- paste0("Adjusted R²: ", x$adjr)
+    prob <- paste0("p ", x$p)
+    
+    # Return tags for renderUI.
+    stats <- tags$div(
+      regreq, tags$br(), adjr, tags$br(), prob
+    )
+    
+    return(stats)
+  }
 }
 
 
