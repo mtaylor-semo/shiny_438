@@ -78,7 +78,7 @@ server <- function(input, output, session) {
     next_tab(
       tab = ib_tab,
       target = "Islands and Animals",
-      test = NULL)
+      test = input$ib_group)
     hideTab(
       inputId = "tabs",
       target = "Predictions")
@@ -93,7 +93,7 @@ server <- function(input, output, session) {
     next_tab(
       tab = galapagos_tab,
       target = "Galapagos",
-      test = NULL)
+      test = input$choose_galapagos_data_set)
   })
 
   observeEvent(input$btn_prev_galapagos, {

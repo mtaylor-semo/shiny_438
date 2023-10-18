@@ -13,7 +13,7 @@ library(RColorBrewer)
 
 # Global vars -------------------------------------------------------------
 
-error_check = FALSE # Use this to quickly turn off error checks during dev.
+error_check = TRUE # Use this to quickly turn off error checks during dev.
 
 semo_palette <- list(
   cardiac_red = "#9d2235",
