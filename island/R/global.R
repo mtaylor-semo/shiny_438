@@ -82,7 +82,6 @@ arthro <- read_csv(
     area = log10(area)
   )
 
-# Merge these two once you are sure of format
 birds <- read_csv(
   "data/birds.csv", 
   show_col_types = FALSE
@@ -103,7 +102,6 @@ birds_per_island <-
   group_by(island) %>% 
   summarize(number_species = sum(presence))
 
-
 # Santiago is correct name for San Salvador
 islands <- read_csv("data/islands.csv", show_col_types = FALSE) %>% 
   rename(island = Island) %>% 
@@ -112,7 +110,6 @@ islands <- read_csv("data/islands.csv", show_col_types = FALSE) %>%
     log_elevation = log10(elevation)
   ) %>% 
   mutate(island = replace(island, island == "San_Salvador", "Santiago"))
-#mutate(island = ifelse(island == "San_Salvador", "Santiago", island))
 
 islands <- 
   birds %>% 
@@ -120,6 +117,7 @@ islands <-
   summarize(richness = sum(presence)) %>% 
   left_join(x = ., y = islands, by = "island")
 
+rm(birds)
 
 # Global functions --------------------------------------------------------
 
