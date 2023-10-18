@@ -514,6 +514,35 @@ observe({
     })
   })
   
+  observe({
+   if (!is.null(input$choose_galapagos_data_set)) {
+     if (input$choose_galapagos_data_set == "Birds") {
+       output$gala_regresion <- renderUI(
+         tagList(
+           tags$br(),
+           p("Hi there")
+         )
+       )
+     } else if (!is.null(input$galapagos_plot_xaxis)) {
+       x <- if_else(
+         input$galapagos_plot_xaxis == "Area",
+         "log_area",
+         "log_elevation"
+       )
+       gala_regression <- lm_regress(
+         x = pull(islands[x]),
+         y = islands$richness
+       )
+       # print(gala_regression)
+       output$gala_regresion <- renderUI(
+         tagList(
+           tags$br(),
+           build_stats(gala_regression)
+         )
+       )
+     }
+   }
+ })
 
 
   # Report Download ---------------------------------------------------------

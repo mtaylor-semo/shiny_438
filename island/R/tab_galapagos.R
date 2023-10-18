@@ -34,7 +34,11 @@ galapagos_tab <- tabPanel(
   fluidRow(
     column(
       6,
-      DTOutput("island_summary", width = "95%"),    ),
+      DTOutput("island_summary", width = "95%"),
+      br(),
+      #p(tags$b("Statistics")),
+      uiOutput("gala_regression")
+    ),
     column(
       6,
       uiOutput("plot_menu"),
