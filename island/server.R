@@ -400,40 +400,6 @@ build_arthro_ui <- function() {
 
 # Galapagos ---------------------------------------------------------------
 
-####### Next two blocks work fine but always revert menu. 
-  ##### Goin to try to fix. These are in the last working commit. f276c46c
-  # observeEvent(input$choose_galapagos_data_set, {
-  #   if (input$choose_galapagos_data_set == "Birds") {
-  #     output$galapagos_plot <- renderPlot(
-  #       plot_birds_per_island()  
-  #     )
-  #   } else {
-  #     output$galapagos_plot <- renderPlot(
-  #       plot_galapagos(
-  #         plot_data = islands,
-  #         xaxis = str_to_lower(input$galapagos_plot_xaxis))
-  #     )
-  #   }
-  # })
-
-  # observeEvent(input$galapagos_bird_plot, {
-  #   if (!is.null(input$galapagos_bird_plot)) {
-  #     if (input$galapagos_bird_plot == "Birds per Island") {
-  #       output$galapagos_plot <- renderPlot({
-  #         plot_birds_per_island()
-  #       })
-  #     } else {
-  #       output$galapagos_plot <- renderPlot({
-  #         plot_islands_per_bird()
-  #       })
-  #     }
-  #   }
-  # })
-
-  ###### End the two working blocks.
-  
-  ###### Here is where the edits starts.
-  
   observe({
   if (!is.null(input$galapagos_bird_plot)) {
     if (input$galapagos_bird_plot == "Birds per Island") {
@@ -529,22 +495,6 @@ observe({
   }
 })
 
-# NO EDITS BELOW THIS LINE ------------------------------------------------
-
-  
-  # observe(
-  #   if (!is.null(input$galapagos_plot_axis)) {
-  #     if (input$galapagos_plot_xaxis == "Area") {
-  #       values$options$order <- list(2, "asc")
-  #     } else {
-  #       values$options$order <- list(3, "asc")
-  #     }
-  #     output$island_summary <- renderDT({
-  #       build_data_table(sort_order = values$options)
-  #     })
-  #   }
-  # )
-
   observe({
     if (!is.null(input$choose_galapagos_data_set)) {
       if (input$choose_galapagos_data_set == "Birds") {
@@ -564,62 +514,6 @@ observe({
     })
   })
   
-  # observeEvent(input$choose_galapagos_data_set, {
-  #   if (input$choose_galapagos_data_set == "Birds") {
-  #     values$options$order <- list(1, "desc")
-  #   } else {
-  #     if (input$galapagos_plot_xaxis == "Area") {
-  #       values$options$order <- list(2, "asc")
-  #     } else {
-  #       values$options$order <- list(3, "asc")
-  #     }
-  #   }
-  #   output$island_summary <- renderDT({
-  #     build_data_table(sort_order = values$options)
-  #   })
-  # })
-
-  # output$island_summary <- renderDT({
-  #   islands %>% 
-  #     select(-c(5, 6)) %>% 
-  #     #arrange(desc(richness)) %>% 
-  #     datatable(
-  #     class = "compact",
-  #     rownames = FALSE,
-  #     colnames = c("Island", "Richness", "Area (sq. km)", "Elevation (m)"),
-  #     options = list(
-  #       dom = 'tip',
-  #       order = list(list(1, "desc"))
-  #     )
-  #   ) #%>% 
-  #     #formatRound(columns = 2:4, digits = 0)
-  # })
-
-  # observeEvent(input$state_menu_cluster, {
-  #   #print("update cluster")
-  #   state_choice(input$state_menu_cluster)
-  # })
-  
-  # output$state_menu_nmds <- renderUI({
-  #   selectInput(
-  #     inputId = "state_menu_nmds",
-  #     label = "Choose a state",
-  #     choices = names(state_fishes),
-  #     selected = state_choice(),
-  #     multiple = FALSE
-  #   )
-  # })
-  
-  # observeEvent(input$state_menu_nmds, {
-  #   state_choice(input$state_menu_nmds)
-  #   updateSelectInput(
-  #     session = getDefaultReactiveDomain(),
-  #     inputId = "state_menu_cluster",
-  #     selected = state_choice()
-  #   )
-  # })
-  # 
-
 
 
   # Report Download ---------------------------------------------------------
