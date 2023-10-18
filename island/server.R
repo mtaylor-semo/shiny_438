@@ -166,14 +166,12 @@ build_herp_ui <- function() {
     y = herps$lspecies,
     term = "Area"
   )
-  
-  plot <- renderPlot(
-    ib_plot(
+
+  herp_gg_obj <- build_ib_plot(
       herps,
       x = "area",
       y = "species"
     )
-  )
   
   tagList(
     column(
@@ -186,7 +184,7 @@ build_herp_ui <- function() {
     ),
     column(
       6,
-      plot
+      renderPlot(herp_gg_obj)
     )
   )
 }
@@ -203,6 +201,7 @@ observe({
   )
 })
 
+  
 build_beetle_ui <- function() {
   
   beetles_regression <- lm_regress(
@@ -210,15 +209,22 @@ build_beetle_ui <- function() {
     y = beetles$species,
     term = input$beetle_xaxis
   )
-
-  plot <- renderPlot(
-    ib_plot(
-      beetles,
-      x = values$beetles_xaxis,
-      y = "species"
-    )
+  
+  beetle_gg_obj <- build_ib_plot(
+    beetles,
+    x = values$beetles_xaxis,
+    y = "species"
   )
   
+  beetle_gg_obj <- update_xlabel(
+    beetle_gg_obj,
+    label = if_else(
+      input$beetle_xaxis == "Area",
+      "Area (km²)",
+      "Distance (km)"
+    )
+  )
+
   tagList(
     column(
       6,
@@ -237,7 +243,7 @@ build_beetle_ui <- function() {
         selected = input$beetle_xaxis
       ),
       br(),
-      plot
+      renderPlot(beetle_gg_obj)
     )
   )
 }
@@ -263,14 +269,27 @@ build_mammal_ui <- function() {
     term = input$mtn_xaxis
   )
   
-  plot <- renderPlot(
-    ib_plot(
-      mtn,
-      x = values$mtn_xaxis,
-      y = "species"
+  mtn_gg_obj <- build_ib_plot(
+    mtn,
+    x = values$mtn_xaxis,
+    y = "species"
+  )
+  
+  mtn_gg_obj <- update_xlabel(
+    mtn_gg_obj,
+    label = if_else(
+      input$mtn_xaxis == "Area",
+      "Area (km²)",
+      if_else(
+        input$mtn_xaxis == "Distance Between Mountains",
+        "Distance Between Mountains (km)",
+        "Distance From Mainland (km)"
+      )
     )
   )
   
+  plot <- renderPlot(gg_obj)
+
   tagList(
     column(
       6,
@@ -293,7 +312,8 @@ build_mammal_ui <- function() {
         selected = input$mtn_xaxis
       ),
       br(),
-      plot
+      #plot
+      renderPlot(mtn_gg_obj)
     )
   )
 }
@@ -320,11 +340,16 @@ observeEvent(input$arthro_by_island, {
 })
 
 arthro_plot1 <-
-  ib_plot(
+  build_ib_plot(
     arthro,
     x = "area",
     y = "species"
   )
+
+arthro_plot1 <- update_xlabel(
+  arthro_plot1,
+  label = "Area (m²)"
+)
 
 arthro_plot2 <- plot_arthro_by_island()
   
@@ -346,9 +371,9 @@ build_arthro_ui <- function() {
     term = "Area"
   )
   
-  plot <- renderPlot(
-    which_arthro()
-  )
+  # plot <- renderPlot(
+  #   which_arthro()
+  # )
   
   tagList(
     column(
@@ -368,7 +393,7 @@ build_arthro_ui <- function() {
       ),
       br(),
       br(),
-      plot
+      renderPlot(which_arthro())
     )
   )
 }

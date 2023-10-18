@@ -280,6 +280,55 @@ plot_islands_per_bird <- function() {
     )
 }
 
+build_ib_plot <- function(df, x = NULL, y = NULL) {
+  if (deparse(substitute(df)) == "herps") {
+    lab = c("10", "100", "1000", "10,000", "100,000")
+    brks = c(10, 100, 1000, 10000, 100000)
+  } else {
+    lab = waiver()
+    brks = waiver()
+  }
+  
+  ggplot(df, aes(x = .data[[x]], y = .data[[y]])) +
+    geom_smooth(
+      formula = "y ~ x",
+      method = "lm",
+      se = FALSE,
+      color = semo_palette$pewter, 
+      linewidth = 0.75
+    ) +
+    geom_point(
+      color = semo_palette$cardiac_red,
+      size = 3,
+    ) +
+    theme_minimal() +
+    scale_x_log10(
+      labels = lab,
+      breaks = brks
+    ) +
+    scale_y_log10() +
+    labs(
+      x = "Area (km²)",
+      y = "Species Richness"
+    ) +
+    geom_text_repel(
+      aes(label = island),
+      size = 5) +
+    theme(
+      panel.grid = element_blank(),
+      axis.text = element_text(size = 13),
+      axis.title = element_text(size = 14)
+    )
+  
+  #return(ggObj)
+}
+
+# Separate function to easily update plot with proper x-axis label
+update_xlabel <- function(ggObj = NULL, label = "Area (km²)") {
+  ggObj <- ggObj + labs(x = label)
+  return(ggObj)
+}
+
 ib_plot <- function(df, x = NULL, y = NULL) {
   
   if (deparse(substitute(df)) == "herps") {
@@ -309,7 +358,7 @@ ib_plot <- function(df, x = NULL, y = NULL) {
     ) +
     scale_y_log10() +
     labs(
-      x = "Island Area (sq. km)",
+      x = "Island Area (km²)",
       y = "Species Richness"
     ) +
     geom_text_repel(
@@ -350,7 +399,7 @@ plot_arthro_by_island <- function() {
       strip.background = element_rect(fill = "white")
     ) +
     labs(
-      x = "Island Area (sq. m)",
+      x = "Area (m²)",
       y = "Species Richness"
     )
 }
