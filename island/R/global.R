@@ -42,8 +42,51 @@ digits <- 4
 
 # Open data files ---------------------------------------------------------
 
+herps <- read_csv(
+  "data/carib_herps.csv",
+  show_col_types = FALSE
+) %>%
+  mutate(
+    lspecies = log10(species),
+    larea = log10(area)
+  )
+
+beetles <- read_csv(
+  "data/florida_beetles.csv",
+  show_col_types = FALSE
+) %>%
+  mutate(
+    lspecies = log10(species),
+    larea = log10(area),
+    ldist = log10(distance)
+  )
+
+mtn <- read_csv(
+  "data/montaine_mammals.csv",
+  show_col_types = FALSE
+) %>%
+  mutate(
+    lspecies = log10(species),
+    larea = log10(area),
+    ldist_mtn = log10(dist_mtn),
+    ldist_main = log10(dist_mainland)
+  )
+
+arthro <- read_csv(
+  "data/arboreal_arthropods.csv",
+  show_col_types = FALSE
+) %>%
+  subset(island != "IN1") %>%
+  mutate(
+    lspecies = log10(species),
+    area = log10(area)
+  )
+
 # Merge these two once you are sure of format
-birds <- read_csv("data/birds.csv") %>% 
+birds <- read_csv(
+  "data/birds.csv", 
+  show_col_types = FALSE
+) %>% 
   pivot_longer(
     cols = -species,
     names_to = "island",
@@ -62,7 +105,7 @@ birds_per_island <-
 
 
 # Santiago is correct name for San Salvador
-islands <- read_csv("data/islands.csv") %>% 
+islands <- read_csv("data/islands.csv", show_col_types = FALSE) %>% 
   rename(island = Island) %>% 
   mutate(
     log_area = log10(area),
@@ -76,35 +119,6 @@ islands <-
   group_by(island) %>% 
   summarize(richness = sum(presence)) %>% 
   left_join(x = ., y = islands, by = "island")
-
-
-herps <- read_csv("data/carib_herps.csv") %>% 
-  mutate(
-    lspecies = log10(species), 
-    larea = log10(area)
-  )
-
-beetles <- read_csv("data/florida_beetles.csv") %>% 
-  mutate(
-    lspecies = log10(species),
-    larea = log10(area),
-    ldist = log10(distance)
-  )
-
-mtn <- read_csv("data/montaine_mammals.csv") %>% 
-  mutate(
-    lspecies = log10(species),
-    larea = log10(area),
-    ldist_mtn = log10(dist_mtn),
-    ldist_main = log10(dist_mainland)
-  )
-
-arthro <- read_csv("data/arboreal_arthropods.csv") %>% 
-  subset(island != "IN1") %>% 
-  mutate(
-    lspecies = log10(species),
-    area = log10(area)
-  )
 
 
 # Global functions --------------------------------------------------------
