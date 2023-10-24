@@ -184,6 +184,10 @@ server <- function(input, output, session) {
         p("Watershed map not available.")
       }
     })
+  
+  output$watershed_info <- renderUI({
+    as.name(paste0(state_choice(),"_watersheds"))
+  })
 
   output$prediction_na_richness <- renderUI({
     p("You predicted:")
@@ -201,7 +205,7 @@ server <- function(input, output, session) {
     },
     res = res
   ) %>%
-    bindCache(input$btn_next_pred)
+    bindCache(input$btn_next_pred, input$btn_prev_family_richness)
 
   output$family_plot <- renderPlot(
     {
@@ -211,7 +215,7 @@ server <- function(input, output, session) {
     },
     res = res
   ) %>%
-    bindCache(input$family_menu)
+    bindCache(input$family_menu, input$btn_next_na)
   
   observeEvent(input$state_menu_cluster, {
     #print("update cluster")
