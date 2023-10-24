@@ -52,8 +52,6 @@ server <- function(input, output, session) {
 
   plots <- reactiveValues(na_richness = NULL, pc = NULL)
 
-  # results <- reactiveValues(ca = NULL)
-  
   cluster <- reactiveValues(
     hel = NULL,
     dist = NULL,
@@ -185,8 +183,9 @@ server <- function(input, output, session) {
       }
     })
   
-  output$watershed_info <- renderUI({
-    as.name(paste0(state_choice(),"_watersheds"))
+  output$watershed_info_cluster <- 
+    output$watershed_info_nmds <- renderUI({
+    eval(parse(text = paste0(str_to_lower(state_choice()),"_watersheds")))
   })
 
   output$prediction_na_richness <- renderUI({
@@ -218,7 +217,6 @@ server <- function(input, output, session) {
     bindCache(input$family_menu, input$btn_next_na)
   
   observeEvent(input$state_menu_cluster, {
-    #print("update cluster")
     state_choice(input$state_menu_cluster)
   })
   
@@ -332,7 +330,6 @@ server <- function(input, output, session) {
       # permission to the current working directory
       owd <- setwd(tempdir())
       on.exit(setwd(owd))
-      # file.copy(src, "rapoports_rule.Rmd", overwrite = TRUE)
       file.copy(src, base_rmd, overwrite = TRUE)
       file.copy(src_tex, "tex_header.tex", overwrite = TRUE)
 
