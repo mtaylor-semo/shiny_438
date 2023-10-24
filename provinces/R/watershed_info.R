@@ -2,9 +2,7 @@
 #alabama_watersheds
 
 alabama_watersheds <- tagList(
-  p("All watersheds flow to Gulf of Mexico"),
-  p(tags$b("Tennessee River")),
-  p(tags$b("Mobile Bay")),
+  p(tags$b("Gulf of Mexico")),
   tags$ul(
    tags$li("Mobile Bay-Tensas"),
    tags$li("Tombigbee River"),
@@ -26,13 +24,13 @@ alabama_watersheds <- tagList(
     tags$li("Yellow"),
     tags$li("Choctawhatchee"),
     tags$li("Chattahoochee River")
-  )
+  ),
+  p(tags$b("Tennessee River")),
 )
 
 georgia_watersheds <- tagList(
-  p(tags$b("Atlantic")),
+  p(tags$b("Atlantic Slope")),
   tags$ul(
-    style = "padding-left: 15px;",
     tags$li("Savannah"),
     tags$li("Ogeechee"),
     tags$li("Altamaha"),
@@ -42,18 +40,15 @@ georgia_watersheds <- tagList(
   ),
   p(tags$b("Gulf of Mexico")),
   tags$ul(
-    style = "padding-left: 15px;",
     tags$li("Saint Marys"),
     tags$li("Suwannee"),
     tags$li("Ochlocknonee"),
     tags$li("Chattachoochee"),
     tags$ul(
-      style = "padding-left: 15px;",
       tags$li("Flint")
     ),
     tags$li("Alabama"),
     tags$ul(
-      style = "padding-left: 15px;",
       tags$li("Tallapoosa"),
       tags$li("Coosa")
     ),
@@ -62,23 +57,23 @@ georgia_watersheds <- tagList(
 )
 
 mississippi_watersheds <- tagList(
-  p(tags$b("Mississippi River")),
-  tags$ul(
-    tags$li("Mississippi North"),
-    tags$li("Mississippi South"),
-    tags$li("Yazoo"),
-    tags$li("Big Black")
-  ),
   p(tags$b("Gulf of Mexico")),
   tags$ul(
+    tags$li("Mobile Bay (in Alabama)"),
+    tags$ul(
+      tags$li("Tombigbee")
+    ),
     tags$li("Lake Pontchartrain"),
     tags$li("Pearl"),
     tags$li("Coastal"),
     tags$li("Pascagoula"),
   ),
-  p(tags$b("Mobile Bay")),
+  p(tags$b("Mississippi River")),
   tags$ul(
-    tags$li("Tombigbee")
+    tags$li("Big Black"),
+    tags$li("Mississippi North"),
+    tags$li("Mississippi South"),
+    tags$li("Yazoo")
   ),
   p(tags$b("Tennessee River (TN)"))
 )
@@ -86,10 +81,10 @@ mississippi_watersheds <- tagList(
 missouri_watersheds <- tagList(
   p(tags$b("Mississippi River")),
   tags$ul(
-    tags$li("U. Mississippi"),
-    tags$li("Salt"),
-    tags$li("Meramec"),
     tags$li("L. Mississippi"),
+    tags$li("U. Mississippi"),
+    tags$li("Meramec"),
+    tags$li("Salt")
   ),
   p(tags$b("Missouri River (flows into Mississippi R.)")),
   tags$ul(
@@ -115,7 +110,7 @@ missouri_watersheds <- tagList(
 northcarolina_watersheds <- tagList(
   p(tags$b("Atlantic Slope")),
   tags$ul(
-    tags$li("Chowan - Pasquotank"),
+    tags$li("Chowan-Pasquotank"),
     tags$li("Roanoke"),
     tags$li("Tar-Pamlico"),
     tags$li("Neuse"),
@@ -136,16 +131,16 @@ northcarolina_watersheds <- tagList(
   tags$ul(
     tags$li("Savannah River")
   ),
+  p(tags$b("Ohio River")),
+  tags$ul(
+    tags$li("New")
+  ),
   p(tags$b("Tennessee River")),
   tags$ul(
     tags$li("Hiwasee"),
     tags$li("Little Tennessee"),
     tags$li("French Broad"),
     tags$li("Wautauga")
-  ),
-  p(tags$b("Ohio River")),
-  tags$ul(
-    tags$li("New")
   )
 )
 
