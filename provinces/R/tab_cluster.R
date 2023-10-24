@@ -47,7 +47,8 @@ cluster_tab <- tabPanel(
     ),
     column(
       6,
-      uiOutput("watershed_map_cluster")
+      uiOutput("watershed_map_cluster"),
+      uiOutput("watershed_info")
     )
     # column(
     #   width = 6,
