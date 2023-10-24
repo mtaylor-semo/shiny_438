@@ -20,6 +20,7 @@ library(RColorBrewer)
 
 # Global vars -------------------------------------------------------------
 
+error_check = FALSE # Quickly turn off error checks during dev.
 
 # Semo colors for plots. Cardiac Red and Riverfront used most often.
 semo_palette <- c("#9d2235", 

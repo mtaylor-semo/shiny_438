@@ -75,7 +75,7 @@ server <- function(input, output, session) {
   ## Button observers --------------------------------------------------------
 
   observeEvent(input$btn_next_intro, {
-    req(input$student_name)
+    if (error_check) req(input$student_name)
     next_tab(
       tab = predictions_tab, 
       target = "Predictions", 
@@ -87,7 +87,7 @@ server <- function(input, output, session) {
   })
   
   observeEvent(input$btn_next_pred, {
-    req(input$predict_na_richness)
+    if (error_check) req(input$predict_na_richness)
     next_tab(
       tab = na_richess_tab, 
       target = "North America",
@@ -102,7 +102,7 @@ server <- function(input, output, session) {
   })
   
   observeEvent(input$btn_next_na, {
-    req(input$na_question1)
+    if (error_check) req(input$na_question1)
     next_tab(
       tab = family_richness_tab,
       target = "Family Richness",
@@ -115,7 +115,7 @@ server <- function(input, output, session) {
   })
   
   observeEvent(input$btn_next_family_richness, {
-    req(
+    if (error_check) req(
       input$family_richness_question1,
       input$family_richness_question2
     )
@@ -131,7 +131,7 @@ server <- function(input, output, session) {
   })
   
   observeEvent(input$btn_next_cluster, {
-    req(
+    if (error_check) req(
       input$cluster_question1,
       input$cluster_question2,
       input$cluster_question3
@@ -148,7 +148,7 @@ server <- function(input, output, session) {
   })
   
   observeEvent(input$btn_next_nmds, {
-    req(input$nmds_question1)
+    if (error_check) req(input$nmds_question1)
     next_tab(
       tab = summary_tab,
       target = "Summary",
