@@ -2,7 +2,7 @@ library(tidyr)
 library(ggplot2)
 library(readr)
 library(tibble) # Remove once MO data set is finalized. Needed for column_to_rownames
-library(dplyr)
+library(dplyr, warn.conflicts = FALSE)
 library(stringr)
 
 library(shinycssloaders)
