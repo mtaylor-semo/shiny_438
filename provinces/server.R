@@ -199,10 +199,9 @@ server <- function(input, output, session) {
         plot_data = prepare_data(nagrid)
       )
     },
-    res = res,
-    width = "100%"
+    res = res
   ) %>%
-    bindCache(nagrid)
+    bindCache(input$btn_next_pred)
 
   output$family_plot <- renderPlot(
     {
@@ -210,8 +209,7 @@ server <- function(input, output, session) {
         plot_data = prepare_data(species_groups[[input$family_menu]])
       )
     },
-    res = res,
-    width = "100%"
+    res = res
   ) %>%
     bindCache(input$family_menu)
   
@@ -259,8 +257,7 @@ server <- function(input, output, session) {
       
       plot_cluster(cluster$dend)
     },
-    res = res,
-    width = "100%"
+    res = res
   ) %>%
     bindCache(input$state_menu_cluster, input$state_menu_nmds)
   
@@ -296,8 +293,7 @@ server <- function(input, output, session) {
 
       plot_nmds(nmds$watershed_scores)
     },
-    res = res,
-    width = "100%"
+    res = res
   ) %>%
     bindCache(input$state_menu_cluster, input$state_menu_nmds)
 
