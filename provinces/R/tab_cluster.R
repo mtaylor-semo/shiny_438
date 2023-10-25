@@ -38,18 +38,15 @@ cluster_tab <- tabPanel(
       ),
       plotOutput(
         "cluster_plot",
-        width = "97%"
+        width = "100%"
       ) %>%
         withSpinner(type = 4,
                     color = semo_palette["cardiac_red"]),
-      hr(),
-      uiOutput("watershed_info_cluster")
-      #hr(),
-      #uiOutput("watershed_map_cluster")
     ),
     column(
       6,
       uiOutput("watershed_map_cluster")
+      #uiOutput("watershed_info_cluster_wide")
     )
     # column(
     #   width = 6,
