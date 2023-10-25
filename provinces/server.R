@@ -182,19 +182,6 @@ server <- function(input, output, session) {
         p("Watershed map not available.")
       }
     })
-  
-  # output$watershed_info_cluster <- 
-  #   output$watershed_info_nmds <- renderUI({
-  #     if (state_choice() != "NorthCarolina" & state_choice() != "Virginia")
-  #   eval(parse(text = paste0(str_to_lower(state_choice()),"_watersheds")))
-  # })
-  # 
-  # output$watershed_info_cluster_wide <- renderUI({
-  #   #output$watershed_info_nmds <- renderUI({
-  #     if (state_choice() == "NorthCarolina" | state_choice() == "Virginia")
-  #       eval(parse(text = paste0(str_to_lower(state_choice()),"_watersheds")))
-  #   })
-  
 
   output$prediction_na_richness <- renderUI({
     p("You predicted:")
