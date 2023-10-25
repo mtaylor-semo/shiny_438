@@ -47,10 +47,13 @@ georgia_watersheds <- tagList(
     tags$ul(
       tags$li("Flint")
     ),
-    tags$li("Alabama"),
+    tags$li("Mobile Bay (in Alabama)"),
     tags$ul(
-      tags$li("Tallapoosa"),
-      tags$li("Coosa")
+      tags$li("Alabama"),
+      tags$ul(
+        tags$li("Tallapoosa"),
+        tags$li("Coosa")
+      ),
     ),
     tags$li("Tennessee")
   )
