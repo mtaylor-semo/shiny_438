@@ -1,5 +1,5 @@
 # Predictions tab ---------------------------------------------------------
-predictions_tab <- tabPanel(
+interior_highlands_tab <- tabPanel(
   "Part 1: Interior Highlands",
   fluidRow(
     # column(
@@ -13,11 +13,11 @@ predictions_tab <- tabPanel(
     column(
       1,
       offset = 10,
-      prev_btn("btn_prev_pred"),
+      prev_btn("btn_prev_highland"),
     ),
     column(
       1,
-      next_btn("btn_next_pred"),
+      next_btn("btn_next_highland"),
     )
   ),
   hr(),
