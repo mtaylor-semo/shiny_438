@@ -70,28 +70,14 @@ ui <- tagList(
         ),
         column(
           width = 6,
-          p("This exercise has two parts. First, you will explore the 
-            distribution of species richness relative to Pleistocene maxima and 
-            the fall line (see image at left) that separates the coastal plain
-            from uplifted highlands. Second, you will explore river watersheds
-            that cross the fall line to learn whether the distribution of
-            stream fishes is affected by the fall line."),
-          p("For the first part, you will make a “shaded relief map” for species
-            richness
-            of U.S.  fishes. The data were obtained by creating a presence / 
-            absence matrix for each species of native fish. Presence or absence
-            was based on 1° x 1° longitude /  latitude grids. If a fish species
-            was present in a grid cell then 1 was entered for that grid cell. 
-            If the species was absent, 0 was entered. Finally, all matrices
-            were summed together to create the final data matrix; that is, the
-            data set contains the number of species in each 1° x 1° cell for 
-            the entire U.S.  The data set  represents a total of 529 species"),
-          p("In this expercise, the relief map uses colors to show relative 
-            species richness. Dark colors indicate low species richness (few
-            species). Bright colors indicate higher species richness."),
-          p("After you explore overall species richness for the U.S. you will
-            explore the distribution of species richness for specific families 
-            of fishes."),
+          p("This exercise has two parts. In Part 1, you will explore the 
+            distribution of species richness relative to the Pleistocene maximum
+            and the fall line (see image at left) that separates the",
+            strong("coastal plain"), "from uplifted", strong("interior 
+            highlands"), "(central and eastern highlands). In Part 2, you will
+            explore river watersheds that cross the fall line to learn whether
+            the distribution of freshwater fishes is affected by this important
+            biogeographic feature.")
         )
       )
     )
