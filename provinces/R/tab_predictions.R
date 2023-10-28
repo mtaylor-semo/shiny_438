@@ -1,17 +1,18 @@
 # Predictions tab ---------------------------------------------------------
 predictions_tab <- tabPanel(
-  "Predictions",
+  "Part 1: Interior Highlands",
   fluidRow(
-    column(
-      3,
-      align = "right",
-      offset = 7,
-      span(textOutput("prediction_error"),
-           style = "color:#9D2235"
-      )
-    ),
+    # column(
+    #   3,
+    #   align = "right",
+    #   offset = 7,
+    #   span(textOutput("prediction_error"),
+    #        style = "color:#9D2235"
+    #   )
+    # ),
     column(
       1,
+      offset = 10,
       prev_btn("btn_prev_pred"),
     ),
     column(
@@ -23,9 +24,11 @@ predictions_tab <- tabPanel(
   fluidRow(
     column(
       width = 6,
-      img(src = "relief_map.jpg", width = "97%"),
+      img(src = "relief_map.png", width = "97%"),
       br(),
-      p("Shaded relief map of the U.S. Color indicates elevation.
+      p("Shaded relief map of the U.S. showing approximate locations of
+            Pleistocene glacial maxima (black line) and fall line (yellow line).
+            Other colors indicate elevation.
             Darker green is low elevation close to sea level. Light colors
             indicate high elevation in the mountains."),
       hr(),
@@ -49,14 +52,14 @@ predictions_tab <- tabPanel(
         Take a look at the map of U.S. rivers that was given to you?  Below,
         name the region and 3--4 rivers in that region where you think
         diversity may be the highest. Explain your reasoning."),
-      hr(),
-      textAreaInput(
-        inputId = "predict_na_richness",
-        label = NULL, # "Enter your prediction:",
-        rows = nrows,
-        placeholder = "U.S. species richness prediction…",
-        width = "90%"
-      )
+      # hr(),
+      # textAreaInput(
+      #   inputId = "predict_na_richness",
+      #   label = NULL, # "Enter your prediction:",
+      #   rows = nrows,
+      #   placeholder = "U.S. species richness prediction…",
+      #   width = "90%"
+      # )
     )
   )
 )

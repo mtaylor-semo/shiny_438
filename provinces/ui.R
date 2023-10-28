@@ -23,32 +23,33 @@ ui <- tagList(
     tabPanel(
       "Introduction",
       fluidRow(
+        # column(
+        #   1,
+        #   p(strong("Name:"))
+        # ),
+        # column(
+        #   2,
+        #   textInput(
+        #     "student_name",
+        #     label = NULL,
+        #     placeholder = "First Last",
+        #     width = "100%"
+        #   )
+        # ),
+        # column(
+        #   3,
+        #   align = "left",
+        #   span(textOutput("stu_name_error"), style = "color:#9D2235")
+        # ),
+        # column(
+        #   3,
+        #   align = "right",
+        #   offset = 8,
+        #   span(textOutput("next_ready"), style = "color:#9D2235")
+        # ),
         column(
           1,
-          p(strong("Name:"))
-        ),
-        column(
-          2,
-          textInput(
-            "student_name",
-            label = NULL,
-            placeholder = "First Last",
-            width = "100%"
-          )
-        ),
-        column(
-          3,
-          align = "left",
-          span(textOutput("stu_name_error"), style = "color:#9D2235")
-        ),
-        column(
-          3,
-          align = "right",
-          offset = 2,
-          span(textOutput("next_ready"), style = "color:#9D2235")
-        ),
-        column(
-          1,
+          offset = 11,
           next_btn("btn_next_intro")
         )
       ),
@@ -56,9 +57,11 @@ ui <- tagList(
       fluidRow(
         column(
           width = 6,
-          img(src = "relief_map.jpg", width = "97%"),
+          img(src = "relief_map.png", width = "97%"),
           br(),
-          p("Shaded relief map of the U.S. Color indicates elevation.
+          p("Shaded relief map of the U.S. showing approximate locations of
+            Pleistocene glacial maxima (black line) and fall line (yellow line).
+            Other colors indicate elevation.
             Darker green is low elevation close to sea level. Light colors
             indicate high elevation in the mountains."),
           hr(),
@@ -67,7 +70,14 @@ ui <- tagList(
         ),
         column(
           width = 6,
-          p("You are going to make a “shaded relief map” for species richness
+          p("This exercise has two parts. First, you will explore the 
+            distribution of species richness relative to Pleistocene maxima and 
+            the fall line (see image at left) that separates the coastal plain
+            from uplifted highlands. Second, you will explore river watersheds
+            that cross the fall line to learn whether the distribution of
+            stream fishes is affected by the fall line."),
+          p("For the first part, you will make a “shaded relief map” for species
+            richness
             of U.S.  fishes. The data were obtained by creating a presence / 
             absence matrix for each species of native fish. Presence or absence
             was based on 1° x 1° longitude /  latitude grids. If a fish species
@@ -79,8 +89,8 @@ ui <- tagList(
           p("In this expercise, the relief map uses colors to show relative 
             species richness. Dark colors indicate low species richness (few
             species). Bright colors indicate higher species richness."),
-          p("After you explore species richness for North America, you will
-            explore the distribution of species richness for specific groups 
+          p("After you explore overall species richness for the U.S. you will
+            explore the distribution of species richness for specific families 
             of fishes."),
         )
       )

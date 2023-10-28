@@ -73,11 +73,12 @@ server <- function(input, output, session) {
   ## Button observers --------------------------------------------------------
 
   observeEvent(input$btn_next_intro, {
-    if (error_check) req(input$student_name)
+    # if (error_check) req(input$student_name)
     next_tab(
       tab = predictions_tab, 
-      target = "Predictions", 
-      test = input$predict_na_richness)
+      target = "Part 1: Interior Highlands", 
+      test = input$btn_next_pred
+      )
   })
   
   observeEvent(input$btn_prev_pred, {
@@ -85,26 +86,28 @@ server <- function(input, output, session) {
   })
   
   observeEvent(input$btn_next_pred, {
-    if (error_check) req(input$predict_na_richness)
+    # if (error_check) req(input$predict_na_richness)
     next_tab(
       tab = na_richess_tab, 
       target = "North America",
-      test = input$na_question1)
-    hideTab(
-      inputId = "tabs",
-      target = "Predictions")
+      test = input$btn_next_na
+      )
+    # hideTab(
+    #   inputId = "tabs",
+    #   target = "Predictions"
+    #)
   })
   
   observeEvent(input$btn_prev_na, {
-    prev_tab("Predictions")
+    prev_tab("Part 1: Interior Highlands")
   })
   
   observeEvent(input$btn_next_na, {
-    if (error_check) req(input$na_question1)
+    #if (error_check) req(input$na_question1)
     next_tab(
       tab = family_richness_tab,
       target = "Family Richness",
-      test = input$family_richness_question1
+      test = input$btn_next_family_richness
     )
   })
 
@@ -113,14 +116,26 @@ server <- function(input, output, session) {
   })
   
   observeEvent(input$btn_next_family_richness, {
-    if (error_check) req(
-      input$family_richness_question1,
-      input$family_richness_question2
-    )
+    # if (error_check) req(
+    #   input$family_richness_question1,
+    #   input$family_richness_question2
+    # )
     next_tab(
       tab = cluster_tab,
       target = "Cluster",
       test = input$cluster_question1
+    )
+    hideTab(
+      inputId = "tabs",
+      target = "Part 1: Interior Highlands"
+    )
+    hideTab(
+      inputId = "tabs",
+      target = "North America"
+    )
+    hideTab(
+      inputId = "tabs",
+      target = "Family Richness"
     )
   })
   

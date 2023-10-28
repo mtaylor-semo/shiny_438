@@ -11,17 +11,18 @@ na_richess_tab <- tabPanel(
     #   2,
     #   p("Scroll down for questions.")
     # ),
-    column(
-      3,
-      align = "right",
-      offset = 7,
-      span(
-        textOutput("na_richness_result_error"),
-        style = "color:#9D2235"
-      )
-    ),
+    # column(
+    #   3,
+    #   align = "right",
+    #   offset = 7,
+    #   span(
+    #     textOutput("na_richness_result_error"),
+    #     style = "color:#9D2235"
+    #   )
+    # ),
     column(
       1,
+      offset = 10,
       prev_btn("btn_prev_na"),
     ),
     column(
@@ -33,7 +34,7 @@ na_richess_tab <- tabPanel(
   fluidRow(
     column(
       3,
-      img(src = "relief_map.jpg", width = "97%"),
+      img(src = "relief_map.png", width = "97%"),
       hr(),
       p(
         "Locations where species richness is very high are often called",
