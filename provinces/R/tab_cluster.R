@@ -5,20 +5,20 @@ cluster_tab <- tabPanel(
   "Cluster",
   fluidRow(
     column(
-      3,
+      width = 3,
       align = "right",
-      offset = 7,
       span(
         textOutput("cluster_result_error"),
         style = "color:#9D2235"
       )
     ),
     column(
-      1,
+      width = 1,
+      offset = 7,
       prev_btn("btn_prev_cluster"),
     ),
     column(
-      1,
+      width = 1,
       next_btn("btn_next_cluster"),
     )
   ),
@@ -48,37 +48,26 @@ cluster_tab <- tabPanel(
       uiOutput("watershed_map_cluster")
       #uiOutput("watershed_info_cluster_wide")
     )
-    # column(
-    #   width = 6,
-    #   p("Based on this figure, combined with the previous graphs,
-    #     do U.S. freshwater fishes follow Rapoport’s Rule for geographic
-    #     range size? Explain."),
-    #   textAreaInput(
-    #     inputId = "cluster_question1",
-    #     label = NULL,
-    #     rows = 5,
-    #     width = "97%"
-    #   ),
-    #   hr(),
-    #   p("Considering the geographic ranges east of the Rocky Mountains,
-    #    what region of the U.S. seems to have most of the smaller bubbles?
-    #    Why do you think this is?"),
-    #   textAreaInput(
-    #     inputId = "cluster_question2",
-    #     label = NULL,
-    #     rows = 5,
-    #     width = "97%"
-    #   ),
-    #   hr(),
-    #   p("What geographic region west of the Rocky Mountains seems
-    #     to have the fewest bubbles? (Or, most of the smallest bubbles?)
-    #     Why do you think this is?"),
-    #   textAreaInput(
-    #     inputId = "cluster_question3",
-    #     label = NULL,
-    #     rows = 5,
-    #     width = "97%"
-    #   )
-    # )
+  ),
+  hr(),
+  fluidRow(
+    column(
+      width = 6,
+      img(src = "watershed_map.png", width = "97%")
+    ),
+    column(
+      width = 6,
+      p("Watershed names in the plots that have some form of “upper,” “lower,”
+        “above,” “below,” “_up”, “_low,” etc. indicate portions of the watershed
+        above and below the fall line respectively. The black line in the map
+        above shows the location of the fall line."),
+      p("The state map shows each watershed and lists where the watershed
+        terminates. For this exercise, watersheds terminate at the Alantic Ocean
+        (Atlantic Slope), the Gulf of Mexico, the Tennessee River, the Ohio
+        River, the Mississippi River, the Missouri River, the Arkansas River,
+        or the White River. Reference the map above to the map at left to help
+        keep you oriented as you compare the watersheds of each
+        state and among states.")
+    )
   )
 )
