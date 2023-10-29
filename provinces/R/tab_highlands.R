@@ -48,17 +48,17 @@ interior_highlands_tab <- tabPanel(
         strong("interior highlands"), "consisting of the eastern highlands
         (formally, the", tags$a(href = "https://en.wikipedia.org/wiki/Appalachian_Highlands", "Appalachian Highlands"), ") and the central highlands
       (formally. the ", tags$a(href = "https://en.wikipedia.org/wiki/Ozarks", "Ozark Highlands"), ")."),
-      p("You will generate a “shaded relief map”, that uses colors to show
+      p("You will generate a “shaded relief map,” that uses colors to show
         relative species richness, similar to the map at left. Your maps will
         use dark colors to indicate low species richness 
-        (few species) and bright colors to indicate higher species richness.
+        (few species) and brighter colors to indicate higher species richness.
         After you explore overall species richness for the U.S. you will
         explore the distribution of species richness for selected families 
         of fishes."),
       p(strong("Think carefully about your prediction."), "Where will species
         richness be highest? Will it be north of the glacial maximum? Will
-        richness be highest in the interior highlands between the glacial 
-        maximum and coastal plain? Will richness be highest on the coastal 
+        richness be highest in the interior highlands? The eastern or central
+        highlands? Will richness be highest on the coastal 
         plain? Why do you think so?"),
       p("The data were obtained by creating a presence / absence matrix for each
         species of native fish. Presence or absence was based on 1° x 1° 
