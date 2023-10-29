@@ -4,7 +4,7 @@ nmds_tab <- tabPanel(
   "NMDS",
   fluidRow(
     column(
-      3,
+      width = 3,
       align = "right",
       offset = 7,
       span(
@@ -13,12 +13,13 @@ nmds_tab <- tabPanel(
       )
     ),
     column(
-      1,
+      width = 1,
       prev_btn("btn_prev_nmds"),
     ),
     column(
-      1,
-      next_btn("btn_next_nmds"),
+      width = 1,
+      p("Last page.")
+#      next_btn("btn_next_nmds"),
     )
   ),
   hr(),
