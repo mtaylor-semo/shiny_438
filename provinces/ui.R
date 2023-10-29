@@ -13,10 +13,10 @@ ui <- tagList(
   includeCSS("www/semo_mods.css"),
   navbarPage(
     id = "tabs",
-    windowTitle = "Biogeograpy: Provinces",
+    windowTitle = "Biogeograpy: Fall Line",
     title = div(
       img(src = "semo_logo.png", height = "70px"),
-      "Provinces"
+      "Fall Line"
     ),
 
     # Instructions tab -------------------------------------------------------
