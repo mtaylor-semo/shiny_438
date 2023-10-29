@@ -28,7 +28,7 @@ fall_line_tab <- tabPanel(
       p(
         "Coastal Plain", tags$b("fall line"), "(red line) along the eastern and
         southeastern states. Major cities located along the fall line are also
-        shown illegibly but are not important."),
+        shown illegibly and unimportantly."),
       hr(),
       p("Image credit:"),
       tags$a(href = "https://www.researchgate.net/figure/Trace-of-the-Coastal-Plain-unconformity-Fall-Line-across-the-US-Eastern-Seaboard-and_fig1_292993968", 
