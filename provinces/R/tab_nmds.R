@@ -1,7 +1,7 @@
 # Define Family Richness tab ---------------------------------------------
 
 nmds_tab <- tabPanel(
-  "NMDS",
+  "NMDS and Cluster",
   fluidRow(
     column(
       width = 3,

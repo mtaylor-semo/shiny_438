@@ -172,32 +172,32 @@ server <- function(input, output, session) {
   
   observeEvent(input$btn_next_fall, {
     next_tab(
-      tab = cluster_tab,
-      target = "Cluster",
-      test = input$btn_next_cluster
-    )
-    
-  })
-  
-  observeEvent(input$btn_prev_cluster, {
-    prev_tab("Part 2: Fall Line")
-  })
-  
-  observeEvent(input$btn_next_cluster, {
-    # if (error_check) req(
-    #   input$cluster_question1,
-    #   input$cluster_question2,
-    #   input$cluster_question3
-    # )
-    next_tab(
       tab = nmds_tab,
       target = "NMDS",
       test = input$btn_prev_nmds
     )
+    
   })
+  
+  # observeEvent(input$btn_prev_cluster, {
+  #   prev_tab("Part 2: Fall Line")
+  # })
+  
+  # observeEvent(input$btn_next_cluster, {
+  #   # if (error_check) req(
+  #   #   input$cluster_question1,
+  #   #   input$cluster_question2,
+  #   #   input$cluster_question3
+  #   # )
+  #   next_tab(
+  #     tab = nmds_tab,
+  #     target = "NMDS",
+  #     test = input$btn_prev_nmds
+  #   )
+  # })
 
   observeEvent(input$btn_prev_nmds,{
-    prev_tab("Cluster")
+    prev_tab("Part 2: Fall Line")
   })
   
   # observeEvent(input$btn_next_nmds, {
