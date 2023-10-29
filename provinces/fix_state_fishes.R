@@ -3,26 +3,35 @@ fix_missouri <- function(df) {
   motibble <- as_tibble(df, rownames = "watershed")
   
   merge_groups <- list(
-    Black = c("Black_Up", "Black_Low", "Current", "Eleven_Pt", "Spring_White", "L_Black"),
+    #Black = c("Black_Up", "Black_Low", "Current", "Eleven_Pt", "Spring_White", "L_Black"),
+    Black = c("Black"),
     #Black_Up = c("Black_Up"),
     #Black_Low = c("Black_Low"),
     Chariton = c("Chariton"),
     #Current = c("Current", "Jacks_Fk", "L_Black"),
-    Gasconade = c("Gasconade", "Big_Piney"),
+    #Gasconade = c("Gasconade", "Big_Piney"),
+    Gasconade = c("Gasconade"),
     Grand = c("Grand"),
     #Lamine = c("Lamine", "Blackwater"), # Consider adding to Missouri
-    Meramec = c("Meramec", "Big", "Bourbeuse"),
-    Miss_Low = c("Miss_Low", "Head_Div"),
-    Miss_Up = c("Miss_Up", "Cuivre", "North", "Fabius", "Wyaconda", "Fox", "Low_Des_Moines"),
-    Missouri = c("Missouri", "Moreau", "Tarkio", "Nodaway", "Lamine", "Blackwater"), # Consider moving Lamine here
-    Neosho = c("Spring_Neosho", "Elk"),
-    Osage_East = c("Osage_East", "Niangua"),
-    Osage_West = c("Osage_West", "Sac", "Pomme_De_Terre", "South_Grand"),
+    #Meramec = c("Meramec", "Big", "Bourbeuse"),
+    Meramec = c("Meramec"),
+    #Miss_Low = c("Miss_Low", "Head_Div"),
+    #Miss_Up = c("Miss_Up", "Cuivre", "North", "Fabius", "Wyaconda", "Fox", "Low_Des_Moines"),
+    Mississippi = c("Miss_Up", "Miss_Low"),
+    #Missouri = c("Missouri", "Moreau", "Tarkio", "Nodaway", "Lamine", "Blackwater"), # Consider moving Lamine here
+    Missouri = c("Missouri"),
+    #Neosho = c("Spring_Neosho", "Elk"),
+    Neosho = c("Neosho"),
+    # Osage_East = c("Osage_East", "Niangua"),
+    # Osage_West = c("Osage_West", "Sac", "Pomme_De_Terre", "South_Grand"),
+    Osage_East = c("Osage_East"),
+    Osage_West = c("Osage_West"),
     Platte = c("Platte"),
     Salt = c("Salt"),
     StFrancis_Low = c("StFrancis_Low"),
     StFrancis_Up = c("StFrancis_Up"),
-    White = c("White", "James", "NFk_White")
+    White = c("White")
+    # White = c("White", "James", "NFk_White")
   )
   
   
