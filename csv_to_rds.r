@@ -37,3 +37,66 @@ state_data <- files %>%
   set_names(nm = names)
 
 saveRDS(state_data, "range_size/data/state_data.rds")
+
+
+# NA Grid Data and fish_area for rapo
+
+nagrid <- read.csv('rapo/data/nagrid.csv', row.names=1)
+fish_area <- read.csv('rapo/data/fish_area_new.csv', row.names=1)
+
+rapo_data <- list(nagrid = nagrid, fish_area = fish_area)
+
+saveRDS(rapo_data, "rapo/data/rapo_data.rds")
+
+bnd <- read.table('rapo/data/boundaries.txt')
+rivers <- read.table('rapo/data/rivers.txt')
+coastLine <- read.table('rapo/data/coastLoRes.txt')	# U.S. outline
+
+gis_data <- list(bnd = bnd, rivers = rivers, coastline = coastLine)
+saveRDS(gis_data, "rapo/data/gis_data.rds")
+
+# Provinces data
+
+# State Data.  Will eventually cull files from folder to use only the data needed for the exercise.
+path_csv_files <- "provinces/data"
+
+valid_groups <- c(
+  "catostomid",
+  "cottid",
+  "cyprinid1",
+  "cyprinid2",
+  "cyprinodontid",
+  "etheostoma",
+  "fundulus",
+  "ictalurid",
+  "percid",
+  "salmonid"
+)
+
+valid_files <- c(
+  "alabama_fishes",
+  "georgia_fishes",
+  "mississippi_fishes",
+  "missouri_fishes",
+  "north_carolina_fishes",
+  "virginia_fishes",
+  "montana_fishes"
+)
+
+files <- dir(path = path_csv_files, pattern = "*.csv")
+files <- files[files %in% paste0(valid_groups, ".csv")]
+files <- files[files %in% paste0(valid_files, ".csv")]
+
+names <- tools::file_path_sans_ext(files)
+
+species_groups <- files %>% 
+  map(~ read.csv(file.path(path_csv_files, .), row.names = 1)) %>% 
+  set_names(nm = names)
+
+state_fishes <- files %>% 
+  map(~ read.csv(file.path(path_csv_files, .), row.names = 1)) %>% 
+  set_names(nm = names)
+
+saveRDS(species_groups, "provinces/data/species_groups.rds")
+saveRDS(state_fishes, "provinces/data/state_fishes.rds")
+
