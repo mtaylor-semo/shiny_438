@@ -7,46 +7,60 @@ server <- function(input, output, session) {
 
   ## Error message outputs ---------------------------------------------------
 
-  output$stu_name_error <- renderText({
-    if (input$student_name == "") {
-      msg <- "Please enter your name"
-    } else {
-      msg <- ""
-    }
-  })
+  # output$stu_name_error <- renderText({
+  #   if (input$student_name == "") {
+  #     msg <- "Please enter your name"
+  #   } else {
+  #     msg <- ""
+  #   }
+  # })
   
-  output$next_ready <- renderText({
-    if (input$student_name == "") {
-      msg <- ""
-    } else {
-      msg = "Press Next after reading."
-    }
-  })
+  # output$next_ready <- renderText({
+  #   if (input$student_name == "") {
+  #     msg <- ""
+  #   } else {
+  #     msg = "Press Next after reading."
+  #   }
+  # })
   
-  output$prediction_error <- renderText({
-    has_empty_input(list(input$student_name, input$predict_na_richness))
-  })
+  # output$prediction_error <- renderText({
+  #   has_empty_input(list(input$student_name, input$predict_na_richness))
+  # })
 
-  output$na_richness_result_error <- renderText({
-    has_empty_input(list(input$na_question1))
-  })
+  # output$na_richness_result_error <- renderText({
+  #   has_empty_input(list(input$na_question1))
+  # })
   
   output$family_richness_result_error <- renderText({
-    has_empty_input(
-      list(
-        input$family_richness_question1, 
-        input$family_richness_question2
-      )
-    )
-  })
-  
-  output$cluster_result_error <- renderText({
-    has_empty_input(list(input$cluster_question1))
+    "After you finish with this tab, press Next for Part 2. This tab and 
+    the previous two will be hidden. You 
+    can view them again by pressing the Prev buttons or by choosing
+    the Introduction tab to start again."
   })
 
-  output$nmds_result_error <- renderText({
-    has_empty_input(list(input$nmds_question1))
+  output$fall_result_error <- renderText({
+    "Press the Prev buttons to view the hidden tabs."
   })
+  
+  # output$family_richness_result_error <- renderText({
+  #   has_empty_input(
+  #     list(
+  #       input$family_richness_question1, 
+  #       input$family_richness_question2
+  #     )
+  #   )
+  # })
+  # 
+  # output$cluster_result_error <- renderText({
+  #   has_empty_input(list(input$cluster_question1))
+  # })
+  output$cluster_result_error <- renderText({
+    "Scroll down for important information."
+  })
+  # 
+  # output$nmds_result_error <- renderText({
+  #   has_empty_input(list(input$nmds_question1))
+  # })
   
   ## Reactive values ---------------------------------------------------------
 
@@ -75,17 +89,17 @@ server <- function(input, output, session) {
   observeEvent(input$btn_next_intro, {
     # if (error_check) req(input$student_name)
     next_tab(
-      tab = predictions_tab, 
+      tab = interior_highlands_tab, 
       target = "Part 1: Interior Highlands", 
-      test = input$btn_next_pred
+      test = input$btn_next_highland
       )
   })
   
-  observeEvent(input$btn_prev_pred, {
+  observeEvent(input$btn_prev_highland, {
     prev_tab("Introduction")
   })
   
-  observeEvent(input$btn_next_pred, {
+  observeEvent(input$btn_next_highland, {
     # if (error_check) req(input$predict_na_richness)
     next_tab(
       tab = na_richess_tab, 
@@ -121,9 +135,9 @@ server <- function(input, output, session) {
     #   input$family_richness_question2
     # )
     next_tab(
-      tab = cluster_tab,
-      target = "Cluster",
-      test = input$cluster_question1
+      tab = fall_line_tab,
+      target = "Part 2: Fall Line",
+      test = input$btn_next_fall
     )
     hideTab(
       inputId = "tabs",
@@ -138,21 +152,47 @@ server <- function(input, output, session) {
       target = "Family Richness"
     )
   })
+
+  observeEvent(input$btn_prev_fall, {
+    prev_tab("Family Richness")
+    hideTab(
+      inputId = "tabs",
+      target = "Part 2: Fall Line"
+    )
+    hideTab(
+      inputId = "tabs",
+      target = "Cluster"
+    )
+    hideTab(
+      inputId = "tabs",
+      target = "NMDS"
+    )
+    
+  })
+  
+  observeEvent(input$btn_next_fall, {
+    next_tab(
+      tab = cluster_tab,
+      target = "Cluster",
+      test = input$btn_next_cluster
+    )
+    
+  })
   
   observeEvent(input$btn_prev_cluster, {
-    prev_tab("Family Richness")
+    prev_tab("Part 2: Fall Line")
   })
   
   observeEvent(input$btn_next_cluster, {
-    if (error_check) req(
-      input$cluster_question1,
-      input$cluster_question2,
-      input$cluster_question3
-    )
+    # if (error_check) req(
+    #   input$cluster_question1,
+    #   input$cluster_question2,
+    #   input$cluster_question3
+    # )
     next_tab(
       tab = nmds_tab,
       target = "NMDS",
-      test = input$nmds_question1
+      test = input$btn_prev_nmds
     )
   })
 
@@ -160,18 +200,18 @@ server <- function(input, output, session) {
     prev_tab("Cluster")
   })
   
-  observeEvent(input$btn_next_nmds, {
-    if (error_check) req(input$nmds_question1)
-    next_tab(
-      tab = summary_tab,
-      target = "Summary",
-      test = input$summary
-    )
-  })
-  
-  observeEvent(input$btn_prev_summary, {
-    prev_tab("NMDS")
-  })
+  # observeEvent(input$btn_next_nmds, {
+  #   # if (error_check) req(input$nmds_question1)
+  #   next_tab(
+  #     tab = summary_tab,
+  #     target = "Summary",
+  #     test = input$summary
+  #   )
+  # })
+  # 
+  # observeEvent(input$btn_prev_summary, {
+  #   prev_tab("NMDS")
+  # })
   
   observeEvent(input$family_menu, {
     output$species_info <- renderText(get_species_info(input$family_menu))
@@ -198,10 +238,10 @@ server <- function(input, output, session) {
       }
     })
 
-  output$prediction_na_richness <- renderUI({
-    p("You predicted:")
-    sprintf("%s", input$predict_na_richness)
-  })
+  # output$prediction_na_richness <- renderUI({
+  #   p("You predicted:")
+  #   sprintf("%s", input$predict_na_richness)
+  # })
 
 
   ## Richness and area -------------------------------------------------
