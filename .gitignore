@@ -9,7 +9,7 @@ biogeo/range_size/data/*.csv
 */state_data/
 */orig_scripts/
 *.psd
-
+*test/
 # Session Data files
 .RData
 # Example code in package build process
