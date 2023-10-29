@@ -28,7 +28,7 @@ fall_line_tab <- tabPanel(
       p(
         "Coastal Plain", tags$b("fall line"), "(red line) along the eastern and
         southeastern states. Major cities located along the fall line are also
-        shown."),
+        shown illegibly but are not important."),
       hr(),
       p("Image credit:"),
       tags$a(href = "https://www.researchgate.net/figure/Trace-of-the-Coastal-Plain-unconformity-Fall-Line-across-the-US-Eastern-Seaboard-and_fig1_292993968", 
@@ -36,24 +36,26 @@ fall_line_tab <- tabPanel(
     ),
     column(
       6,
+      h4("Part 2"),
       p("The", strong("fall line"), "is the boundary between the coastal plain
         and the uplifted interior (eastern and central) highlands."),
       p("The coastal plain is very flat so the streams and rivers tend to be
-        slow moving, warm, and more turbid (more sediment in the water). The 
+        sluggish, warm, and more turbid (more sediment in the water). The 
         stream bottoms tend to be sandy or muddy. The interior highlands are 
         mountainous regions so the streams and rivers tend to have faster 
-        moving, cooler, and have gravel bottoms in the faster stretches."),
+        moving, cooler water, with gravel bottoms in the faster stretches."),
       p("Many southeastern rivers start in the interior highlands above the
         fall line but flow across the fall line to the coastal plain before
         reaching the ocean."),
       p(strong("What do you predict?"), "Do you think the fishes found in the
         watersheds above the fall line will be more similar to the fishes 
-        in the same river", em("below"), "the fall line? Or, will they be
-        more similar to the fishes in nearby rivers above the fall line?"),
+        in the", em("same river below"), "the fall line? Or, will they be
+        more similar to the fishes in", em("nearby rivers above"), "the fall
+        line?"),
       p("On the next two tabs, you will use cluster and NMDS analyses to
-        text your predictions. You will explore the results across several
-        states that include the fall line, beginning with Virginia and 
-        ending with Missouri."),
+        text your predictions, similar to what you did in the Montana exercise.
+        You will explore the results across several states that include the
+        fall line, beginning with Virginia and ending with Missouri."),
       p("Press the Next button above to begin.")
       # hr(),
       # textAreaInput(
