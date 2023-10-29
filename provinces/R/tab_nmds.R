@@ -1,7 +1,7 @@
 # Define Family Richness tab ---------------------------------------------
 
 nmds_tab <- tabPanel(
-  "NMDS and Cluster",
+  "NMDS",
   fluidRow(
     column(
       width = 3,
@@ -50,12 +50,12 @@ nmds_tab <- tabPanel(
       uiOutput("watershed_map_nmds"),
       #uiOutput("watershed_info_nmds")
       hr(),
-      p("Watershed names in the plots that have some form of “upper,” “lower,”
-        “above,” “below,” “_up”, “_low,” etc. indicate portions of the watershed
+      p("River names in the plots that have some form of “upper,” “lower,”
+        “above,” “below,” “_up”, “_low,” etc. indicate portions of the river
         above and below the fall line respectively. The black line in the map
         above shows the location of the fall line."),
-      p("The state map shows each watershed and lists where the watershed
-        terminates. For this exercise, watersheds terminate at the Alantic Ocean
+      p("The state map shows each river and lists the major watershed that
+        the river flows to. For this exercise, rivers flow to the Alantic Ocean
         (Atlantic Slope), the Gulf of Mexico, the Tennessee River, the Ohio
         River, the Mississippi River, the Missouri River, the Arkansas River,
         or the White River. Reference the map above to the map at left to help
