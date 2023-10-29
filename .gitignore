@@ -7,6 +7,9 @@ biogeo/range_size/data/*.csv
 */marine/
 */na_data/
 */state_data/
+*/orig_scripts/
+*.psd
+
 # Session Data files
 .RData
 # Example code in package build process
