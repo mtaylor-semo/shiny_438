@@ -75,9 +75,9 @@ ui <- tagList(
             and the fall line (see image at left) that separates the",
             strong("coastal plain"), "from uplifted", strong("interior 
             highlands"), "(central and eastern highlands). In Part 2, you will
-            explore river watersheds that cross the fall line to learn whether
-            the distribution of freshwater fishes is affected by this important
-            biogeographic feature.")
+            explore rivers that belong to different watersheds and rivers that
+            cross the fall line to learn whether the distribution of freshwater
+            fishes is affected by these important biogeographic feature.")
         )
       )
     )

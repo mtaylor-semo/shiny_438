@@ -48,7 +48,7 @@ fall_line_tab <- tabPanel(
         fall line but flow across the fall line to the coastal plain before
         reaching the ocean."),
       p(strong("What do you predict?"), "Do you think the fishes found in the
-        watersheds above the fall line will be more similar to the fishes 
+        rivers above the fall line will be more similar to the fishes 
         in the", em("same river below"), "the fall line? Or, will they be
         more similar to the fishes in", em("nearby rivers above"), "the fall
         line?"),

@@ -61,12 +61,12 @@ cluster_tab <- tabPanel(
         “above,” “below,” “_up”, “_low,” etc. indicate portions of the river
         above and below the fall line respectively. The black line in the map
         above shows the location of the fall line."),
-      p("The state map shows each river and lists the major watershed that
-        the river flows to. For this exercise, rivers flow to the Alantic Ocean
+      p("The state map shows each river and lists the major watershed of each
+        river. For this exercise, rivers flow to the Alantic Ocean
         (Atlantic Slope), the Gulf of Mexico, the Tennessee River, the Ohio
         River, the Mississippi River, the Missouri River, the Arkansas River,
         or the White River. Reference the map above to the map at left to help
-        keep you oriented as you compare the watersheds of each
+        keep you oriented as you compare the rivers of each
         state and among states.")
     )
   )
