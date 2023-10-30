@@ -2,16 +2,17 @@
 predictions_tab <- tabPanel(
   "Predictions",
   fluidRow(
+    # column(
+    #   3,
+    #   align = "right",
+    #   offset = 7,
+    #   span(textOutput("prediction_error"),
+    #        style = "color:#9D2235"
+    #   )
+    # ),
     column(
-      3,
-      align = "right",
-      offset = 7,
-      span(textOutput("prediction_error"),
-           style = "color:#9D2235"
-      )
-    ),
-    column(
-      1,
+      width = 1,
+      offset = 10,
       prev_btn("btn_prev_pred"),
     ),
     column(
@@ -47,14 +48,14 @@ predictions_tab <- tabPanel(
         Take a look at the map of U.S. rivers that was given to you?  Below,
         name the region and 3--4 rivers in that region where you think
         diversity may be the highest. Explain your reasoning."),
-      hr(),
-      textAreaInput(
-        inputId = "predict_na_richness",
-        label = NULL, # "Enter your prediction:",
-        rows = nrows,
-        placeholder = "U.S. species richness prediction…",
-        width = "90%"
-      )
+      # hr(),
+      # textAreaInput(
+      #   inputId = "predict_na_richness",
+      #   label = NULL, # "Enter your prediction:",
+      #   rows = nrows,
+      #   placeholder = "U.S. species richness prediction…",
+      #   width = "90%"
+      # )
     )
   )
 )

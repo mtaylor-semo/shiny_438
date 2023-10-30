@@ -62,11 +62,11 @@ server <- function(input, output, session) {
   ## Button observers --------------------------------------------------------
 
   observeEvent(input$btn_next_intro, {
-    if (error_check) req(input$student_name)
+    # if (error_check) req(input$student_name)
     next_tab(
       tab = predictions_tab, 
       target = "Predictions", 
-      test = input$predict_na_richness)
+      test = input$btn_prev_pred)
   })
   
   observeEvent(input$btn_prev_pred, {
@@ -74,14 +74,14 @@ server <- function(input, output, session) {
   })
   
   observeEvent(input$btn_next_pred, {
-    if (error_check) req(input$predict_na_richness)
+    # if (error_check) req(input$predict_na_richness)
     next_tab(
       tab = ib_tab,
       target = "Islands and Animals",
       test = input$ib_group)
-    hideTab(
-      inputId = "tabs",
-      target = "Predictions")
+    # hideTab(
+    #   inputId = "tabs",
+    #   target = "Predictions")
   })
 
   observeEvent(input$btn_prev_ib, {
@@ -89,25 +89,25 @@ server <- function(input, output, session) {
   })
 
   observeEvent(input$btn_next_ib, {
-    if (error_check) req(input$ib_question1)
+    #if (error_check) req(input$ib_question1)
     next_tab(
       tab = galapagos_tab,
       target = "Galapagos",
-      test = input$choose_galapagos_data_set)
+      test = input$btn_prev_galapagos)
   })
 
   observeEvent(input$btn_prev_galapagos, {
     prev_tab("Islands and Animals")
   })
 
-  observeEvent(input$btn_next_galapagos, {
-    if (error_check) req(input$galapagos_question1)
-    next_tab(
-      tab = summary_tab,
-      target = "Summary",
-      test = input$summary
-    )
-  })
+  # observeEvent(input$btn_next_galapagos, {
+  #   if (error_check) req(input$galapagos_question1)
+  #   next_tab(
+  #     tab = summary_tab,
+  #     target = "Summary",
+  #     test = input$summary
+  #   )
+  # })
 
 
   ## Outputs -------------------------------------------------------------

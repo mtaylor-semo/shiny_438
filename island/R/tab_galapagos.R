@@ -12,22 +12,24 @@ galapagos_tab <- tabPanel(
         selected = "Birds"
       )
     ),
+    # column(
+    #   3,
+    #   align = "right",
+    #   offset = 4,
+    #   span(
+    #     textOutput("galapagos_result_error"),
+    #     style = "color:#9D2235"
+    #   )
+    # ),
     column(
-      3,
-      align = "right",
-      offset = 4,
-      span(
-        textOutput("galapagos_result_error"),
-        style = "color:#9D2235"
-      )
-    ),
-    column(
-      1,
+      width = 1,
+      offset = 7,
       prev_btn("btn_prev_galapagos"),
     ),
     column(
-      1,
-      next_btn("btn_next_galapagos"),
+      width = 1,
+      p("Last page.")
+      # next_btn("btn_next_galapagos"),
     )
   ),
   hr(),
@@ -54,23 +56,23 @@ galapagos_tab <- tabPanel(
       p("Plot of something vs another thing")
     )
   ),
-  hr(),
-  fluidRow(
-    column(
-      6,
-      p(strong("You predicted:")),
-      #uiOutput("prediction_na_richness")
-    ),
-    column(
-      6,
-      p(strong("Question:"), galapagos_question1_text),
-      textAreaInput(
-        inputId = "galapagos_question1",
-        label = NULL,
-        rows = nrows,
-        width = "97%"
-      )
-    )
-  )
+  # hr(),
+  # fluidRow(
+  #   column(
+  #     6,
+  #     p(strong("You predicted:")),
+  #     #uiOutput("prediction_na_richness")
+  #   ),
+  #   column(
+  #     6,
+  #     p(strong("Question:"), galapagos_question1_text),
+  #     textAreaInput(
+  #       inputId = "galapagos_question1",
+  #       label = NULL,
+  #       rows = nrows,
+  #       width = "97%"
+  #     )
+  #   )
+  # )
 )
 
