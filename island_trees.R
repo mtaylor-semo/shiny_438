@@ -1,13 +1,15 @@
 library(readr)
 library(dplyr)
 library(tidyr)
-
+library(ggplot2)
 
 tree_dat <- read_tsv("island/data/oo_444807.txt", skip = 25) %>% 
   filter(species_number > 0)
 
+tree_dat <- read_csv("island/data/trees.csv")
+
 tree_dat %>% 
-  ggplot(aes(x = island_perimeter, y = species_number)) +
+  ggplot(aes(x = distance_Gam, y = species_number)) +
   geom_smooth(
     formula = "y ~ x",
     method = "lm"
