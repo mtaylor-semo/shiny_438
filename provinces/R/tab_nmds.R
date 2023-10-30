@@ -41,9 +41,7 @@ nmds_tab <- tabPanel(
         "cluster_plot_rep",
         width = "97%",
         height = "400px"
-      ),
-      p("Choose the Cluster tab (or press the Prev button) to view a larger
-        version of the cluster plot.")
+      )
     ),
     column(
       5,
