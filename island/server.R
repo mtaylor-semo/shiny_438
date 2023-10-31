@@ -166,7 +166,7 @@ server <- function(input, output, session) {
   })
 
 
-  # Herps UI ----------------------------------------------------------------
+# Herps UI ----------------------------------------------------------------
 
   build_herp_ui <- function() {
     herps_regression <- lm_regress(
@@ -278,16 +278,15 @@ server <- function(input, output, session) {
     #   "area",
     #   "ldistance"
     # )
-    # xvar = switch(
-    #   values$aleuts_xaxis,
-    #   "area" ~ "area",
-    #   "dAlaska" ~ "dAlaska",
-    #   "dKamchatka" ~ "dKamchatka"
+    # xvar = case_when(
+    #   values$aleuts_xaxis == "area" ~ "area",
+    #   values$aleuts_xaxis == "dAlaska" ~ "dAlaska",
+    #   values$aleuts_xaxis == "dKamchatka" ~ "dKamchatka"
     # )
-    
+
     aleuts_regression <- lm_regress(
       x = log10(aleuts[[values$aleuts_xaxis]]),
-      y = log10(aleuts$lrichness),
+      y = log10(aleuts$richness),
       term = "Area"
     )
     
