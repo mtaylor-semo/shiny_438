@@ -21,6 +21,22 @@ rajas_info <- tagList(
     doi: 10.3897/BDJ.8.e55275")
 )
 
+aleuts_info <- tagList(
+  p("The Aleutian Islands is a group of about 59 islands that extend from the
+    Alaskan Peninsula west towards the Kamchatka Peninsula in Siberia. The
+    Aleutians form a volcanic arc where the northern edge of the Pacific Plate
+    subducts beneath the North American plate. As the islands extend from
+    Alaska to Siberia, distance from a mainland source can be considered from
+    two Alaska and also from Siberia."),
+  p("This data set includes counts of all known plant species from 13 
+    “well-surveyed” islands. Area of the islands was calculated as was distance
+    from both the Alaskan Peninsula and Kamchatka Peninsula."),
+  p("Data from Garroutte, M., F. Huettmann, C.O. Webb, and S.M. Ickert-Bond.
+    2018. Biogeographic and anthropogenic correlates of Aleutian Islands plant
+    diversity: A machine-learning approach. Journal of Systematics and
+    Evolution 56: 476-497.")
+)
+
 beetles_info <- tagList(
   p("The beetles of this study are long-horned beetles (family Cerambycidae),
     named for their very long antennae. At the time of this study, 91 species

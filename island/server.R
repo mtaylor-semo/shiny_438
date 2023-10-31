@@ -261,6 +261,80 @@ server <- function(input, output, session) {
   }
   
 
+# Aleutian Plants ---------------------------------------------------------
+
+  observe({
+    req(input$aleut_xaxis)
+    values$aleuts_xaxis <- case_when(
+      input$aleut_xaxis == "Area" ~ "area",
+      input$aleut_xaxis == "Distance from Alaska (km)" ~ "dAlaska",
+      input$aleut_xaxis == "Distance from Kamchatka (km)" ~ "dKamchatka"
+    )
+  })
+  
+  build_aleut_ui <- function() {
+    # xvar = if_else(
+    #   values$aleuts_xaxis == "area",
+    #   "area",
+    #   "ldistance"
+    # )
+    # xvar = switch(
+    #   values$aleuts_xaxis,
+    #   "area" ~ "area",
+    #   "dAlaska" ~ "dAlaska",
+    #   "dKamchatka" ~ "dKamchatka"
+    # )
+    
+    aleuts_regression <- lm_regress(
+      x = log10(aleuts[[values$aleuts_xaxis]]),
+      y = log10(aleuts$lrichness),
+      term = "Area"
+    )
+    
+    aleuts_gg_obj <- build_ib_plot(
+      aleuts,
+      x = values$aleuts_xaxis,
+      y = "richness"
+    )
+    
+    aleuts_gg_obj <- update_xlabel(
+      aleuts_gg_obj,
+      label = if_else(
+        input$aleut_xaxis == "Area",
+        "Area (km²)",
+        "Distance from Alaska (km)",
+        "Distance from Kamchatka (km)"
+      )
+    )
+    
+    tagList(
+      column(
+        6,
+        p(tags$b("Statistics")),
+        build_stats(aleuts_regression),
+        hr(),
+        p(tags$b("About the data")),
+        p(aleuts_info)
+      ),
+      column(
+        6,
+        selectInput(
+          inputId = "aleut_xaxis",
+          label = "Choose x-axis",
+          choices = c(
+            "Area",
+            "Distance from Alaska (km)",
+            "Distance from Kamchatka (km)"
+          ),
+          selected = input$aleut_xaxis
+        ),
+        br(),
+        renderPlot(aleuts_gg_obj)
+      )
+    )
+  }
+  
+
   # Beetles UI --------------------------------------------------------------
 
   observe({
