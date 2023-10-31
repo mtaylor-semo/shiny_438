@@ -32,10 +32,10 @@ semo_palette <- list(
 
 # Set resolution of plot to 96 dpi. Most users
 # are PC.
-res = 96
+res <- 96
 
 # Number of rows to use for textInput questions
-nrows = 5
+nrows <- 5
 
 # Number of digits to round for tables and formulas
 digits <- 4
@@ -54,17 +54,18 @@ herps <- read_csv(
 trees <- read_csv(
   "data/trees.csv",
   show_col_types = FALSE
-) |> 
+) |>
   mutate(
     lrichness = log10(species_number),
     larea = log10(island_area),
     ldistance = log10(distance_Gam)
-  ) |> 
+  ) |>
   rename(
     area = island_area,
     distance = distance_Gam,
     richness = species_number,
-    island = island_ID) |> 
+    island = island_ID
+  ) |>
   select(
     island,
     area,
@@ -107,38 +108,38 @@ arthro <- read_csv(
   )
 
 birds <- read_csv(
-  "data/birds.csv", 
+  "data/birds.csv",
   show_col_types = FALSE
-) %>% 
+) %>%
   pivot_longer(
     cols = -species,
     names_to = "island",
     values_to = "presence"
-  ) 
+  )
 
-islands_per_bird <- 
-  birds %>% 
-  group_by(species) %>% 
+islands_per_bird <-
+  birds %>%
+  group_by(species) %>%
   summarize(number_islands = sum(presence))
 
-birds_per_island <- 
-  birds %>% 
-  group_by(island) %>% 
+birds_per_island <-
+  birds %>%
+  group_by(island) %>%
   summarize(number_species = sum(presence))
 
 # Santiago is correct name for San Salvador
-islands <- read_csv("data/islands.csv", show_col_types = FALSE) %>% 
-  rename(island = Island) %>% 
+islands <- read_csv("data/islands.csv", show_col_types = FALSE) %>%
+  rename(island = Island) %>%
   mutate(
     log_area = log10(area),
     log_elevation = log10(elevation)
-  ) %>% 
+  ) %>%
   mutate(island = replace(island, island == "San_Salvador", "Santiago"))
 
-islands <- 
-  birds %>% 
-  group_by(island) %>% 
-  summarize(richness = sum(presence)) %>% 
+islands <-
+  birds %>%
+  group_by(island) %>%
+  summarize(richness = sum(presence)) %>%
   left_join(x = ., y = islands, by = "island")
 
 rm(birds)
@@ -179,7 +180,6 @@ prev_tab <- function(target) {
 
 
 lm_regress <- function(x = NULL, y = NULL, term = "x") {
-  
   # col_names <- c(
   #   Term = "term",
   #   Estimate = "estimate",
@@ -189,22 +189,22 @@ lm_regress <- function(x = NULL, y = NULL, term = "x") {
   # )
   res_lm <- lm(y ~ x)
   sum_lm <- summary(res_lm)
-  
+
   result <- list()
-  # result$lm_tidy <- broom::tidy(res_lm) %>% rename(all_of(col_names))# %>% 
+  # result$lm_tidy <- broom::tidy(res_lm) %>% rename(all_of(col_names))# %>%
   #   mutate(Term = ifelse(row_number() == 2, term, Term))
   result$adjr <- round(sum_lm$adj.r.squared, digits)
-  result$intercept <- round(sum_lm$coefficients[1,1], digits)
-  result$beta <- round(sum_lm$coefficients[2,1], digits)
-  
+  result$intercept <- round(sum_lm$coefficients[1, 1], digits)
+  result$beta <- round(sum_lm$coefficients[2, 1], digits)
+
   result$p <- case_when(
-    sum_lm$coefficients[2,4] < 0.0001 ~ "< 0.0001",
-    sum_lm$coefficients[2,4] < 0.001 ~ "< 0.001",
-    sum_lm$coefficients[2,4] < 0.01 ~ "< 0.01",
-    sum_lm$coefficients[2,4] <= 0.05 ~ "< 0.05",
-    sum_lm$coefficients[2,4] > 0.05 ~ "> 0.05 (not significant)"
+    sum_lm$coefficients[2, 4] < 0.0001 ~ "< 0.0001",
+    sum_lm$coefficients[2, 4] < 0.001 ~ "< 0.001",
+    sum_lm$coefficients[2, 4] < 0.01 ~ "< 0.01",
+    sum_lm$coefficients[2, 4] <= 0.05 ~ "< 0.05",
+    sum_lm$coefficients[2, 4] > 0.05 ~ "> 0.05 (not significant)"
   )
-  
+
   return(result)
 }
 
@@ -215,20 +215,21 @@ build_stats <- function(x = NULL) {
     intercept <- x$intercept
     beta <- x$beta
     if (intercept >= 0) {
-      sign <- " + "} else {
-        sign <-  " - "
-        intercept = abs(intercept)
-      }
-    
+      sign <- " + "
+    } else {
+      sign <- " - "
+      intercept <- abs(intercept)
+    }
+
     regreq <- paste0("Regression equation: Y = ", beta, "X", sign, intercept)
     adjr <- paste0("Adjusted R²: ", x$adjr)
     prob <- paste0("p ", x$p)
-    
+
     # Return tags for renderUI.
     stats <- tags$div(
       regreq, tags$br(), adjr, tags$br(), prob
     )
-    
+
     return(stats)
   }
 }
@@ -249,7 +250,7 @@ plot_galapagos <- function(plot_data = NULL, xaxis = NULL) {
     ) +
     geom_smooth(
       aes(y = richness),
-      formula = y ~ x,  # Needed to suppress console msg
+      formula = y ~ x, # Needed to suppress console msg
       method = "lm",
       color = semo_palette$cardiac_red,
       fill = semo_palette$pewter
@@ -258,7 +259,7 @@ plot_galapagos <- function(plot_data = NULL, xaxis = NULL) {
     theme_minimal() +
     labs(
       x = if_else(
-        xaxis == "area", #aes(.data[[xaxis]]) == "area",
+        xaxis == "area", # aes(.data[[xaxis]]) == "area",
         "Area (km²)",
         "Elevation (m)"
       ),
@@ -274,16 +275,18 @@ plot_birds_per_island <- function() {
   ggplot(birds_per_island) +
     geom_point(
       aes(
-        x = number_species, 
+        x = number_species,
         y = reorder(
           island, number_species
         )
-      ), 
+      ),
       color = semo_palette$cardiac_red,
       size = 3
     ) +
-    scale_x_continuous(breaks = seq(6, 18, 2),
-                       limits = c(6, 18)) +
+    scale_x_continuous(
+      breaks = seq(6, 18, 2),
+      limits = c(6, 18)
+    ) +
     theme_minimal() +
     labs(
       x = "Bird species richness",
@@ -301,7 +304,7 @@ plot_islands_per_bird <- function() {
       aes(
         x = number_islands,
         y = reorder(species, number_islands)
-      ), 
+      ),
       color = semo_palette$cardiac_red,
       size = 3
     ) +
@@ -318,19 +321,19 @@ plot_islands_per_bird <- function() {
 
 build_ib_plot <- function(df, x = NULL, y = NULL) {
   if (deparse(substitute(df)) == "herps") {
-    lab = c("10", "100", "1000", "10,000", "100,000")
-    brks = c(10, 100, 1000, 10000, 100000)
+    lab <- c("10", "100", "1000", "10,000", "100,000")
+    brks <- c(10, 100, 1000, 10000, 100000)
   } else {
-    lab = waiver()
-    brks = waiver()
+    lab <- waiver()
+    brks <- waiver()
   }
-  
+
   ggplot(df, aes(x = .data[[x]], y = .data[[y]])) +
     geom_smooth(
       formula = "y ~ x",
       method = "lm",
       se = FALSE,
-      color = semo_palette$pewter, 
+      color = semo_palette$pewter,
       linewidth = 0.75
     ) +
     geom_point(
@@ -349,14 +352,15 @@ build_ib_plot <- function(df, x = NULL, y = NULL) {
     ) +
     geom_text_repel(
       aes(label = island),
-      size = 5) +
+      size = 5
+    ) +
     theme(
       panel.grid = element_blank(),
       axis.text = element_text(size = 13),
       axis.title = element_text(size = 14)
     )
-  
-  #return(ggObj)
+
+  # return(ggObj)
 }
 
 # Separate function to easily update plot with proper x-axis label
@@ -366,7 +370,7 @@ update_xlabel <- function(ggObj = NULL, label = "Area (km²)") {
 }
 
 # ib_plot <- function(df, x = NULL, y = NULL) {
-#   
+#
 #   if (deparse(substitute(df)) == "herps") {
 #     lab = c("10", "100", "1000", "10,000", "100,000")
 #     brks = c(10, 100, 1000, 10000, 100000)
@@ -374,13 +378,13 @@ update_xlabel <- function(ggObj = NULL, label = "Area (km²)") {
 #     lab = waiver()
 #     brks = waiver()
 #   }
-#   
+#
 #   ggplot(df, aes(x = .data[[x]], y = .data[[y]])) +
 #     geom_smooth(
 #       formula = "y ~ x",
 #       method = "lm",
 #       se = FALSE,
-#       color = semo_palette$pewter, 
+#       color = semo_palette$pewter,
 #       linewidth = 0.75
 #     ) +
 #     geom_point(
@@ -442,10 +446,10 @@ plot_arthro_by_island <- function() {
 # Data tables -------------------------------------------------------------
 
 build_data_table <- function(sort_order = NULL) {
-  islands %>% 
-    select(-c(5, 6)) %>% 
-    mutate(island = str_replace(island, "_", " ")) %>% 
-    #arrange(desc(richness)) %>% 
+  islands %>%
+    select(-c(5, 6)) %>%
+    mutate(island = str_replace(island, "_", " ")) %>%
+    # arrange(desc(richness)) %>%
     datatable(
       class = "compact",
       rownames = FALSE,
