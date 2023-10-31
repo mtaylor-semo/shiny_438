@@ -32,3 +32,20 @@ tree_dat |>
 
 summary(lm(species_number ~ distance_Gam, data = tree_dat))
 summary(lm(species_number ~ island_area, data = tree_dat))
+
+aleuts <- read_csv("island/data/aleutians.csv")
+
+ggplot(
+  aleuts,
+  aes(
+    x = area,# - dAlaska, # dAlaska
+    y = richness
+  )
+) +
+  geom_point() +
+  geom_smooth(
+    method = "lm",
+    se = FALSE
+  ) +
+  scale_x_log10() +
+  scale_y_log10()
