@@ -166,12 +166,12 @@ server <- function(input, output, session) {
   })
 
 
-# Herps UI ----------------------------------------------------------------
+  # Herps UI ----------------------------------------------------------------
 
   build_herp_ui <- function() {
     herps_regression <- lm_regress(
-      x = herps$larea,
-      y = herps$lspecies,
+      x = log10(herps$area),
+      y = log10(herps$species),
       term = "Area"
     )
 
@@ -199,7 +199,7 @@ server <- function(input, output, session) {
 
 
 
-# Raja Ampat Trees --------------------------------------------------------
+  # Raja Ampat Trees --------------------------------------------------------
 
   observe({
     req(input$raja_xaxis)
@@ -211,14 +211,14 @@ server <- function(input, output, session) {
   })
   
   build_raja_ui <- function() {
-    xvar = if_else(
-      values$rajas_xaxis == "area",
-      "larea",
-      "ldistance"
-    )
+    # xvar = if_else(
+    #   values$rajas_xaxis == "area",
+    #   "larea",
+    #   "ldistance"
+    # )
     rajas_regression <- lm_regress(
-      x = rajas[[xvar]],
-      y = rajas$lrichness,
+      x = log10(rajas[[values$rajas_xaxis]]),
+      y = log10(rajas$richness),
       term = "Area"
     )
     
@@ -261,7 +261,7 @@ server <- function(input, output, session) {
   }
   
 
-# Aleutian Plants ---------------------------------------------------------
+  # Aleutian Plants ---------------------------------------------------------
 
   observe({
     req(input$aleut_xaxis)
@@ -348,8 +348,8 @@ server <- function(input, output, session) {
 
   build_beetle_ui <- function() {
     beetles_regression <- lm_regress(
-      x = unlist(beetles[values$beetles_xaxis]),
-      y = beetles$species,
+      x = log10(beetles[[values$beetles_xaxis]]),
+      y = log10(beetles$species),
       term = input$beetle_xaxis
     )
 
@@ -405,8 +405,8 @@ server <- function(input, output, session) {
 
   build_mammal_ui <- function() {
     mtn_regression <- lm_regress(
-      x = unlist(mtn[values$mtn_xaxis]),
-      y = mtn$species,
+      x = log10(mtn[[values$mtn_xaxis]]),
+      y = log10(mtn$species),
       term = input$mtn_xaxis
     )
 
@@ -506,8 +506,8 @@ server <- function(input, output, session) {
 
   build_arthro_ui <- function() {
     arthro_regression <- lm_regress(
-      x = arthro$area,
-      y = arthro$species,
+      x = log10(arthro$area),
+      y = log10(arthro$species),
       term = "Area"
     )
 

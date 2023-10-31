@@ -45,21 +45,12 @@ digits <- 4
 herps <- read_csv(
   "data/carib_herps.csv",
   show_col_types = FALSE
-) %>%
-  mutate(
-    lspecies = log10(species),
-    larea = log10(area)
-  )
+)
 
 rajas <- read_csv(
   "data/trees.csv",
   show_col_types = FALSE
 ) |>
-  mutate(
-    lrichness = log10(species_number),
-    larea = log10(island_area),
-    ldistance = log10(distance_Gam)
-  ) |>
   rename(
     area = island_area,
     distance = distance_Gam,
@@ -70,53 +61,29 @@ rajas <- read_csv(
     island,
     area,
     distance,
-    richness,
-    larea,
-    ldistance,
-    lrichness
+    richness
   )
 
 aleuts <- read_csv(
   "data/aleutians.csv",
   show_col_types = FALSE
-) |> 
-  mutate(
-    lrichness = log10(richness),
-    larea = log10(area),
-    ldAlaska = log10(dAlaska),
-    ldKamchatka = log10(dKamchatka)
-  )
+)
 
 beetles <- read_csv(
   "data/florida_beetles.csv",
   show_col_types = FALSE
-) %>%
-  mutate(
-    lspecies = log10(species),
-    larea = log10(area),
-    ldist = log10(distance)
-  )
+)
 
 mtn <- read_csv(
   "data/montaine_mammals.csv",
   show_col_types = FALSE
-) %>%
-  mutate(
-    lspecies = log10(species),
-    larea = log10(area),
-    ldist_mtn = log10(dist_mtn),
-    ldist_main = log10(dist_mainland)
-  )
+)
 
 arthro <- read_csv(
   "data/arboreal_arthropods.csv",
   show_col_types = FALSE
 ) %>%
-  subset(island != "IN1") %>%
-  mutate(
-    lspecies = log10(species),
-    area = log10(area)
-  )
+  subset(island != "IN1")
 
 birds <- read_csv(
   "data/birds.csv",
