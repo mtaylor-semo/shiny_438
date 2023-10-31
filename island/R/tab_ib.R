@@ -11,6 +11,7 @@ ib_tab <- tabPanel(
         choices = c(
           "Caribbean Herps", 
           "Florida Beetles", 
+          "Island Trees",
           "Montaine Mammals", 
           "Arboreal Arthropods"),
         selected = "Caribbean Herps"

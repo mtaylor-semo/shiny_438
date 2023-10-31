@@ -13,7 +13,7 @@ library(RColorBrewer)
 
 # Global vars -------------------------------------------------------------
 
-error_check = TRUE # Use this to quickly turn off error checks during dev.
+# error_check = TRUE # Use this to quickly turn off error checks during dev.
 
 semo_palette <- list(
   cardiac_red = "#9d2235",
@@ -26,8 +26,8 @@ semo_palette <- list(
 # mycolors <- brewer.pal(8, "Dark2")
 
 # Define file name constants
-base_rmd <- "island_biogeo.Rmd"
-base_pdf <- "island_biogeo.pdf"
+# base_rmd <- "island_biogeo.Rmd"
+# base_pdf <- "island_biogeo.pdf"
 
 
 # Set resolution of plot to 96 dpi. Most users
@@ -49,6 +49,30 @@ herps <- read_csv(
   mutate(
     lspecies = log10(species),
     larea = log10(area)
+  )
+
+trees <- read_csv(
+  "data/trees.csv",
+  show_col_types = FALSE
+) |> 
+  mutate(
+    lrichness = log10(species_number),
+    larea = log10(island_area),
+    ldistance = log10(distance_Gam)
+  ) |> 
+  rename(
+    area = island_area,
+    distance = distance_Gam,
+    richness = species_number,
+    island = island_ID) |> 
+  select(
+    island,
+    area,
+    distance,
+    richness,
+    larea,
+    ldistance,
+    lrichness
   )
 
 beetles <- read_csv(
@@ -123,15 +147,15 @@ rm(birds)
 
 # Called from Rmd file to replace LaTeX special
 # characters with escaped version.
-fix_special_chars <- function(str = NULL) {
-  str_replace_all(str, "([#%$_])", "\\\\\\1")
-}
+# fix_special_chars <- function(str = NULL) {
+#   str_replace_all(str, "([#%$_])", "\\\\\\1")
+# }
 
-has_empty_input <- function(lst = NULL) {
-  if (any(lst == "")) {
-    "Please answer all questions below."
-  }
-}
+# has_empty_input <- function(lst = NULL) {
+#   if (any(lst == "")) {
+#     "Please answer all questions below."
+#   }
+# }
 
 next_btn <- function(id) {
   actionButton(inputId = id, label = "Next")

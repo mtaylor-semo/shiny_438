@@ -14,27 +14,27 @@ server <- function(input, output, session) {
       msg <- ""
     }
   })
-  
+
   output$next_ready <- renderText({
     if (input$student_name == "") {
       msg <- ""
     } else {
-      msg = "Press Next after reading."
+      msg <- "Press Next after reading."
     }
   })
-  
+
   output$prediction_error <- renderText({
-      has_empty_input(list(input$student_name, input$predict_na_richness))
+    has_empty_input(list(input$student_name, input$predict_na_richness))
   })
 
   output$galapagos_result_error <- renderText({
-      has_empty_input(list(input$galapagos_question1))
+    has_empty_input(list(input$galapagos_question1))
   })
-  
+
   output$ib_result_error <- renderText({
     has_empty_input(list(input$ib_question1))
   })
-  
+
   output$cluster_result_error <- renderText({
     has_empty_input(list(input$cluster_question1))
   })
@@ -42,43 +42,46 @@ server <- function(input, output, session) {
   output$nmds_result_error <- renderText({
     has_empty_input(list(input$nmds_question1))
   })
-  
+
   ## Reactive values ---------------------------------------------------------
 
   values <- reactiveValues(
-   options = list(
-     dom = "tip",
-     order = list()
-   ),
-   state = 
-     list(
-       birds = "Birds per Island",
-       islands = "Area"
-     ),
-   beetles_xaxis = "area",
-   mtn_xaxis = "area"
+    options = list(
+      dom = "tip",
+      order = list()
+    ),
+    state =
+      list(
+        birds = "Birds per Island",
+        islands = "Area"
+      ),
+    beetles_xaxis = "area",
+    trees_xaxis = "area",
+    mtn_xaxis = "area"
   )
-  
+
   ## Button observers --------------------------------------------------------
 
   observeEvent(input$btn_next_intro, {
     # if (error_check) req(input$student_name)
     next_tab(
-      tab = predictions_tab, 
-      target = "Predictions", 
-      test = input$btn_prev_pred)
+      tab = predictions_tab,
+      target = "Predictions",
+      test = input$btn_prev_pred
+    )
   })
-  
+
   observeEvent(input$btn_prev_pred, {
     prev_tab("Introduction")
   })
-  
+
   observeEvent(input$btn_next_pred, {
     # if (error_check) req(input$predict_na_richness)
     next_tab(
       tab = ib_tab,
       target = "Islands and Animals",
-      test = input$ib_group)
+      test = input$ib_group
+    )
     # hideTab(
     #   inputId = "tabs",
     #   target = "Predictions")
@@ -89,11 +92,12 @@ server <- function(input, output, session) {
   })
 
   observeEvent(input$btn_next_ib, {
-    #if (error_check) req(input$ib_question1)
+    # if (error_check) req(input$ib_question1)
     next_tab(
       tab = galapagos_tab,
       target = "Galapagos",
-      test = input$btn_prev_galapagos)
+      test = input$btn_prev_galapagos
+    )
   })
 
   observeEvent(input$btn_prev_galapagos, {
@@ -113,8 +117,10 @@ server <- function(input, output, session) {
   ## Outputs -------------------------------------------------------------
 
   output$spp_info <- renderUI({
-    p(get_species_info(input$family_menu),
-    img(src = get_species_image(input$family_menu), width = "97%"))
+    p(
+      get_species_info(input$family_menu),
+      img(src = get_species_image(input$family_menu), width = "97%")
+    )
   })
 
 
@@ -122,10 +128,10 @@ server <- function(input, output, session) {
     p("You predicted:")
     sprintf("%s", input$predict_na_richness)
   })
-  
+
   output$plot_menu <- renderUI({
     if (input$choose_galapagos_data_set == "Birds") {
-        selectInput(
+      selectInput(
         "galapagos_bird_plot",
         label = "Choose a plot type",
         choices = c("Birds per Island", "Islands per Bird"),
@@ -144,12 +150,13 @@ server <- function(input, output, session) {
   })
 
 
-# IB ----------------------------------------------------------------------
+  # IB ----------------------------------------------------------------------
 
   observe({
     req(input$ib_group)
     switch(input$ib_group,
       "Caribbean Herps" = output$ib_ui <- renderUI(build_herp_ui()),
+      "Island Trees" = output$ib_ui <- renderUI(build_tree_ui()),
       "Florida Beetles" = output$ib_ui <- renderUI(build_beetle_ui()),
       "Montaine Mammals" = output$ib_ui <- renderUI(build_mammal_ui()),
       "Arboreal Arthropods" = output$ib_ui <- renderUI(build_arthro_ui())
@@ -157,343 +164,397 @@ server <- function(input, output, session) {
   })
 
 
-# Herps UI ----------------------------------------------------------------
+  # Herps UI ----------------------------------------------------------------
 
-build_herp_ui <- function() {
-  
-  herps_regression <- lm_regress(
-    x = herps$larea,
-    y = herps$lspecies,
-    term = "Area"
-  )
+  build_herp_ui <- function() {
+    herps_regression <- lm_regress(
+      x = herps$larea,
+      y = herps$lspecies,
+      term = "Area"
+    )
 
-  herp_gg_obj <- build_ib_plot(
+    herp_gg_obj <- build_ib_plot(
       herps,
       x = "area",
       y = "species"
     )
-  
-  tagList(
-    column(
-      6,
-      p(tags$b("Statistics")),
-      build_stats(herps_regression),
-      hr(),
-      p(tags$b("About the data")),
-      p(herps_info)
-    ),
-    column(
-      6,
-      renderPlot(herp_gg_obj)
-    )
-  )
-}
 
-
-# Beetles UI --------------------------------------------------------------
-
-observe({
-  req(input$beetle_xaxis)
-  values$beetles_xaxis <- if_else(
-    input$beetle_xaxis == "Area",
-    "area",     # if
-    "distance"  # else
-  )
-})
-
-  
-build_beetle_ui <- function() {
-  
-  beetles_regression <- lm_regress(
-    x = unlist(beetles[values$beetles_xaxis]),
-    y = beetles$species,
-    term = input$beetle_xaxis
-  )
-  
-  beetle_gg_obj <- build_ib_plot(
-    beetles,
-    x = values$beetles_xaxis,
-    y = "species"
-  )
-  
-  beetle_gg_obj <- update_xlabel(
-    beetle_gg_obj,
-    label = if_else(
-      input$beetle_xaxis == "Area",
-      "Area (km²)",
-      "Distance (km)"
-    )
-  )
-
-  tagList(
-    column(
-      6,
-      p(tags$b("Statistics")),
-      build_stats(beetles_regression),
-      hr(),
-      p(tags$b("About the data")),
-      p(beetles_info)
-    ),
-    column(
-      6,
-      selectInput(
-        inputId = "beetle_xaxis",
-        label = "Choose x-axis",
-        choices = c("Area", "Distance"),
-        selected = input$beetle_xaxis
+    tagList(
+      column(
+        6,
+        p(tags$b("Statistics")),
+        build_stats(herps_regression),
+        hr(),
+        p(tags$b("About the data")),
+        p(herps_info)
       ),
-      br(),
-      renderPlot(beetle_gg_obj)
-    )
-  )
-}
-
-observe({
-  req(input$mtn_xaxis)
-  values$mtn_xaxis <- switch(
-    input$mtn_xaxis,
-    "Area" = "area",
-    "Distance Between Mountains" = "dist_mtn",
-    "Distance From Mainland" = "dist_mainland"
-  )
-})
-
-
-# Montaine Mammals UI -----------------------------------------------------
-
-build_mammal_ui <- function() {
-  
-  mtn_regression <- lm_regress(
-    x = unlist(mtn[values$mtn_xaxis]),
-    y = mtn$species,
-    term = input$mtn_xaxis
-  )
-  
-  mtn_gg_obj <- build_ib_plot(
-    mtn,
-    x = values$mtn_xaxis,
-    y = "species"
-  )
-  
-  mtn_gg_obj <- update_xlabel(
-    mtn_gg_obj,
-    label = if_else(
-      input$mtn_xaxis == "Area",
-      "Area (km²)",
-      if_else(
-        input$mtn_xaxis == "Distance Between Mountains",
-        "Distance Between Mountains (km)",
-        "Distance From Mainland (km)"
+      column(
+        6,
+        renderPlot(herp_gg_obj)
       )
     )
-  )
-  
-  plot <- renderPlot(gg_obj)
-
-  tagList(
-    column(
-      6,
-      p(tags$b("Statistics")),
-      build_stats(mtn_regression),
-      hr(),
-      p(tags$b("About the data")),
-      p(mtn_info)
-    ),
-    column(
-      6,
-      selectInput(
-        inputId = "mtn_xaxis",
-        label = "Choose x-axis",
-        choices = c(
-          "Area", 
-          "Distance Between Mountains", 
-          "Distance From Mainland"
-        ),
-        selected = input$mtn_xaxis
-      ),
-      br(),
-      #plot
-      renderPlot(mtn_gg_obj)
-    )
-  )
-}
-
-
-# Arboreal Arthropods UI --------------------------------------------------
-
-# Toggle button idea from
-# https://stackoverflow.com/a/74475204/3832941
-observeEvent(input$arthro_by_island, {
-  if (input$arthro_by_island %% 2 != 0) {
-    updateActionButton(session, "arthro_by_island", label = "Plot All Data")
-  } else {
-    updateActionButton(session, "arthro_by_island", NULL, label = "Plot By Island")
   }
-})
-
-# Toggling between plots from
-# https://stackoverflow.com/a/63044795/3832941
-arthro_plot <- reactiveVal(TRUE)
-
-observeEvent(input$arthro_by_island, {
-  arthro_plot(!arthro_plot())
-})
-
-arthro_plot1 <-
-  build_ib_plot(
-    arthro,
-    x = "area",
-    y = "species"
-  )
-
-arthro_plot1 <- update_xlabel(
-  arthro_plot1,
-  label = "Area (m²)"
-)
-
-arthro_plot2 <- plot_arthro_by_island()
-  
-which_arthro <- reactive({
-  if (arthro_plot()) {
-    arthro_plot1
-  } else {
-    arthro_plot2
-  }
-})
-# End toggle plots.
 
 
-build_arthro_ui <- function() {
-  
-  arthro_regression <- lm_regress(
-    x = arthro$area,
-    y = arthro$species,
-    term = "Area"
-  )
-  
-  # plot <- renderPlot(
-  #   which_arthro()
-  # )
-  
-  tagList(
-    column(
-      6,
-      p(tags$b("Statistics")),
-      build_stats(arthro_regression),
-      hr(),
-      p(tags$b("About the data")),
-      p(arthro_info)
-    ),
-    column(
-      6,
-      actionButton(
-        "arthro_by_island",
-        label = "Plot by Island",
-        width = "35%"
-      ),
-      br(),
-      br(),
-      renderPlot(which_arthro())
-    )
-  )
-}
-
-# Galapagos ---------------------------------------------------------------
+  # Island Trees UI ---------------------------------------------------------
 
   observe({
-  if (!is.null(input$galapagos_bird_plot)) {
-    if (input$galapagos_bird_plot == "Birds per Island") {
-      output$galapagos_plot <- renderPlot({
-        plot_birds_per_island()
-      })
-      values$state$birds <- "Birds per Island"
-    } else {
-      output$galapagos_plot <- renderPlot({
-        plot_islands_per_bird()
-      })
-      values$state$birds <- "Islands per Bird"
-    }
-  }
-})
-
-observe({
-  if (!is.null(input$galapagos_plot_xaxis)) {
-    if (input$galapagos_plot_xaxis == "Area") {
-      output$galapagos_plot <- renderPlot(
-        plot_galapagos(
-          plot_data = islands,
-          xaxis = str_to_lower(input$galapagos_plot_xaxis)
-        )
-      )
-      values$state$islands <- "Area"
-    } else {
-      output$galapagos_plot <- renderPlot(
-        plot_galapagos(
-          plot_data = islands,
-          xaxis = str_to_lower(input$galapagos_plot_xaxis)
-        )
-      )
-      values$state$islands <- "Elevation"
-    }
-  }
-})
-
-## Move this up later.
-update_selector <- function(id = NULL, value = NULL) {
-  reactive({
-    updateSelectInput(
-      session = getDefaultReactiveDomain(),
-      inputId = id,
-      selected = value
+    req(input$tree_xaxis)
+    values$trees_xaxis <- if_else(
+      input$tree_xaxis == "Area",
+      "area", # if
+      "distance" # else
     )
   })
-}
-
-observe({
-  req(input$choose_galapagos_data_set)
-  if (input$choose_galapagos_data_set == "Birds") {
-    if (values$state$birds == "Birds per Island") {
-      output$galapagos_plot <- renderPlot({
-        plot_birds_per_island()
-      })
-      
-      update_selector(id = "galapagos_bird_plot", value = values$state$birds)
-      values$state$birds <- "Birds per Island"
-      
-    } else {
-      output$galapagos_plot <- renderPlot({
-        plot_islands_per_bird()
-      })
-      
-      update_selector("galapagos_bird_plot", values$state$birds)
-      values$state$birds <- "Islands per Bird"
-      
-    }
-  } else {
-    if (values$state$islands == "Area") {
-      output$galapagos_plot <- renderPlot({
-        plot_galapagos(
-          plot_data = islands,
-          xaxis = str_to_lower(values$state$islands)
-        )
-      })
-      
-      update_selector("galapagos_plot_xaxis", values$state$islands)
-      values$state$islands <- "Area"
-      
-    } else {
-      output$galapagos_plot <- renderPlot({
-        plot_galapagos(
-          plot_data = islands,
-          xaxis = str_to_lower(values$state$islands)
-        )
-      })
-      
-      update_selector("galapagos_plot_xaxis", values$state$islands)
-      values$state$islands <- "Elevation"
-    }
+  
+  build_tree_ui <- function() {
+    xvar = if_else(
+      values$trees_xaxis == "area",
+      "larea",
+      "ldistance"
+    )
+    trees_regression <- lm_regress(
+      x = trees[[xvar]],
+      y = trees$lrichness,
+      term = "Area"
+    )
+    
+    tree_gg_obj <- build_ib_plot(
+      trees,
+      x = values$trees_xaxis,
+      y = "richness"
+    )
+    
+    tree_gg_obj <- update_xlabel(
+      tree_gg_obj,
+      label = if_else(
+        input$tree_xaxis == "Area",
+        "Area (km²)",
+        "Distance (km)"
+      )
+    )
+    
+    tagList(
+      column(
+        6,
+        p(tags$b("Statistics")),
+        build_stats(trees_regression),
+        hr(),
+        p(tags$b("About the data")),
+        p(trees_info)
+      ),
+      column(
+        6,
+        selectInput(
+          inputId = "tree_xaxis",
+          label = "Choose x-axis",
+          choices = c("Area", "Distance"),
+          selected = input$tree_xaxis
+        ),
+        br(),
+        renderPlot(tree_gg_obj)
+      )
+    )
   }
-})
+  
+
+  # Beetles UI --------------------------------------------------------------
+
+  observe({
+    req(input$beetle_xaxis)
+    values$beetles_xaxis <- if_else(
+      input$beetle_xaxis == "Area",
+      "area", # if
+      "distance" # else
+    )
+  })
+
+
+  build_beetle_ui <- function() {
+    beetles_regression <- lm_regress(
+      x = unlist(beetles[values$beetles_xaxis]),
+      y = beetles$species,
+      term = input$beetle_xaxis
+    )
+
+    beetle_gg_obj <- build_ib_plot(
+      beetles,
+      x = values$beetles_xaxis,
+      y = "species"
+    )
+
+    beetle_gg_obj <- update_xlabel(
+      beetle_gg_obj,
+      label = if_else(
+        input$beetle_xaxis == "Area",
+        "Area (km²)",
+        "Distance (km)"
+      )
+    )
+
+    tagList(
+      column(
+        6,
+        p(tags$b("Statistics")),
+        build_stats(beetles_regression),
+        hr(),
+        p(tags$b("About the data")),
+        p(beetles_info)
+      ),
+      column(
+        6,
+        selectInput(
+          inputId = "beetle_xaxis",
+          label = "Choose x-axis",
+          choices = c("Area", "Distance"),
+          selected = input$beetle_xaxis
+        ),
+        br(),
+        renderPlot(beetle_gg_obj)
+      )
+    )
+  }
+
+  observe({
+    req(input$mtn_xaxis)
+    values$mtn_xaxis <- switch(input$mtn_xaxis,
+      "Area" = "area",
+      "Distance Between Mountains" = "dist_mtn",
+      "Distance From Mainland" = "dist_mainland"
+    )
+  })
+
+
+  # Montaine Mammals UI -----------------------------------------------------
+
+  build_mammal_ui <- function() {
+    mtn_regression <- lm_regress(
+      x = unlist(mtn[values$mtn_xaxis]),
+      y = mtn$species,
+      term = input$mtn_xaxis
+    )
+
+    mtn_gg_obj <- build_ib_plot(
+      mtn,
+      x = values$mtn_xaxis,
+      y = "species"
+    )
+
+    mtn_gg_obj <- update_xlabel(
+      mtn_gg_obj,
+      label = if_else(
+        input$mtn_xaxis == "Area",
+        "Area (km²)",
+        if_else(
+          input$mtn_xaxis == "Distance Between Mountains",
+          "Distance Between Mountains (km)",
+          "Distance From Mainland (km)"
+        )
+      )
+    )
+
+    plot <- renderPlot(gg_obj)
+
+    tagList(
+      column(
+        6,
+        p(tags$b("Statistics")),
+        build_stats(mtn_regression),
+        hr(),
+        p(tags$b("About the data")),
+        p(mtn_info)
+      ),
+      column(
+        6,
+        selectInput(
+          inputId = "mtn_xaxis",
+          label = "Choose x-axis",
+          choices = c(
+            "Area",
+            "Distance Between Mountains",
+            "Distance From Mainland"
+          ),
+          selected = input$mtn_xaxis
+        ),
+        br(),
+        # plot
+        renderPlot(mtn_gg_obj)
+      )
+    )
+  }
+
+
+  # Arboreal Arthropods UI --------------------------------------------------
+
+  # Toggle button idea from
+  # https://stackoverflow.com/a/74475204/3832941
+  observeEvent(input$arthro_by_island, {
+    if (input$arthro_by_island %% 2 != 0) {
+      updateActionButton(session, "arthro_by_island", label = "Plot All Data")
+    } else {
+      updateActionButton(session, "arthro_by_island", NULL, label = "Plot By Island")
+    }
+  })
+
+  # Toggling between plots from
+  # https://stackoverflow.com/a/63044795/3832941
+  arthro_plot <- reactiveVal(TRUE)
+
+  observeEvent(input$arthro_by_island, {
+    arthro_plot(!arthro_plot())
+  })
+
+  arthro_plot1 <-
+    build_ib_plot(
+      arthro,
+      x = "area",
+      y = "species"
+    )
+
+  arthro_plot1 <- update_xlabel(
+    arthro_plot1,
+    label = "Area (m²)"
+  )
+
+  arthro_plot2 <- plot_arthro_by_island()
+
+  which_arthro <- reactive({
+    if (arthro_plot()) {
+      arthro_plot1
+    } else {
+      arthro_plot2
+    }
+  })
+  # End toggle plots.
+
+
+  build_arthro_ui <- function() {
+    arthro_regression <- lm_regress(
+      x = arthro$area,
+      y = arthro$species,
+      term = "Area"
+    )
+
+    # plot <- renderPlot(
+    #   which_arthro()
+    # )
+
+    tagList(
+      column(
+        6,
+        p(tags$b("Statistics")),
+        build_stats(arthro_regression),
+        hr(),
+        p(tags$b("About the data")),
+        p(arthro_info)
+      ),
+      column(
+        6,
+        actionButton(
+          "arthro_by_island",
+          label = "Plot by Island",
+          width = "35%"
+        ),
+        br(),
+        br(),
+        renderPlot(which_arthro())
+      )
+    )
+  }
+
+  # Galapagos ---------------------------------------------------------------
+
+  observe({
+    if (!is.null(input$galapagos_bird_plot)) {
+      if (input$galapagos_bird_plot == "Birds per Island") {
+        output$galapagos_plot <- renderPlot({
+          plot_birds_per_island()
+        })
+        values$state$birds <- "Birds per Island"
+      } else {
+        output$galapagos_plot <- renderPlot({
+          plot_islands_per_bird()
+        })
+        values$state$birds <- "Islands per Bird"
+      }
+    }
+  })
+
+  observe({
+    if (!is.null(input$galapagos_plot_xaxis)) {
+      if (input$galapagos_plot_xaxis == "Area") {
+        output$galapagos_plot <- renderPlot(
+          plot_galapagos(
+            plot_data = islands,
+            xaxis = str_to_lower(input$galapagos_plot_xaxis)
+          )
+        )
+        values$state$islands <- "Area"
+      } else {
+        output$galapagos_plot <- renderPlot(
+          plot_galapagos(
+            plot_data = islands,
+            xaxis = str_to_lower(input$galapagos_plot_xaxis)
+          )
+        )
+        values$state$islands <- "Elevation"
+      }
+    }
+  })
+
+  ## Move this up later.
+  update_selector <- function(id = NULL, value = NULL) {
+    reactive({
+      updateSelectInput(
+        session = getDefaultReactiveDomain(),
+        inputId = id,
+        selected = value
+      )
+    })
+  }
+
+  observe({
+    req(input$choose_galapagos_data_set)
+    if (input$choose_galapagos_data_set == "Birds") {
+      if (values$state$birds == "Birds per Island") {
+        output$galapagos_plot <- renderPlot({
+          plot_birds_per_island()
+        })
+
+        update_selector(id = "galapagos_bird_plot", value = values$state$birds)
+        values$state$birds <- "Birds per Island"
+      } else {
+        output$galapagos_plot <- renderPlot({
+          plot_islands_per_bird()
+        })
+
+        update_selector("galapagos_bird_plot", values$state$birds)
+        values$state$birds <- "Islands per Bird"
+      }
+    } else {
+      if (values$state$islands == "Area") {
+        output$galapagos_plot <- renderPlot({
+          plot_galapagos(
+            plot_data = islands,
+            xaxis = str_to_lower(values$state$islands)
+          )
+        })
+
+        update_selector("galapagos_plot_xaxis", values$state$islands)
+        values$state$islands <- "Area"
+      } else {
+        output$galapagos_plot <- renderPlot({
+          plot_galapagos(
+            plot_data = islands,
+            xaxis = str_to_lower(values$state$islands)
+          )
+        })
+
+        update_selector("galapagos_plot_xaxis", values$state$islands)
+        values$state$islands <- "Elevation"
+      }
+    }
+  })
 
   observe({
     if (!is.null(input$choose_galapagos_data_set)) {
@@ -513,7 +574,7 @@ observe({
       build_data_table(sort_order = values$options)
     })
   })
-  
+
 
 
   observe({
