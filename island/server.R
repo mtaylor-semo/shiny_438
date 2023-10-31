@@ -661,13 +661,13 @@ server <- function(input, output, session) {
         )
       } else {
         if (!is.null(input$galapagos_plot_xaxis)) {
-          x <- if_else(
+          xvar <- if_else(
             input$galapagos_plot_xaxis == "Area",
             "area",
             "elevation"
           )
           gala_regression <- lm_regress(
-            x = pull(islands[x]),
+            x = islands[[xvar]],
             y = islands$richness
           )
           output$gala_regression <- renderUI(
