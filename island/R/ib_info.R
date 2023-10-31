@@ -8,7 +8,7 @@ herps_info <- tagList(
   )
 )
 
-trees_info <- tagList(
+rajas_info <- tagList(
   p("The", tags$a(href = "https://en.wikipedia.org/wiki/Raja_Ampat_Islands", 
     "Raja Ampat archipelago", target = "_blank"), "is a group of more than 
     1000 small islands in Gam Bay, Indonesia. This data set contains tree

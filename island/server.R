@@ -7,41 +7,41 @@ server <- function(input, output, session) {
 
   ## Error message outputs ---------------------------------------------------
 
-  output$stu_name_error <- renderText({
-    if (input$student_name == "") {
-      msg <- "Please enter your name"
-    } else {
-      msg <- ""
-    }
-  })
-
-  output$next_ready <- renderText({
-    if (input$student_name == "") {
-      msg <- ""
-    } else {
-      msg <- "Press Next after reading."
-    }
-  })
-
-  output$prediction_error <- renderText({
-    has_empty_input(list(input$student_name, input$predict_na_richness))
-  })
-
-  output$galapagos_result_error <- renderText({
-    has_empty_input(list(input$galapagos_question1))
-  })
-
-  output$ib_result_error <- renderText({
-    has_empty_input(list(input$ib_question1))
-  })
-
-  output$cluster_result_error <- renderText({
-    has_empty_input(list(input$cluster_question1))
-  })
-
-  output$nmds_result_error <- renderText({
-    has_empty_input(list(input$nmds_question1))
-  })
+  # output$stu_name_error <- renderText({
+  #   if (input$student_name == "") {
+  #     msg <- "Please enter your name"
+  #   } else {
+  #     msg <- ""
+  #   }
+  # })
+  # 
+  # output$next_ready <- renderText({
+  #   if (input$student_name == "") {
+  #     msg <- ""
+  #   } else {
+  #     msg <- "Press Next after reading."
+  #   }
+  # })
+  # 
+  # output$prediction_error <- renderText({
+  #   has_empty_input(list(input$student_name, input$predict_na_richness))
+  # })
+  # 
+  # output$galapagos_result_error <- renderText({
+  #   has_empty_input(list(input$galapagos_question1))
+  # })
+  # 
+  # output$ib_result_error <- renderText({
+  #   has_empty_input(list(input$ib_question1))
+  # })
+  # 
+  # output$cluster_result_error <- renderText({
+  #   has_empty_input(list(input$cluster_question1))
+  # })
+  # 
+  # output$nmds_result_error <- renderText({
+  #   has_empty_input(list(input$nmds_question1))
+  # })
 
   ## Reactive values ---------------------------------------------------------
 
@@ -56,7 +56,8 @@ server <- function(input, output, session) {
         islands = "Area"
       ),
     beetles_xaxis = "area",
-    trees_xaxis = "area",
+    rajas_xaxis = "area",
+    aleuts_xaxis = "area",
     mtn_xaxis = "area"
   )
 
@@ -79,7 +80,7 @@ server <- function(input, output, session) {
     # if (error_check) req(input$predict_na_richness)
     next_tab(
       tab = ib_tab,
-      target = "Islands and Animals",
+      target = "Islands and Organisms",
       test = input$ib_group
     )
     # hideTab(
@@ -116,18 +117,18 @@ server <- function(input, output, session) {
 
   ## Outputs -------------------------------------------------------------
 
-  output$spp_info <- renderUI({
-    p(
-      get_species_info(input$family_menu),
-      img(src = get_species_image(input$family_menu), width = "97%")
-    )
-  })
-
-
-  output$prediction_na_richness <- renderUI({
-    p("You predicted:")
-    sprintf("%s", input$predict_na_richness)
-  })
+  # output$spp_info <- renderUI({
+  #   p(
+  #     get_species_info(input$family_menu),
+  #     img(src = get_species_image(input$family_menu), width = "97%")
+  #   )
+  # })
+  # 
+  # 
+  # output$prediction_na_richness <- renderUI({
+  #   p("You predicted:")
+  #   sprintf("%s", input$predict_na_richness)
+  # })
 
   output$plot_menu <- renderUI({
     if (input$choose_galapagos_data_set == "Birds") {
@@ -156,7 +157,8 @@ server <- function(input, output, session) {
     req(input$ib_group)
     switch(input$ib_group,
       "Caribbean Herps" = output$ib_ui <- renderUI(build_herp_ui()),
-      "Island Trees" = output$ib_ui <- renderUI(build_tree_ui()),
+      "Raja Ampat Trees" = output$ib_ui <- renderUI(build_raja_ui()),
+      "Aleutian Plants" = output$ib_ui <- renderUI(build_aleut_ui()),
       "Florida Beetles" = output$ib_ui <- renderUI(build_beetle_ui()),
       "Montaine Mammals" = output$ib_ui <- renderUI(build_mammal_ui()),
       "Arboreal Arthropods" = output$ib_ui <- renderUI(build_arthro_ui())
@@ -196,39 +198,40 @@ server <- function(input, output, session) {
   }
 
 
-  # Island Trees UI ---------------------------------------------------------
+
+# Raja Ampat Trees --------------------------------------------------------
 
   observe({
-    req(input$tree_xaxis)
-    values$trees_xaxis <- if_else(
-      input$tree_xaxis == "Area",
+    req(input$raja_xaxis)
+    values$rajas_xaxis <- if_else(
+      input$raja_xaxis == "Area",
       "area", # if
       "distance" # else
     )
   })
   
-  build_tree_ui <- function() {
+  build_raja_ui <- function() {
     xvar = if_else(
-      values$trees_xaxis == "area",
+      values$rajas_xaxis == "area",
       "larea",
       "ldistance"
     )
-    trees_regression <- lm_regress(
-      x = trees[[xvar]],
-      y = trees$lrichness,
+    rajas_regression <- lm_regress(
+      x = rajas[[xvar]],
+      y = rajas$lrichness,
       term = "Area"
     )
     
-    tree_gg_obj <- build_ib_plot(
-      trees,
-      x = values$trees_xaxis,
+    rajas_gg_obj <- build_ib_plot(
+      rajas,
+      x = values$rajas_xaxis,
       y = "richness"
     )
     
-    tree_gg_obj <- update_xlabel(
-      tree_gg_obj,
+    rajas_gg_obj <- update_xlabel(
+      rajas_gg_obj,
       label = if_else(
-        input$tree_xaxis == "Area",
+        input$raja_xaxis == "Area",
         "Area (km²)",
         "Distance (km)"
       )
@@ -238,21 +241,21 @@ server <- function(input, output, session) {
       column(
         6,
         p(tags$b("Statistics")),
-        build_stats(trees_regression),
+        build_stats(rajas_regression),
         hr(),
         p(tags$b("About the data")),
-        p(trees_info)
+        p(rajas_info)
       ),
       column(
         6,
         selectInput(
-          inputId = "tree_xaxis",
+          inputId = "raja_xaxis",
           label = "Choose x-axis",
           choices = c("Area", "Distance"),
-          selected = input$tree_xaxis
+          selected = input$raja_xaxis
         ),
         br(),
-        renderPlot(tree_gg_obj)
+        renderPlot(rajas_gg_obj)
       )
     )
   }

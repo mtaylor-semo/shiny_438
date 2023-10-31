@@ -57,13 +57,22 @@ ui <- tagList(
       fluidRow(
         column(
           width = 6,
-          img(src = "galapagos_map.png", width = "97%"),
+          img(src = "raja_ampat.jpeg", width = "97%"),
           br(),
-          p("Map of the Galapagos Islands archipelago."),
-          hr(),
+          p("A few islands from Raja Ampat archipelago."),
+          br(),
           p("Image credit:"),
-          tags$a(href = "https://commons.wikimedia.org/wiki/File:Galapagos_Islands_topographic_map-en.svg", "Matthew Stevens, Wikimedia Commons, CC BY-SA 3.0")
+          a(href = "https://indonesiad.com/raja-ampat-papua-the-amazon-of-the-oceans/", "Indonesia'd")
         ),
+        # column(
+        #   width = 6,
+        #   img(src = "galapagos_map.png", width = "97%"),
+        #   br(),
+        #   p("Map of the Galapagos Islands archipelago."),
+        #   hr(),
+        #   p("Image credit:"),
+        #   tags$a(href = "https://commons.wikimedia.org/wiki/File:Galapagos_Islands_topographic_map-en.svg", "Matthew Stevens, Wikimedia Commons, CC BY-SA 3.0")
+        # ),
         column(
           width = 6,
           p("Words"),

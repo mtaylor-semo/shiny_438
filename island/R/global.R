@@ -51,7 +51,7 @@ herps <- read_csv(
     larea = log10(area)
   )
 
-trees <- read_csv(
+rajas <- read_csv(
   "data/trees.csv",
   show_col_types = FALSE
 ) |>
@@ -74,6 +74,17 @@ trees <- read_csv(
     larea,
     ldistance,
     lrichness
+  )
+
+aleuts <- read_csv(
+  "data/aleutians.csv",
+  show_col_types = FALSE
+) |> 
+  mutate(
+    lrichness = log10(richness),
+    larea = log10(area),
+    ldAlaska = log10(dAlaska),
+    ldKamchatka = log10(dKamchatka)
   )
 
 beetles <- read_csv(
