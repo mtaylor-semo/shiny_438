@@ -7,7 +7,20 @@ herps_info <- tagList(
     Monographs in Population Biology, No. 1. Princeton University Press, NJ."
   )
 )
-  
+
+trees_info <- tagList(
+  p("The", tags$a(href = "https://en.wikipedia.org/wiki/Raja_Ampat_Islands", 
+    "Raja Ampat archipelago", target = "_blank"), "is a group of more than 
+    1000 small islands in Gam Bay, Indonesia. This data set contains tree
+    species richness for 60 of those islands. The islands area ranged between
+    3-11,806 m². The islands were chosen because they did not show signs of
+    human disturbance. Distance was measured from the large island of Gam."),
+  p("Data from Schrader et al. 2020. A new dataset on plant occurrences on
+    small islands, including species abundances and functional traits across
+    different spatial scales. Biodiversity Data Journal 8: e55275, 
+    doi: 10.3897/BDJ.8.e55275")
+)
+
 beetles_info <- tagList(
   p("The beetles of this study are long-horned beetles (family Cerambycidae),
     named for their very long antennae. At the time of this study, 91 species
