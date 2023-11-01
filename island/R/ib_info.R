@@ -1,11 +1,13 @@
 herps_info <- tagList(
-  p("This is a classic data set used to develop and support the species-area
-    relationship concept of island biogeography. Species richness is based on
-    the number of reptiles and amphibians found on seven islands."
+  p("This is a classic data set used to develop the concept of species-area
+    relationships for island biogeography equilibrium. Species richness is
+    based on the number of reptiles and amphibians found on seven islands in
+    the northern Antilles"
   ),
   p("Data from Macarthur and Wilson 1967. The Theory of Island Biogeography. 
     Monographs in Population Biology, No. 1. Princeton University Press, NJ."
-  )
+  ),
+  img(src = "caribbean.png", width = "100%")
 )
 
 rajas_info <- tagList(
@@ -18,23 +20,27 @@ rajas_info <- tagList(
   p("Data from Schrader et al. 2020. A new dataset on plant occurrences on
     small islands, including species abundances and functional traits across
     different spatial scales. Biodiversity Data Journal 8: e55275, 
-    doi: 10.3897/BDJ.8.e55275")
+    doi: 10.3897/BDJ.8.e55275"),
+  img(src = "raja_ampat.jpeg", width = "100%")
 )
 
 aleuts_info <- tagList(
-  p("The Aleutian Islands is a group of about 59 islands that extend from the
-    Alaskan Peninsula west towards the Kamchatka Peninsula in Siberia. The
+  p("The Aleutian Islands is a group of more than 150 islands that extend from
+    the Alaskan Peninsula west towards the Kamchatka Peninsula in Siberia. The
     Aleutians form a volcanic arc where the northern edge of the Pacific Plate
     subducts beneath the North American plate. As the islands extend from
     Alaska to Siberia, distance from a mainland source can be considered from
     two Alaska and also from Siberia."),
-  p("This data set includes counts of all known plant species from 13 
-    “well-surveyed” islands. Area of the islands was calculated as was distance
-    from both the Alaskan Peninsula and Kamchatka Peninsula."),
+  p("This data set includes counts of all known plant species from 13 islands
+    considered “well-surveyed” for flora. The plants are primarily grasses,
+    shrubs, and small flowering plants. Trees do not grow on the islands. 
+    Distance was calculated from both the Alaskan Peninsula in Alaska and
+    the Kamchatka Peninsula in Siberia."),
   p("Data from Garroutte, M., F. Huettmann, C.O. Webb, and S.M. Ickert-Bond.
     2018. Biogeographic and anthropogenic correlates of Aleutian Islands plant
     diversity: A machine-learning approach. Journal of Systematics and
-    Evolution 56: 476-497.")
+    Evolution 56: 476-497."),
+  img(src = "aleutians.png", width = "100%")
 )
 
 beetles_info <- tagList(
@@ -50,7 +56,8 @@ beetles_info <- tagList(
   p("Data from Browne and Peck 1996. The long-horned beetles of south Florida
     (Cerambycidae: Coleoptera): biogeography and relationships with the Bahama
     Islands and Cuba. Canadian Journal of Zoology. 74: 2154-2169."
-  )
+  ),
+  img(src = "florida_keys.png", width = "100%")
 )
 
 mtn_info <- tagList(
@@ -62,7 +69,7 @@ mtn_info <- tagList(
     “sea.”"
   ),
   p("This study measured area, distance between mountain tops and also distance
-    from smainlands (larger mountain ranges east and west of the study area). 
+    from mainlands (larger mountain ranges east and west of the study area). 
     View species richness for all three variables. Do all three fit the island
     biogeography model? If not, which do? Why do you think the others do not?
     Use the significance (p value) from the regression table to guide your
@@ -70,7 +77,8 @@ mtn_info <- tagList(
   ),
   p("Data from Brown 1971. Mammals on mountaintops: nonequilibrium insular
     biogeography. The American Naturalist 105: 467-478."
-  )
+  ),
+  img(src = "sky_islands.jpg", width = "100%")
 )
 
 arthro_info <- tagList(
