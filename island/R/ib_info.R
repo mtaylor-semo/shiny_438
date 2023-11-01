@@ -97,5 +97,6 @@ arthro_info <- tagList(
   ),
   p("Data from Simberloff 1976. Experimental zoogeography of islands: effects
     of island size. Ecology 57: 629-648."
-  )
+  ),
+  img(src = "sugarloaf.jpg", width = "100%")
 )
