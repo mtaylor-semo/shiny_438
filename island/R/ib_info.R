@@ -54,7 +54,7 @@ beetles_info <- tagList(
 )
 
 mtn_info <- tagList(
-  p("Montaine mammals in this study were 15 mammal speices found on mountain
+  p("Montaine mammals in this study were 15 mammal species found on mountain
     tops above 7500 m in the southwestern deserts of the United States. The
     mammals were boreal mammals and thus adapted to cooler temperatures. The
     mammals could not tolerate the warm temperatures in the valleys between
