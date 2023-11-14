@@ -230,6 +230,7 @@ plot_galapagos <- function(plot_data = NULL, xaxis = NULL) {
       aes(y = richness),
       formula = y ~ x, # Needed to suppress console msg
       method = "lm",
+      se = FALSE,
       color = semo_palette$cardiac_red,
       fill = semo_palette$pewter
     ) +
