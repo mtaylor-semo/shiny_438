@@ -1,7 +1,7 @@
 # Define basic I.B. Tab --------------------------------------------
 
 ib_tab <- tabPanel(
-  "Islands and Animals",
+  "Islands and Organisms",
   fluidRow(
     column(
       3,
