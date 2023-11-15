@@ -56,11 +56,11 @@ predictions_tab <- tabPanel(
       p("The next tabs will present the results of linear regression for each
         data set. I am not going to ask you to interpret the linear regression
         equations but I do want you to understand two other values you will see.
-        R", tags$sup("2"), "indicates the amount of variation in species
+        R² indicates the amount of variation in species
         richness that is explained by island area (or other variable such as
-        distance. The higher the value of R", tags$sup("2"), "the more island
+        distance. The higher the value of R² the more island
         area (or other variable) accounts for richness. In the example above,
-        R", tags$sup("2"), "is 0.997, so 99.7% of the variation in species 
+        R² is 0.997, so 99.7% of the variation in species 
         richness is explained by island size."),
       p("The last important value for you to understand is p. For our purposes, 
         p is the statistical probability that the sampled data are likely 
@@ -69,7 +69,7 @@ predictions_tab <- tabPanel(
         Values of p greater than 0.05 are not significant. The data are
         considered to be random.  In the example above, p < 0.0001 so island
         area is a significant predictor of species richness."),
-      p("Be sure you understand R", tags$sup("2"), "and p. You will be asked
+      p("Be sure you understand R² and p. You will be asked
         about them on the questions. Press the Next button to explore some basic
         data sets.")
       # hr(),
