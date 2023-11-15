@@ -2,8 +2,9 @@ herps_info <- tagList(
   p("This is a classic data set used to develop the concept of species-area
     relationships for island biogeography equilibrium. Species richness is
     based on the number of reptiles and amphibians found on seven islands in
-    the northern Antilles"
-  ),
+    the northern Antilles"),
+  p("The plot and results should look familiar. These are the example data I
+    used on the previous tab."),
   p("Data from Macarthur and Wilson 1967. The Theory of Island Biogeography. 
     Monographs in Population Biology, No. 1. Princeton University Press, NJ."
   ),
