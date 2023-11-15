@@ -215,6 +215,48 @@ build_stats <- function(x = NULL) {
 
 # Plots -------------------------------------------------------------------
 
+curvilinear_example <- 
+  ggplot(
+    herps,
+    aes(
+      x = area,
+      y = species
+    )
+  ) +
+  geom_point(
+    size = 3,
+    color = semo_palette$cardiac_red
+  ) +
+  stat_smooth(
+    method = "loess",
+    formula = y ~ log(x),
+    se = FALSE,
+    color = semo_palette$pewter
+  ) +
+  theme_minimal() +
+  labs(x = "Island Area", y = "Species Richness")
+
+linear_example <- 
+  ggplot(
+    herps,
+    aes(
+      x = log10(area),
+      y = log10(species)
+    )
+  ) +
+  geom_point(
+    size = 3,
+    color = semo_palette$cardiac_red
+  ) +
+  stat_smooth(
+    method = "lm",
+    se = FALSE,
+    color = semo_palette$pewter
+  ) +
+  theme_minimal() +
+  labs(x = "Island Area", y = "Species Richness")
+
+
 # Modify this so that user chooses axes.
 plot_galapagos <- function(plot_data = NULL, xaxis = NULL) {
   ggplot(

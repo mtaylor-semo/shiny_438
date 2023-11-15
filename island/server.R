@@ -67,7 +67,7 @@ server <- function(input, output, session) {
     # if (error_check) req(input$student_name)
     next_tab(
       tab = predictions_tab,
-      target = "Predictions",
+      target = "Size and Distance",
       test = input$btn_prev_pred
     )
   })
@@ -89,7 +89,7 @@ server <- function(input, output, session) {
   })
 
   observeEvent(input$btn_prev_ib, {
-    prev_tab("Predictions")
+    prev_tab("Size and Distance")
   })
 
   observeEvent(input$btn_next_ib, {
@@ -130,6 +130,10 @@ server <- function(input, output, session) {
   #   sprintf("%s", input$predict_na_richness)
   # })
 
+  output$curvilinear_example <- renderPlot(curvilinear_example)
+
+  output$linear_example <- renderPlot(linear_example)
+  
   output$plot_menu <- renderUI({
     if (input$choose_galapagos_data_set == "Birds") {
       selectInput(
@@ -152,7 +156,7 @@ server <- function(input, output, session) {
 
 
   # IB ----------------------------------------------------------------------
-
+  
   observe({
     req(input$ib_group)
     switch(input$ib_group,
