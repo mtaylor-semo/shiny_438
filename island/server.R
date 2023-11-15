@@ -80,7 +80,7 @@ server <- function(input, output, session) {
     # if (error_check) req(input$predict_na_richness)
     next_tab(
       tab = ib_tab,
-      target = "Islands and Organisms",
+      target = "Species Richness",
       test = input$ib_group
     )
     # hideTab(
@@ -102,7 +102,7 @@ server <- function(input, output, session) {
   })
 
   observeEvent(input$btn_prev_galapagos, {
-    prev_tab("Islands and Animals")
+    prev_tab("Size and Distance")
   })
 
   # observeEvent(input$btn_next_galapagos, {
