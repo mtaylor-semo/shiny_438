@@ -223,15 +223,15 @@ curvilinear_example <-
       y = species
     )
   ) +
-  geom_point(
-    size = 3,
-    color = semo_palette$cardiac_red
-  ) +
   stat_smooth(
     method = "loess",
     formula = y ~ log(x),
     se = FALSE,
     color = semo_palette$pewter
+  ) +
+  geom_point(
+    size = 3,
+    color = semo_palette$cardiac_red
   ) +
   theme_minimal() +
   labs(x = "Island Area", y = "Species Richness")
@@ -244,14 +244,15 @@ linear_example <-
       y = log10(species)
     )
   ) +
+  stat_smooth(
+    method = "lm",
+    formula = y ~ x,
+    se = FALSE,
+    color = semo_palette$pewter
+  ) +
   geom_point(
     size = 3,
     color = semo_palette$cardiac_red
-  ) +
-  stat_smooth(
-    method = "lm",
-    se = FALSE,
-    color = semo_palette$pewter
   ) +
   theme_minimal() +
   labs(x = "Island Area", y = "Species Richness")
