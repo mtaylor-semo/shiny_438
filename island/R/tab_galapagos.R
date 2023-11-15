@@ -39,7 +39,11 @@ galapagos_tab <- tabPanel(
       DTOutput("island_summary", width = "95%"),
       br(),
       #p(tags$b("Statistics")),
-      uiOutput("gala_regression")
+      uiOutput("gala_regression"),
+      hr(),
+      img(src = "galapagos_map.png", width = "97%"),
+      br(),
+      p("Map of the Galapagos Islands.")
     ),
     column(
       6,
@@ -51,9 +55,9 @@ galapagos_tab <- tabPanel(
         withSpinner(
           type = 4,
           color = semo_palette["cardiac_red"]
-        ),
-      br(),
-      p("Plot of something vs another thing")
+        )
+      #br(),
+      #p("Plot of something vs another thing")
     )
   ),
   # hr(),
