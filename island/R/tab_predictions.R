@@ -1,6 +1,6 @@
 # Predictions tab ---------------------------------------------------------
 predictions_tab <- tabPanel(
-  "Predictions",
+  "Size and Distance",
   fluidRow(
     # column(
     #   3,
@@ -24,30 +24,54 @@ predictions_tab <- tabPanel(
   fluidRow(
     column(
       width = 6,
-      img(src = "galapagos_map.png", width = "97%"),
+      img(src = "species_island_area.png", width = "97%"),
       br(),
-      p("Map of the Galapagos Islands archipelago"),
+      p("Species-area relationship predicted by island biogeography."),
       hr(),
       p("Image credit:"),
-      tags$a(href = "https://commons.wikimedia.org/wiki/File:Galapagos_Islands_topographic_map-en.svg", "Matthew Stevens, Wikimedia Commons, CC BY-SA 3.0")
+      p("Fig. 13.5, Lomolino et al. 2017.", em("Biogeography"), "5th ed.")
     ),
     column(
       6,
-      p(strong("Think carefully about your prediction below."), "Is the United
-        States uniform from south to north? What about east to west? Think
-        about where the U.S. tends  to be wetter (more precipitation) or more
-        arid (drier). Do some regions have more rivers than other regions?
-        Will the U.S. have any regional climate effects due to rain shadows
-        or deserts? How might this influence the distribution of species
-        richness of freshwater fishes?"),
-      p(strong("What do you predict for species richness for U.S. freshwater
-               fishes?")),
-      p("Where in the U.S. do you think species richness will be the highest?
-        Northeastern U.S.? Southeastern U.S.? Northwest? Southwest? Midwest?
-        You may already an idea from the Rapoport's Rule exercises.
-        Take a look at the map of U.S. rivers that was given to you?  Below,
-        name the region and 3--4 rivers in that region where you think
-        diversity may be the highest. Explain your reasoning."),
+      p("MacArthur and Wilson's model of island biogeography (right) makes two
+        specific predictions. First, species richness should increase as 
+        island area increases. Second, species richness should decrease as 
+        islands become more isolated from source populations."),
+      p("This relationship is easiest to visualize with log-transformed data.
+        Consider this graph below. Species richness increases with island size
+        but it is not easy to see the linear relationship because island area
+        increases exponentially while richness increases linearly."),
+      plotOutput("curvilinear_example"),
+      p("Log-transforming the data makes the linear relationship more explicit.
+        Here are the same data, but island area and species richness are log",
+        tags$sub("10"), "transformed."),
+      plotOutput("linear_example"),
+      p("Log transformation allows for easier analysis by linear regression.
+        You may recall the equation, Y = mX + B from algebra to represent the
+        slope of a line. In this case, Y is species richness and X is island
+        area. The larger the value of m the more quickly richness is increasing
+        for a given increase of island area. If m is negative, then richness is
+        decreasing. For the graph above, the equation is", em("Y = 0.3137X +
+        0.3425.")),
+      p("The next tabs will present the results of linear regression for each
+        data set. I am not going to ask you to interpret the linear regression
+        equations but I do want you to understand two other values you will see.
+        R", tags$sup("2"), "indicates the amount of variation in species
+        richness that is explained by island area (or other variable such as
+        distance. The higher the value of R", tags$sup("2"), "the more island
+        area (or other variable) accounts for richness. In the example above,
+        R", tags$sup("2"), "is 0.997, so 99.7% of the variation in species 
+        richness is explained by island size."),
+      p("The last important value for you to understand is p. For our purposes, 
+        p is the statistical probability that the sampled data are likely 
+        random. Values of p that are 0.05 or less are considered to be 
+        statistically significant; that is the data are probably not random.
+        Values of p greater than 0.05 are not significant. The data are
+        considered to be random.  In the example above, p < 0.0001 so island
+        area is a significant predictor of species richness."),
+      p("Be sure you understand R", tags$sup("2"), "and p. You will be asked
+        about them on the questions. Press the Next button to explore some basic
+        data sets.")
       # hr(),
       # textAreaInput(
       #   inputId = "predict_na_richness",
