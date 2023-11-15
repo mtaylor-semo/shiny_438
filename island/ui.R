@@ -75,9 +75,24 @@ ui <- tagList(
         # ),
         column(
           width = 6,
-          p("Words"),
-          p("More Words"),
-          p("LAst words"),
+          p("Islands, broadly speaking, are patches of suitable habitat
+            surrounded by unsuitable habitat. For classic ocean islands,
+            the land is the suitable habitat for terrestrial organisms
+            surrounded by the unsuitable ocean water. Other habitats also
+            have suitable habitat patches surrounded by unsuitable habitat,
+            such as freshwater ponds surrounded by land, or patches of woods
+            surrounded by agricultural fields."),
+          p("The ability of organisms to disperse among suitable habitats
+            depends on the biology of the organism and the type of unsuitable
+            habitat. Amphibians cannot easily disperse across ocean waters to
+            nearby islands but many species palm trees produce seeds (e.g.,
+            coconuts) that can tolerate salt water for many weeks or months.
+            Some birds can easily fly among nearby islands but small rodents
+            usually cannot swim for long distances in the oceans."),
+          p("The goal of this exercise is for you to explore the relationship
+            of island isolation and area with species richness for both plants
+            and animals. Along the way, you will look at other island-based
+            relationships as well."),
         )
       )
     )
