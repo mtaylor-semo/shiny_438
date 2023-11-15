@@ -1,13 +1,13 @@
 # Define basic I.B. Tab --------------------------------------------
 
 ib_tab <- tabPanel(
-  "Islands and Organisms",
+  "Species Richness",
   fluidRow(
     column(
       3,
       selectInput(
         inputId = "ib_group",
-        label = "Choose an animal group",
+        label = "Choose a data set",
         choices = c(
           "Caribbean Herps", 
           "Florida Beetles", 
